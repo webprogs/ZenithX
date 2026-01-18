@@ -78,15 +78,15 @@ const Settings = () => {
             <input
               type="checkbox"
               {...register(setting.key)}
-              className="w-5 h-5 rounded border-[#2d2d3a] bg-[#16161f] text-indigo-600 focus:ring-indigo-500"
+              className="w-5 h-5 rounded border-[#eaecef] bg-white text-[#f0b90b] focus:ring-[#f0b90b]"
             />
-            <span className="text-white">{setting.description || setting.key}</span>
+            <span className="text-[#1e2329]">{setting.description || setting.key}</span>
           </label>
         );
       case 'number':
         return (
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-1">
+            <label className="block text-sm font-medium text-[#474d57] mb-1">
               {setting.description || setting.key}
             </label>
             <Input
@@ -99,12 +99,12 @@ const Settings = () => {
       case 'select':
         return (
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-1">
+            <label className="block text-sm font-medium text-[#474d57] mb-1">
               {setting.description || setting.key}
             </label>
             <select
               {...register(setting.key)}
-              className="w-full px-4 py-2 bg-[#16161f] border border-[#2d2d3a] rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full px-4 py-2 bg-white border border-[#eaecef] rounded-lg text-[#1e2329] focus:outline-none focus:ring-2 focus:ring-[#f0b90b]"
             >
               <option value="daily">Daily</option>
               <option value="weekly">Weekly</option>
@@ -115,7 +115,7 @@ const Settings = () => {
       default:
         return (
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-1">
+            <label className="block text-sm font-medium text-[#474d57] mb-1">
               {setting.description || setting.key}
             </label>
             <Input
@@ -144,8 +144,8 @@ const Settings = () => {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-white">Settings</h1>
-          <p className="text-gray-400">Configure system settings and preferences</p>
+          <h1 className="text-2xl font-bold text-[#1e2329]">Settings</h1>
+          <p className="text-[#707a8a]">Configure system settings and preferences</p>
         </div>
         {isDirty && (
           <Button onClick={handleSubmit(handleSave)} isLoading={isSaving}>
@@ -159,7 +159,7 @@ const Settings = () => {
           <Card key={group}>
             <CardHeader>
               <div className="flex items-center gap-3">
-                <div className="p-2 bg-indigo-900/30 rounded-lg text-indigo-400">
+                <div className="p-2 bg-[#fef6d8] rounded-lg text-[#f0b90b]">
                   {getGroupIcon(group)}
                 </div>
                 <CardTitle>{getGroupTitle(group)}</CardTitle>
@@ -175,7 +175,7 @@ const Settings = () => {
 
         {Object.keys(settings).length === 0 && (
           <Card>
-            <div className="text-center py-8 text-gray-400">
+            <div className="text-center py-8 text-[#707a8a]">
               No settings configured yet
             </div>
           </Card>

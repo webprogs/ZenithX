@@ -126,8 +126,8 @@ const AuditLogs = () => {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-white">Audit Logs</h1>
-          <p className="text-gray-400">Track all administrative actions</p>
+          <h1 className="text-2xl font-bold text-[#1e2329]">Audit Logs</h1>
+          <p className="text-[#707a8a]">Track all administrative actions</p>
         </div>
         <Button variant="secondary" onClick={() => setShowFilters(!showFilters)}>
           <FunnelIcon className="w-5 h-5 mr-2" />
@@ -141,11 +141,11 @@ const AuditLogs = () => {
           <div className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-300 mb-1">Action</label>
+                <label className="block text-sm font-medium text-[#474d57] mb-1">Action</label>
                 <select
                   value={selectedAction || ''}
                   onChange={(e) => setSelectedAction(e.target.value || undefined)}
-                  className="w-full px-4 py-2 bg-[#16161f] border border-[#2d2d3a] rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  className="w-full px-4 py-2 bg-white border border-[#eaecef] rounded-lg text-[#1e2329] focus:outline-none focus:ring-2 focus:ring-[#f0b90b]"
                 >
                   <option value="">All Actions</option>
                   {actions.map((action) => (
@@ -156,21 +156,21 @@ const AuditLogs = () => {
                 </select>
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-300 mb-1">From Date</label>
+                <label className="block text-sm font-medium text-[#474d57] mb-1">From Date</label>
                 <input
                   type="date"
                   value={dateFrom}
                   onChange={(e) => setDateFrom(e.target.value)}
-                  className="w-full px-4 py-2 bg-[#16161f] border border-[#2d2d3a] rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  className="w-full px-4 py-2 bg-white border border-[#eaecef] rounded-lg text-[#1e2329] focus:outline-none focus:ring-2 focus:ring-[#f0b90b]"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-300 mb-1">To Date</label>
+                <label className="block text-sm font-medium text-[#474d57] mb-1">To Date</label>
                 <input
                   type="date"
                   value={dateTo}
                   onChange={(e) => setDateTo(e.target.value)}
-                  className="w-full px-4 py-2 bg-[#16161f] border border-[#2d2d3a] rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  className="w-full px-4 py-2 bg-white border border-[#eaecef] rounded-lg text-[#1e2329] focus:outline-none focus:ring-2 focus:ring-[#f0b90b]"
                 />
               </div>
             </div>
@@ -189,41 +189,41 @@ const AuditLogs = () => {
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr className="border-b border-[#2d2d3a]">
-                <th className="text-left px-6 py-4 text-sm font-medium text-gray-400">Date</th>
-                <th className="text-left px-6 py-4 text-sm font-medium text-gray-400">User</th>
-                <th className="text-left px-6 py-4 text-sm font-medium text-gray-400">Action</th>
-                <th className="text-left px-6 py-4 text-sm font-medium text-gray-400">Target</th>
-                <th className="text-left px-6 py-4 text-sm font-medium text-gray-400">Description</th>
-                <th className="text-right px-6 py-4 text-sm font-medium text-gray-400">Details</th>
+              <tr className="border-b border-[#eaecef]">
+                <th className="text-left px-6 py-4 text-sm font-medium text-[#707a8a]">Date</th>
+                <th className="text-left px-6 py-4 text-sm font-medium text-[#707a8a]">User</th>
+                <th className="text-left px-6 py-4 text-sm font-medium text-[#707a8a]">Action</th>
+                <th className="text-left px-6 py-4 text-sm font-medium text-[#707a8a]">Target</th>
+                <th className="text-left px-6 py-4 text-sm font-medium text-[#707a8a]">Description</th>
+                <th className="text-right px-6 py-4 text-sm font-medium text-[#707a8a]">Details</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-[#2d2d3a]">
               {logs.length === 0 ? (
                 <tr>
-                  <td colSpan={6} className="px-6 py-12 text-center text-gray-400">
+                  <td colSpan={6} className="px-6 py-12 text-center text-[#707a8a]">
                     No audit logs found
                   </td>
                 </tr>
               ) : (
                 logs.map((log) => (
-                  <tr key={log.id} className="hover:bg-[#1a1a24] transition-colors">
-                    <td className="px-6 py-4 text-gray-300">{formatDateTime(log.created_at)}</td>
+                  <tr key={log.id} className="hover:bg-[#f5f5f5] transition-colors">
+                    <td className="px-6 py-4 text-[#474d57]">{formatDateTime(log.created_at)}</td>
                     <td className="px-6 py-4">
                       {log.user ? (
                         <div>
-                          <div className="text-white">{log.user.name}</div>
-                          <div className="text-sm text-gray-400">@{log.user.username}</div>
+                          <div className="text-[#1e2329]">{log.user.name}</div>
+                          <div className="text-sm text-[#707a8a]">@{log.user.username}</div>
                         </div>
                       ) : (
-                        <span className="text-gray-400">System</span>
+                        <span className="text-[#707a8a]">System</span>
                       )}
                     </td>
                     <td className="px-6 py-4">{getActionBadge(log.action)}</td>
-                    <td className="px-6 py-4 text-gray-300">
+                    <td className="px-6 py-4 text-[#474d57]">
                       {formatAuditableType(log.auditable_type)} #{log.auditable_id}
                     </td>
-                    <td className="px-6 py-4 text-white max-w-xs truncate">
+                    <td className="px-6 py-4 text-[#1e2329] max-w-xs truncate">
                       {log.description || '-'}
                     </td>
                     <td className="px-6 py-4">
@@ -247,8 +247,8 @@ const AuditLogs = () => {
 
         {/* Pagination */}
         {meta.last_page > 1 && (
-          <div className="flex items-center justify-between px-6 py-4 border-t border-[#2d2d3a]">
-            <div className="text-sm text-gray-400">
+          <div className="flex items-center justify-between px-6 py-4 border-t border-[#eaecef]">
+            <div className="text-sm text-[#707a8a]">
               Showing {(meta.current_page - 1) * meta.per_page + 1} to{' '}
               {Math.min(meta.current_page * meta.per_page, meta.total)} of {meta.total} logs
             </div>
@@ -261,7 +261,7 @@ const AuditLogs = () => {
               >
                 <ChevronLeftIcon className="w-4 h-4" />
               </Button>
-              <span className="text-sm text-gray-400">
+              <span className="text-sm text-[#707a8a]">
                 Page {meta.current_page} of {meta.last_page}
               </span>
               <Button
@@ -291,58 +291,58 @@ const AuditLogs = () => {
           <div className="space-y-6">
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <p className="text-sm text-gray-400">Date</p>
-                <p className="text-white">{formatDateTime(selectedLog.created_at)}</p>
+                <p className="text-sm text-[#707a8a]">Date</p>
+                <p className="text-[#1e2329]">{formatDateTime(selectedLog.created_at)}</p>
               </div>
               <div>
-                <p className="text-sm text-gray-400">Action</p>
+                <p className="text-sm text-[#707a8a]">Action</p>
                 <div className="mt-1">{getActionBadge(selectedLog.action)}</div>
               </div>
               <div>
-                <p className="text-sm text-gray-400">Performed By</p>
-                <p className="text-white">
+                <p className="text-sm text-[#707a8a]">Performed By</p>
+                <p className="text-[#1e2329]">
                   {selectedLog.user
                     ? `${selectedLog.user.name} (@${selectedLog.user.username})`
                     : 'System'}
                 </p>
               </div>
               <div>
-                <p className="text-sm text-gray-400">Target</p>
-                <p className="text-white">
+                <p className="text-sm text-[#707a8a]">Target</p>
+                <p className="text-[#1e2329]">
                   {formatAuditableType(selectedLog.auditable_type)} #{selectedLog.auditable_id}
                 </p>
               </div>
               {selectedLog.ip_address && (
                 <div>
-                  <p className="text-sm text-gray-400">IP Address</p>
-                  <p className="text-white font-mono">{selectedLog.ip_address}</p>
+                  <p className="text-sm text-[#707a8a]">IP Address</p>
+                  <p className="text-[#1e2329] font-mono">{selectedLog.ip_address}</p>
                 </div>
               )}
             </div>
 
             {selectedLog.description && (
               <div>
-                <p className="text-sm text-gray-400">Description</p>
-                <p className="text-white mt-1">{selectedLog.description}</p>
+                <p className="text-sm text-[#707a8a]">Description</p>
+                <p className="text-[#1e2329] mt-1">{selectedLog.description}</p>
               </div>
             )}
 
             {(selectedLog.old_values || selectedLog.new_values) && (
               <div className="space-y-4">
-                <h4 className="text-sm font-medium text-gray-300">Changes</h4>
+                <h4 className="text-sm font-medium text-[#474d57]">Changes</h4>
                 <div className="grid grid-cols-2 gap-4">
                   {selectedLog.old_values && (
                     <div>
-                      <p className="text-sm text-gray-400 mb-2">Before</p>
-                      <pre className="p-3 bg-[#1a1a24] rounded-lg text-sm text-gray-300 overflow-auto max-h-48">
+                      <p className="text-sm text-[#707a8a] mb-2">Before</p>
+                      <pre className="p-3 bg-[#f5f5f5] rounded-lg text-sm text-[#474d57] overflow-auto max-h-48">
                         {renderJsonValue(selectedLog.old_values)}
                       </pre>
                     </div>
                   )}
                   {selectedLog.new_values && (
                     <div>
-                      <p className="text-sm text-gray-400 mb-2">After</p>
-                      <pre className="p-3 bg-[#1a1a24] rounded-lg text-sm text-gray-300 overflow-auto max-h-48">
+                      <p className="text-sm text-[#707a8a] mb-2">After</p>
+                      <pre className="p-3 bg-[#f5f5f5] rounded-lg text-sm text-[#474d57] overflow-auto max-h-48">
                         {renderJsonValue(selectedLog.new_values)}
                       </pre>
                     </div>

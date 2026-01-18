@@ -89,8 +89,8 @@ const TopupHistory = () => {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-white">Top-Up History</h1>
-          <p className="text-gray-400">View your top-up request history</p>
+          <h1 className="text-2xl font-bold text-[#1e2329]">Top-Up History</h1>
+          <p className="text-[#707a8a]">View your top-up request history</p>
         </div>
         <Button onClick={() => navigate('/member/topup/new')}>
           <PlusIcon className="w-5 h-5 mr-2" />
@@ -101,7 +101,7 @@ const TopupHistory = () => {
       {/* Filters */}
       <Card>
         <div className="flex items-center gap-4">
-          <span className="text-sm text-gray-400">Filter by status:</span>
+          <span className="text-sm text-[#707a8a]">Filter by status:</span>
           <div className="flex gap-2">
             <Button
               variant={statusFilter === undefined ? 'primary' : 'secondary'}
@@ -140,29 +140,29 @@ const TopupHistory = () => {
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr className="border-b border-[#2d2d3a]">
-                <th className="text-left px-6 py-4 text-sm font-medium text-gray-400">Date</th>
-                <th className="text-left px-6 py-4 text-sm font-medium text-gray-400">Amount</th>
-                <th className="text-left px-6 py-4 text-sm font-medium text-gray-400">Method</th>
-                <th className="text-left px-6 py-4 text-sm font-medium text-gray-400">Status</th>
-                <th className="text-right px-6 py-4 text-sm font-medium text-gray-400">Actions</th>
+              <tr className="border-b border-[#eaecef]">
+                <th className="text-left px-6 py-4 text-sm font-medium text-[#707a8a]">Date</th>
+                <th className="text-left px-6 py-4 text-sm font-medium text-[#707a8a]">Amount</th>
+                <th className="text-left px-6 py-4 text-sm font-medium text-[#707a8a]">Method</th>
+                <th className="text-left px-6 py-4 text-sm font-medium text-[#707a8a]">Status</th>
+                <th className="text-right px-6 py-4 text-sm font-medium text-[#707a8a]">Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-[#2d2d3a]">
               {requests.length === 0 ? (
                 <tr>
-                  <td colSpan={5} className="px-6 py-12 text-center text-gray-400">
+                  <td colSpan={5} className="px-6 py-12 text-center text-[#707a8a]">
                     No top-up requests yet
                   </td>
                 </tr>
               ) : (
                 requests.map((request) => (
-                  <tr key={request.id} className="hover:bg-[#1a1a24] transition-colors">
-                    <td className="px-6 py-4 text-gray-300">{formatDateTime(request.created_at)}</td>
-                    <td className="px-6 py-4 text-white font-medium">
+                  <tr key={request.id} className="hover:bg-[#f5f5f5] transition-colors">
+                    <td className="px-6 py-4 text-[#474d57]">{formatDateTime(request.created_at)}</td>
+                    <td className="px-6 py-4 text-[#1e2329] font-medium">
                       {formatCurrency(request.amount)}
                     </td>
-                    <td className="px-6 py-4 text-gray-300">{request.payment_method || 'N/A'}</td>
+                    <td className="px-6 py-4 text-[#474d57]">{request.payment_method || 'N/A'}</td>
                     <td className="px-6 py-4">{getStatusBadge(request.status)}</td>
                     <td className="px-6 py-4">
                       <div className="flex items-center justify-end">
@@ -185,8 +185,8 @@ const TopupHistory = () => {
 
         {/* Pagination */}
         {meta.last_page > 1 && (
-          <div className="flex items-center justify-between px-6 py-4 border-t border-[#2d2d3a]">
-            <div className="text-sm text-gray-400">
+          <div className="flex items-center justify-between px-6 py-4 border-t border-[#eaecef]">
+            <div className="text-sm text-[#707a8a]">
               Showing {(meta.current_page - 1) * meta.per_page + 1} to{' '}
               {Math.min(meta.current_page * meta.per_page, meta.total)} of {meta.total} requests
             </div>
@@ -199,7 +199,7 @@ const TopupHistory = () => {
               >
                 <ChevronLeftIcon className="w-4 h-4" />
               </Button>
-              <span className="text-sm text-gray-400">
+              <span className="text-sm text-[#707a8a]">
                 Page {meta.current_page} of {meta.last_page}
               </span>
               <Button
@@ -229,53 +229,53 @@ const TopupHistory = () => {
           <div className="space-y-6">
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <p className="text-sm text-gray-400">Request ID</p>
-                <p className="text-white font-mono">#{selectedRequest.id}</p>
+                <p className="text-sm text-[#707a8a]">Request ID</p>
+                <p className="text-[#1e2329] font-mono">#{selectedRequest.id}</p>
               </div>
               <div>
-                <p className="text-sm text-gray-400">Status</p>
+                <p className="text-sm text-[#707a8a]">Status</p>
                 <div className="mt-1">{getStatusBadge(selectedRequest.status)}</div>
               </div>
               <div>
-                <p className="text-sm text-gray-400">Amount</p>
-                <p className="text-white text-xl font-bold">
+                <p className="text-sm text-[#707a8a]">Amount</p>
+                <p className="text-[#1e2329] text-xl font-bold">
                   {formatCurrency(selectedRequest.amount)}
                 </p>
               </div>
               <div>
-                <p className="text-sm text-gray-400">Payment Method</p>
-                <p className="text-white">{selectedRequest.payment_method || 'N/A'}</p>
+                <p className="text-sm text-[#707a8a]">Payment Method</p>
+                <p className="text-[#1e2329]">{selectedRequest.payment_method || 'N/A'}</p>
               </div>
               <div>
-                <p className="text-sm text-gray-400">Submitted</p>
-                <p className="text-white">{formatDateTime(selectedRequest.created_at)}</p>
+                <p className="text-sm text-[#707a8a]">Submitted</p>
+                <p className="text-[#1e2329]">{formatDateTime(selectedRequest.created_at)}</p>
               </div>
             </div>
 
             {selectedRequest.notes && (
               <div>
-                <p className="text-sm text-gray-400">Notes</p>
-                <p className="text-white mt-1">{selectedRequest.notes}</p>
+                <p className="text-sm text-[#707a8a]">Notes</p>
+                <p className="text-[#1e2329] mt-1">{selectedRequest.notes}</p>
               </div>
             )}
 
             {selectedRequest.proof_of_payment_url && (
               <div>
-                <p className="text-sm text-gray-400 mb-2">Proof of Payment</p>
+                <p className="text-sm text-[#707a8a] mb-2">Proof of Payment</p>
                 <a
                   href={selectedRequest.proof_of_payment_url}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="block"
                 >
-                  <div className="relative bg-[#1a1a24] rounded-lg overflow-hidden">
+                  <div className="relative bg-[#f5f5f5] rounded-lg overflow-hidden">
                     <img
                       src={selectedRequest.proof_of_payment_url}
                       alt="Proof of payment"
                       className="max-h-64 w-full object-contain"
                     />
                     <div className="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 hover:opacity-100 transition-opacity">
-                      <PhotoIcon className="w-8 h-8 text-white" />
+                      <PhotoIcon className="w-8 h-8 text-[#1e2329]" />
                     </div>
                   </div>
                 </a>
@@ -283,23 +283,23 @@ const TopupHistory = () => {
             )}
 
             {selectedRequest.status !== 'pending' && (
-              <div className="pt-4 border-t border-[#2d2d3a]">
+              <div className="pt-4 border-t border-[#eaecef]">
                 {selectedRequest.processed_at && (
                   <div className="mb-4">
-                    <p className="text-sm text-gray-400">Processed at</p>
-                    <p className="text-white">{formatDateTime(selectedRequest.processed_at)}</p>
+                    <p className="text-sm text-[#707a8a]">Processed at</p>
+                    <p className="text-[#1e2329]">{formatDateTime(selectedRequest.processed_at)}</p>
                   </div>
                 )}
                 {selectedRequest.rejection_reason && (
-                  <div className="p-4 bg-red-900/20 border border-red-800 rounded-lg">
-                    <p className="text-sm text-red-400 font-medium">Rejection Reason</p>
-                    <p className="text-white mt-1">{selectedRequest.rejection_reason}</p>
+                  <div className="p-4 bg-[#fce8eb] border border-[#cf304a]/30 rounded-lg">
+                    <p className="text-sm text-[#cf304a] font-medium">Rejection Reason</p>
+                    <p className="text-[#1e2329] mt-1">{selectedRequest.rejection_reason}</p>
                   </div>
                 )}
                 {selectedRequest.admin_remarks && (
                   <div className="mt-4">
-                    <p className="text-sm text-gray-400">Admin Remarks</p>
-                    <p className="text-white mt-1">{selectedRequest.admin_remarks}</p>
+                    <p className="text-sm text-[#707a8a]">Admin Remarks</p>
+                    <p className="text-[#1e2329] mt-1">{selectedRequest.admin_remarks}</p>
                   </div>
                 )}
               </div>

@@ -227,8 +227,8 @@ const InvitationLinks = () => {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-white">Invitation Links</h1>
-          <p className="text-gray-400">Manage invitation codes for new user registration</p>
+          <h1 className="text-2xl font-bold text-[#1e2329]">Invitation Links</h1>
+          <p className="text-[#707a8a]">Manage invitation codes for new user registration</p>
         </div>
         <Button onClick={() => setIsCreateModalOpen(true)}>
           <PlusIcon className="w-5 h-5 mr-2" />
@@ -239,7 +239,7 @@ const InvitationLinks = () => {
       {/* Filters */}
       <Card>
         <div className="flex items-center gap-4">
-          <span className="text-sm text-gray-400">Filter by status:</span>
+          <span className="text-sm text-[#707a8a]">Filter by status:</span>
           <div className="flex gap-2">
             <Button
               variant={activeFilter === undefined ? 'primary' : 'secondary'}
@@ -271,21 +271,21 @@ const InvitationLinks = () => {
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr className="border-b border-[#2d2d3a]">
-                <th className="text-left px-6 py-4 text-sm font-medium text-gray-400">Code</th>
-                <th className="text-left px-6 py-4 text-sm font-medium text-gray-400">Interest Rate</th>
-                <th className="text-left px-6 py-4 text-sm font-medium text-gray-400">Role</th>
-                <th className="text-left px-6 py-4 text-sm font-medium text-gray-400">Usage</th>
-                <th className="text-left px-6 py-4 text-sm font-medium text-gray-400">Expires</th>
-                <th className="text-left px-6 py-4 text-sm font-medium text-gray-400">Status</th>
-                <th className="text-left px-6 py-4 text-sm font-medium text-gray-400">Created</th>
-                <th className="text-right px-6 py-4 text-sm font-medium text-gray-400">Actions</th>
+              <tr className="border-b border-[#eaecef]">
+                <th className="text-left px-6 py-4 text-sm font-medium text-[#707a8a]">Code</th>
+                <th className="text-left px-6 py-4 text-sm font-medium text-[#707a8a]">Interest Rate</th>
+                <th className="text-left px-6 py-4 text-sm font-medium text-[#707a8a]">Role</th>
+                <th className="text-left px-6 py-4 text-sm font-medium text-[#707a8a]">Usage</th>
+                <th className="text-left px-6 py-4 text-sm font-medium text-[#707a8a]">Expires</th>
+                <th className="text-left px-6 py-4 text-sm font-medium text-[#707a8a]">Status</th>
+                <th className="text-left px-6 py-4 text-sm font-medium text-[#707a8a]">Created</th>
+                <th className="text-right px-6 py-4 text-sm font-medium text-[#707a8a]">Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-[#2d2d3a]">
               {links.length === 0 ? (
                 <tr>
-                  <td colSpan={8} className="px-6 py-12 text-center text-gray-400">
+                  <td colSpan={8} className="px-6 py-12 text-center text-[#707a8a]">
                     No invitation links found
                   </td>
                 </tr>
@@ -293,25 +293,25 @@ const InvitationLinks = () => {
                 links.map((link) => {
                   const status = getLinkStatus(link);
                   return (
-                    <tr key={link.id} className="hover:bg-[#1a1a24] transition-colors">
+                    <tr key={link.id} className="hover:bg-[#f5f5f5] transition-colors">
                       <td className="px-6 py-4">
                         <div className="flex items-center gap-2">
-                          <LinkIcon className="w-4 h-4 text-gray-500" />
-                          <code className="text-white font-mono">{link.code}</code>
+                          <LinkIcon className="w-4 h-4 text-[#b7b9bc]" />
+                          <code className="text-[#1e2329] font-mono">{link.code}</code>
                           <button
                             onClick={() => handleCopyLink(link)}
-                            className="p-1 text-gray-400 hover:text-white transition-colors"
+                            className="p-1 text-[#707a8a] hover:text-[#1e2329] transition-colors"
                             title="Copy link"
                           >
                             {copiedId === link.id ? (
-                              <CheckIcon className="w-4 h-4 text-emerald-400" />
+                              <CheckIcon className="w-4 h-4 text-[#03a66d]" />
                             ) : (
                               <ClipboardDocumentIcon className="w-4 h-4" />
                             )}
                           </button>
                         </div>
                       </td>
-                      <td className="px-6 py-4 text-white">
+                      <td className="px-6 py-4 text-[#1e2329]">
                         {formatPercentage(Number(link.interest_rate))}
                       </td>
                       <td className="px-6 py-4">
@@ -319,29 +319,29 @@ const InvitationLinks = () => {
                           {link.assigned_role}
                         </Badge>
                       </td>
-                      <td className="px-6 py-4 text-white">
+                      <td className="px-6 py-4 text-[#1e2329]">
                         {link.times_used}
                         {link.max_uses !== null && ` / ${link.max_uses}`}
                         {link.times_used > 0 && (
                           <button
                             onClick={() => handleViewRegistrations(link)}
-                            className="ml-2 text-indigo-400 hover:text-indigo-300 transition-colors"
+                            className="ml-2 text-[#f0b90b] hover:text-indigo-300 transition-colors"
                             title="View registrations"
                           >
                             <UsersIcon className="w-4 h-4 inline" />
                           </button>
                         )}
                       </td>
-                      <td className="px-6 py-4 text-gray-300">
+                      <td className="px-6 py-4 text-[#474d57]">
                         {link.expires_at ? formatDate(link.expires_at) : 'Never'}
                       </td>
                       <td className="px-6 py-4">
                         <Badge variant={status.variant}>{status.label}</Badge>
                       </td>
-                      <td className="px-6 py-4 text-gray-300">
+                      <td className="px-6 py-4 text-[#474d57]">
                         <div className="text-sm">{formatDateTime(link.created_at)}</div>
                         {link.creator && (
-                          <div className="text-xs text-gray-500">by {link.creator.name}</div>
+                          <div className="text-xs text-[#b7b9bc]">by {link.creator.name}</div>
                         )}
                       </td>
                       <td className="px-6 py-4">
@@ -370,7 +370,7 @@ const InvitationLinks = () => {
                               size="sm"
                               onClick={() => handleDeactivate(link)}
                               title="Deactivate"
-                              className="text-red-400 hover:text-red-300"
+                              className="text-[#cf304a] hover:text-red-300"
                             >
                               <TrashIcon className="w-4 h-4" />
                             </Button>
@@ -387,8 +387,8 @@ const InvitationLinks = () => {
 
         {/* Pagination */}
         {meta.last_page > 1 && (
-          <div className="flex items-center justify-between px-6 py-4 border-t border-[#2d2d3a]">
-            <div className="text-sm text-gray-400">
+          <div className="flex items-center justify-between px-6 py-4 border-t border-[#eaecef]">
+            <div className="text-sm text-[#707a8a]">
               Showing {(meta.current_page - 1) * meta.per_page + 1} to{' '}
               {Math.min(meta.current_page * meta.per_page, meta.total)} of {meta.total} links
             </div>
@@ -401,7 +401,7 @@ const InvitationLinks = () => {
               >
                 <ChevronLeftIcon className="w-4 h-4" />
               </Button>
-              <span className="text-sm text-gray-400">
+              <span className="text-sm text-[#707a8a]">
                 Page {meta.current_page} of {meta.last_page}
               </span>
               <Button
@@ -434,12 +434,12 @@ const InvitationLinks = () => {
               error={createForm.formState.errors.interest_rate?.message}
             />
             <div>
-              <label className="block text-sm font-medium text-gray-300 mb-1">
+              <label className="block text-sm font-medium text-[#474d57] mb-1">
                 Assigned Role
               </label>
               <select
                 {...createForm.register('assigned_role')}
-                className="w-full px-4 py-2 bg-[#16161f] border border-[#2d2d3a] rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-4 py-2 bg-white border border-[#eaecef] rounded-lg text-[#1e2329] focus:outline-none focus:ring-2 focus:ring-[#f0b90b]"
               >
                 <option value="member">Member</option>
                 <option value="admin">Admin</option>
@@ -468,13 +468,13 @@ const InvitationLinks = () => {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-1">
+            <label className="block text-sm font-medium text-[#474d57] mb-1">
               Notes (optional)
             </label>
             <textarea
               {...createForm.register('notes')}
               rows={3}
-              className="w-full px-4 py-2 bg-[#16161f] border border-[#2d2d3a] rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full px-4 py-2 bg-white border border-[#eaecef] rounded-lg text-[#1e2329] placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#f0b90b]"
               placeholder="Add any notes about this invitation link..."
             />
             {createForm.formState.errors.notes && (
@@ -511,13 +511,13 @@ const InvitationLinks = () => {
       >
         {selectedLink && (
           <form onSubmit={updateForm.handleSubmit(handleUpdate)} className="space-y-4">
-            <div className="flex items-center gap-2 p-3 bg-[#1a1a24] rounded-lg mb-4">
-              <LinkIcon className="w-5 h-5 text-gray-500" />
-              <code className="text-white font-mono text-lg">{selectedLink.code}</code>
+            <div className="flex items-center gap-2 p-3 bg-[#f5f5f5] rounded-lg mb-4">
+              <LinkIcon className="w-5 h-5 text-[#b7b9bc]" />
+              <code className="text-[#1e2329] font-mono text-lg">{selectedLink.code}</code>
               <button
                 type="button"
                 onClick={() => handleCopyLink(selectedLink)}
-                className="ml-auto p-2 text-gray-400 hover:text-white transition-colors"
+                className="ml-auto p-2 text-[#707a8a] hover:text-[#1e2329] transition-colors"
               >
                 <ClipboardDocumentIcon className="w-5 h-5" />
               </button>
@@ -532,12 +532,12 @@ const InvitationLinks = () => {
                 error={updateForm.formState.errors.interest_rate?.message}
               />
               <div>
-                <label className="block text-sm font-medium text-gray-300 mb-1">
+                <label className="block text-sm font-medium text-[#474d57] mb-1">
                   Status
                 </label>
                 <select
                   {...updateForm.register('is_active')}
-                  className="w-full px-4 py-2 bg-[#16161f] border border-[#2d2d3a] rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  className="w-full px-4 py-2 bg-white border border-[#eaecef] rounded-lg text-[#1e2329] focus:outline-none focus:ring-2 focus:ring-[#f0b90b]"
                 >
                   <option value="true">Active</option>
                   <option value="false">Inactive</option>
@@ -561,13 +561,13 @@ const InvitationLinks = () => {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-300 mb-1">
+              <label className="block text-sm font-medium text-[#474d57] mb-1">
                 Notes
               </label>
               <textarea
                 {...updateForm.register('notes')}
                 rows={3}
-                className="w-full px-4 py-2 bg-[#16161f] border border-[#2d2d3a] rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-4 py-2 bg-white border border-[#eaecef] rounded-lg text-[#1e2329] placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#f0b90b]"
               />
             </div>
 
@@ -602,9 +602,9 @@ const InvitationLinks = () => {
       >
         {selectedLink && (
           <div>
-            <div className="flex items-center gap-2 p-3 bg-[#1a1a24] rounded-lg mb-4">
-              <LinkIcon className="w-5 h-5 text-gray-500" />
-              <code className="text-white font-mono">{selectedLink.code}</code>
+            <div className="flex items-center gap-2 p-3 bg-[#f5f5f5] rounded-lg mb-4">
+              <LinkIcon className="w-5 h-5 text-[#b7b9bc]" />
+              <code className="text-[#1e2329] font-mono">{selectedLink.code}</code>
               <Badge variant="default" className="ml-auto">
                 {selectedLink.times_used} registration{selectedLink.times_used !== 1 ? 's' : ''}
               </Badge>
@@ -615,11 +615,11 @@ const InvitationLinks = () => {
                 {selectedLink.registrations.map((user: User) => (
                   <div
                     key={user.id}
-                    className="flex items-center justify-between p-3 bg-[#1a1a24] rounded-lg"
+                    className="flex items-center justify-between p-3 bg-[#f5f5f5] rounded-lg"
                   >
                     <div>
-                      <div className="text-white font-medium">{user.name}</div>
-                      <div className="text-sm text-gray-400">@{user.username}</div>
+                      <div className="text-[#1e2329] font-medium">{user.name}</div>
+                      <div className="text-sm text-[#707a8a]">@{user.username}</div>
                     </div>
                     <div className="text-right">
                       <Badge
@@ -633,7 +633,7 @@ const InvitationLinks = () => {
                       >
                         {user.status}
                       </Badge>
-                      <div className="text-xs text-gray-500 mt-1">
+                      <div className="text-xs text-[#b7b9bc] mt-1">
                         {formatDate(user.created_at)}
                       </div>
                     </div>
@@ -641,7 +641,7 @@ const InvitationLinks = () => {
                 ))}
               </div>
             ) : (
-              <div className="text-center py-8 text-gray-400">
+              <div className="text-center py-8 text-[#707a8a]">
                 No registrations yet
               </div>
             )}

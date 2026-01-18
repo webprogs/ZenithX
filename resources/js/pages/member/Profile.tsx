@@ -119,26 +119,26 @@ const Profile = () => {
 
   if (!profile) {
     return (
-      <div className="text-center py-12 text-gray-400">Failed to load profile</div>
+      <div className="text-center py-12 text-[#707a8a]">Failed to load profile</div>
     );
   }
 
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-white">My Profile</h1>
-        <p className="text-gray-400">Manage your account information</p>
+        <h1 className="text-2xl font-bold text-[#1e2329]">My Profile</h1>
+        <p className="text-[#707a8a]">Manage your account information</p>
       </div>
 
       {/* Profile Header */}
       <Card>
         <div className="flex items-center gap-6">
-          <div className="w-20 h-20 rounded-full bg-indigo-900/30 flex items-center justify-center">
-            <UserCircleIcon className="w-12 h-12 text-indigo-400" />
+          <div className="w-20 h-20 rounded-full bg-[#fef6d8] flex items-center justify-center">
+            <UserCircleIcon className="w-12 h-12 text-[#f0b90b]" />
           </div>
           <div className="flex-1">
-            <h2 className="text-xl font-bold text-white">{profile.name}</h2>
-            <p className="text-gray-400">@{profile.username}</p>
+            <h2 className="text-xl font-bold text-[#1e2329]">{profile.name}</h2>
+            <p className="text-[#707a8a]">@{profile.username}</p>
             <div className="flex items-center gap-3 mt-2">
               <Badge variant={profile.status === 'active' ? 'success' : 'warning'}>
                 {profile.status}
@@ -147,8 +147,8 @@ const Profile = () => {
             </div>
           </div>
           <div className="text-right">
-            <p className="text-sm text-gray-400">Interest Rate</p>
-            <p className="text-2xl font-bold text-emerald-400">
+            <p className="text-sm text-[#707a8a]">Interest Rate</p>
+            <p className="text-2xl font-bold text-[#03a66d]">
               {profile.interest_rate !== null ? formatPercentage(profile.interest_rate) : 'N/A'}
             </p>
           </div>
@@ -159,12 +159,12 @@ const Profile = () => {
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
         <Card>
           <div className="flex items-center">
-            <div className="p-3 rounded-lg bg-indigo-900/20">
-              <CurrencyDollarIcon className="w-6 h-6 text-indigo-400" />
+            <div className="p-3 rounded-lg bg-[#fef6d8]">
+              <CurrencyDollarIcon className="w-6 h-6 text-[#f0b90b]" />
             </div>
             <div className="ml-4">
-              <p className="text-sm text-gray-400">Total Invested</p>
-              <p className="text-lg font-bold text-white">
+              <p className="text-sm text-[#707a8a]">Total Invested</p>
+              <p className="text-lg font-bold text-[#1e2329]">
                 {formatCurrency(profile.total_invested)}
               </p>
             </div>
@@ -172,12 +172,12 @@ const Profile = () => {
         </Card>
         <Card>
           <div className="flex items-center">
-            <div className="p-3 rounded-lg bg-emerald-900/20">
-              <ArrowTrendingUpIcon className="w-6 h-6 text-emerald-400" />
+            <div className="p-3 rounded-lg bg-[#e6f7f0]">
+              <ArrowTrendingUpIcon className="w-6 h-6 text-[#03a66d]" />
             </div>
             <div className="ml-4">
-              <p className="text-sm text-gray-400">Interest Earned</p>
-              <p className="text-lg font-bold text-emerald-400">
+              <p className="text-sm text-[#707a8a]">Interest Earned</p>
+              <p className="text-lg font-bold text-[#03a66d]">
                 +{formatCurrency(profile.total_interest_earned)}
               </p>
             </div>
@@ -185,12 +185,12 @@ const Profile = () => {
         </Card>
         <Card>
           <div className="flex items-center">
-            <div className="p-3 rounded-lg bg-cyan-900/20">
-              <BanknotesIcon className="w-6 h-6 text-cyan-400" />
+            <div className="p-3 rounded-lg bg-[#e6f4ff]">
+              <BanknotesIcon className="w-6 h-6 text-[#0070f3]" />
             </div>
             <div className="ml-4">
-              <p className="text-sm text-gray-400">Available Balance</p>
-              <p className="text-lg font-bold text-white">
+              <p className="text-sm text-[#707a8a]">Available Balance</p>
+              <p className="text-lg font-bold text-[#1e2329]">
                 {formatCurrency(profile.available_balance)}
               </p>
             </div>
@@ -198,12 +198,12 @@ const Profile = () => {
         </Card>
         <Card>
           <div className="flex items-center">
-            <div className="p-3 rounded-lg bg-amber-900/20">
-              <CalendarIcon className="w-6 h-6 text-amber-400" />
+            <div className="p-3 rounded-lg bg-[#fef6d8]">
+              <CalendarIcon className="w-6 h-6 text-[#c99400]" />
             </div>
             <div className="ml-4">
-              <p className="text-sm text-gray-400">Member Since</p>
-              <p className="text-lg font-bold text-white">
+              <p className="text-sm text-[#707a8a]">Member Since</p>
+              <p className="text-lg font-bold text-[#1e2329]">
                 {formatDateTime(profile.member_since).split(',')[0]}
               </p>
             </div>
@@ -219,13 +219,13 @@ const Profile = () => {
           </CardHeader>
           <form onSubmit={profileForm.handleSubmit(handleUpdateProfile)} className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-gray-300 mb-1">Username</label>
+              <label className="block text-sm font-medium text-[#474d57] mb-1">Username</label>
               <Input value={profile.username} disabled />
-              <p className="mt-1 text-xs text-gray-500">Username cannot be changed</p>
+              <p className="mt-1 text-xs text-[#b7b9bc]">Username cannot be changed</p>
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-300 mb-1">
+              <label className="block text-sm font-medium text-[#474d57] mb-1">
                 Full Name <span className="text-red-500">*</span>
               </label>
               <Input
@@ -235,7 +235,7 @@ const Profile = () => {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-300 mb-1">Email</label>
+              <label className="block text-sm font-medium text-[#474d57] mb-1">Email</label>
               <Input
                 type="email"
                 {...profileForm.register('email')}
@@ -244,7 +244,7 @@ const Profile = () => {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-300 mb-1">Phone</label>
+              <label className="block text-sm font-medium text-[#474d57] mb-1">Phone</label>
               <Input
                 {...profileForm.register('phone')}
                 placeholder="e.g., 09171234567"
@@ -264,13 +264,13 @@ const Profile = () => {
         <Card>
           <CardHeader>
             <div className="flex items-center gap-2">
-              <LockClosedIcon className="w-5 h-5 text-gray-400" />
+              <LockClosedIcon className="w-5 h-5 text-[#707a8a]" />
               <CardTitle>Change Password</CardTitle>
             </div>
           </CardHeader>
           <form onSubmit={passwordForm.handleSubmit(handleChangePassword)} className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-gray-300 mb-1">
+              <label className="block text-sm font-medium text-[#474d57] mb-1">
                 Current Password <span className="text-red-500">*</span>
               </label>
               <Input
@@ -281,7 +281,7 @@ const Profile = () => {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-300 mb-1">
+              <label className="block text-sm font-medium text-[#474d57] mb-1">
                 New Password <span className="text-red-500">*</span>
               </label>
               <Input
@@ -292,7 +292,7 @@ const Profile = () => {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-300 mb-1">
+              <label className="block text-sm font-medium text-[#474d57] mb-1">
                 Confirm New Password <span className="text-red-500">*</span>
               </label>
               <Input

@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\Admin\AuditLogController;
 use App\Http\Controllers\Api\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Api\Admin\InvitationLinkController;
 use App\Http\Controllers\Api\Admin\MemberController;
+use App\Http\Controllers\Api\Admin\NotificationController as AdminNotificationController;
 use App\Http\Controllers\Api\Admin\SettingsController;
 use App\Http\Controllers\Api\Admin\TopupRequestController as AdminTopupRequestController;
 use App\Http\Controllers\Api\Admin\UserManagementController;
@@ -98,6 +99,15 @@ Route::middleware(['auth:sanctum', 'force.logout'])->group(function () {
             Route::get('/actions', [AuditLogController::class, 'actions']);
             Route::get('/{auditLog}', [AuditLogController::class, 'show']);
         });
+
+        Route::prefix('notifications')->group(function () {
+            Route::get('/', [AdminNotificationController::class, 'index']);
+            Route::get('/unread-count', [AdminNotificationController::class, 'unreadCount']);
+            Route::put('/{notification}/read', [AdminNotificationController::class, 'markAsRead']);
+            Route::put('/read-all', [AdminNotificationController::class, 'markAllAsRead']);
+            Route::delete('/{notification}', [AdminNotificationController::class, 'destroy']);
+            Route::delete('/', [AdminNotificationController::class, 'clearAll']);
+        });
     });
 
     /*
@@ -126,6 +136,7 @@ Route::middleware(['auth:sanctum', 'force.logout'])->group(function () {
             Route::get('/', [MemberWithdrawalRequestController::class, 'index']);
             Route::post('/', [MemberWithdrawalRequestController::class, 'store']);
             Route::get('/balance', [MemberWithdrawalRequestController::class, 'balance']);
+            Route::get('/limits', [MemberWithdrawalRequestController::class, 'limits']);
             Route::get('/{withdrawalRequest}', [MemberWithdrawalRequestController::class, 'show']);
         });
 
@@ -134,6 +145,8 @@ Route::middleware(['auth:sanctum', 'force.logout'])->group(function () {
             Route::get('/unread-count', [NotificationController::class, 'unreadCount']);
             Route::put('/{notification}/read', [NotificationController::class, 'markAsRead']);
             Route::put('/read-all', [NotificationController::class, 'markAllAsRead']);
+            Route::delete('/{notification}', [NotificationController::class, 'destroy']);
+            Route::delete('/', [NotificationController::class, 'clearAll']);
         });
 
         Route::get('/profile', [ProfileController::class, 'show']);

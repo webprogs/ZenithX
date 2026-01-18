@@ -102,17 +102,17 @@ const NewWithdrawal = () => {
             <ArrowLeftIcon className="w-5 h-5" />
           </Button>
           <div>
-            <h1 className="text-2xl font-bold text-white">New Withdrawal</h1>
-            <p className="text-gray-400">Submit a new withdrawal request</p>
+            <h1 className="text-2xl font-bold text-[#1e2329]">New Withdrawal</h1>
+            <p className="text-[#707a8a]">Submit a new withdrawal request</p>
           </div>
         </div>
 
         <Card>
-          <div className="flex items-center gap-4 text-amber-400">
+          <div className="flex items-center gap-4 text-[#c99400]">
             <ExclamationTriangleIcon className="w-12 h-12" />
             <div>
               <h3 className="text-lg font-semibold">Withdrawals Frozen</h3>
-              <p className="text-gray-400 mt-1">
+              <p className="text-[#707a8a] mt-1">
                 Your withdrawal capability has been temporarily frozen. Please contact support for
                 more information.
               </p>
@@ -130,8 +130,8 @@ const NewWithdrawal = () => {
           <ArrowLeftIcon className="w-5 h-5" />
         </Button>
         <div>
-          <h1 className="text-2xl font-bold text-white">New Withdrawal</h1>
-          <p className="text-gray-400">Submit a new withdrawal request</p>
+          <h1 className="text-2xl font-bold text-[#1e2329]">New Withdrawal</h1>
+          <p className="text-[#707a8a]">Submit a new withdrawal request</p>
         </div>
       </div>
 
@@ -140,7 +140,7 @@ const NewWithdrawal = () => {
           <Card>
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
               <div>
-                <label className="block text-sm font-medium text-gray-300 mb-1">
+                <label className="block text-sm font-medium text-[#474d57] mb-1">
                   Amount (PHP) <span className="text-red-500">*</span>
                 </label>
                 <Input
@@ -149,13 +149,13 @@ const NewWithdrawal = () => {
                   {...register('amount')}
                   error={errors.amount?.message}
                 />
-                <p className="mt-1 text-xs text-gray-500">
+                <p className="mt-1 text-xs text-[#b7b9bc]">
                   Available: {formatCurrency(limits?.available_balance || 0)}
                 </p>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-300 mb-1">
+                <label className="block text-sm font-medium text-[#474d57] mb-1">
                   Destination Type <span className="text-red-500">*</span>
                 </label>
                 <div className="flex gap-4">
@@ -164,21 +164,21 @@ const NewWithdrawal = () => {
                       type="radio"
                       value="bank"
                       {...register('destination_type')}
-                      className="w-4 h-4 text-indigo-600 bg-[#16161f] border-[#2d2d3a] focus:ring-indigo-500"
+                      className="w-4 h-4 text-[#f0b90b] bg-white border-[#eaecef] focus:ring-[#f0b90b]"
                     />
-                    <span className="text-white">Bank Transfer</span>
+                    <span className="text-[#1e2329]">Bank Transfer</span>
                   </label>
                 </div>
               </div>
 
               {destinationType === 'bank' && (
                 <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-1">
+                  <label className="block text-sm font-medium text-[#474d57] mb-1">
                     Bank Name <span className="text-red-500">*</span>
                   </label>
                   <select
                     {...register('bank_name')}
-                    className="w-full px-4 py-2 bg-[#16161f] border border-[#2d2d3a] rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    className="w-full px-4 py-2 bg-white border border-[#eaecef] rounded-lg text-[#1e2329] focus:outline-none focus:ring-2 focus:ring-[#f0b90b]"
                   >
                     <option value="">Select a bank</option>
                     <option value="BDO">BDO</option>
@@ -199,7 +199,7 @@ const NewWithdrawal = () => {
               )}
 
               <div>
-                <label className="block text-sm font-medium text-gray-300 mb-1">
+                <label className="block text-sm font-medium text-[#474d57] mb-1">
                   Account Name <span className="text-red-500">*</span>
                 </label>
                 <Input
@@ -210,7 +210,7 @@ const NewWithdrawal = () => {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-300 mb-1">
+                <label className="block text-sm font-medium text-[#474d57] mb-1">
                   {destinationType === 'gcash' ? 'GCash Number' : 'Account Number'}{' '}
                   <span className="text-red-500">*</span>
                 </label>
@@ -246,19 +246,19 @@ const NewWithdrawal = () => {
             </CardHeader>
             <div className="space-y-4">
               <div className="flex items-center justify-between">
-                <span className="text-gray-400">Available Balance</span>
-                <span className="text-white font-medium">
+                <span className="text-[#707a8a]">Available Balance</span>
+                <span className="text-[#1e2329] font-medium">
                   {formatCurrency(limits?.available_balance || 0)}
                 </span>
               </div>
               <div className="flex items-center justify-between">
-                <span className="text-gray-400">Withdrawal Amount</span>
-                <span className="text-white font-medium">{formatCurrency(amount || 0)}</span>
+                <span className="text-[#707a8a]">Withdrawal Amount</span>
+                <span className="text-[#1e2329] font-medium">{formatCurrency(amount || 0)}</span>
               </div>
-              <div className="pt-4 border-t border-[#2d2d3a]">
+              <div className="pt-4 border-t border-[#eaecef]">
                 <div className="flex items-center justify-between">
-                  <span className="text-gray-400">Remaining Balance</span>
-                  <span className="text-white font-bold">
+                  <span className="text-[#707a8a]">Remaining Balance</span>
+                  <span className="text-[#1e2329] font-bold">
                     {formatCurrency(Math.max(0, (limits?.available_balance || 0) - (amount || 0)))}
                   </span>
                 </div>
@@ -270,21 +270,21 @@ const NewWithdrawal = () => {
             <CardHeader>
               <CardTitle>Important Notes</CardTitle>
             </CardHeader>
-            <ul className="space-y-2 text-sm text-gray-400">
+            <ul className="space-y-2 text-sm text-[#707a8a]">
               <li className="flex items-start gap-2">
-                <span className="text-indigo-400">•</span>
+                <span className="text-[#f0b90b]">•</span>
                 Minimum withdrawal amount is PHP 100
               </li>
               <li className="flex items-start gap-2">
-                <span className="text-indigo-400">•</span>
+                <span className="text-[#f0b90b]">•</span>
                 Withdrawals are processed within 24-48 hours
               </li>
               <li className="flex items-start gap-2">
-                <span className="text-indigo-400">•</span>
+                <span className="text-[#f0b90b]">•</span>
                 Please ensure account details are correct
               </li>
               <li className="flex items-start gap-2">
-                <span className="text-indigo-400">•</span>
+                <span className="text-[#f0b90b]">•</span>
                 GCash withdrawals are typically faster
               </li>
             </ul>

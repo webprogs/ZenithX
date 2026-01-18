@@ -110,8 +110,8 @@ const Members = () => {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-white">Members</h1>
-          <p className="text-gray-400">View and manage platform members</p>
+          <h1 className="text-2xl font-bold text-[#1e2329]">Members</h1>
+          <p className="text-[#707a8a]">View and manage platform members</p>
         </div>
         <Button onClick={handleExport} isLoading={isExporting} variant="secondary">
           <ArrowDownTrayIcon className="w-5 h-5 mr-2" />
@@ -171,35 +171,35 @@ const Members = () => {
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr className="border-b border-[#2d2d3a]">
-                <th className="text-left px-6 py-4 text-sm font-medium text-gray-400">Member</th>
-                <th className="text-left px-6 py-4 text-sm font-medium text-gray-400">Interest Rate</th>
-                <th className="text-left px-6 py-4 text-sm font-medium text-gray-400">Status</th>
-                <th className="text-left px-6 py-4 text-sm font-medium text-gray-400">Last Login</th>
-                <th className="text-left px-6 py-4 text-sm font-medium text-gray-400">Registered</th>
-                <th className="text-right px-6 py-4 text-sm font-medium text-gray-400">Actions</th>
+              <tr className="border-b border-[#eaecef]">
+                <th className="text-left px-6 py-4 text-sm font-medium text-[#707a8a]">Member</th>
+                <th className="text-left px-6 py-4 text-sm font-medium text-[#707a8a]">Interest Rate</th>
+                <th className="text-left px-6 py-4 text-sm font-medium text-[#707a8a]">Status</th>
+                <th className="text-left px-6 py-4 text-sm font-medium text-[#707a8a]">Last Login</th>
+                <th className="text-left px-6 py-4 text-sm font-medium text-[#707a8a]">Registered</th>
+                <th className="text-right px-6 py-4 text-sm font-medium text-[#707a8a]">Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-[#2d2d3a]">
               {members.length === 0 ? (
                 <tr>
-                  <td colSpan={6} className="px-6 py-12 text-center text-gray-400">
+                  <td colSpan={6} className="px-6 py-12 text-center text-[#707a8a]">
                     No members found
                   </td>
                 </tr>
               ) : (
                 members.map((member) => (
-                  <tr key={member.id} className="hover:bg-[#1a1a24] transition-colors">
+                  <tr key={member.id} className="hover:bg-[#f5f5f5] transition-colors">
                     <td className="px-6 py-4">
                       <div>
-                        <div className="text-white font-medium">{member.name}</div>
-                        <div className="text-sm text-gray-400">@{member.username}</div>
+                        <div className="text-[#1e2329] font-medium">{member.name}</div>
+                        <div className="text-sm text-[#707a8a]">@{member.username}</div>
                         {member.email && (
-                          <div className="text-xs text-gray-500">{member.email}</div>
+                          <div className="text-xs text-[#b7b9bc]">{member.email}</div>
                         )}
                       </div>
                     </td>
-                    <td className="px-6 py-4 text-white">
+                    <td className="px-6 py-4 text-[#1e2329]">
                       {member.default_interest_rate !== null
                         ? formatPercentage(member.default_interest_rate)
                         : '-'}
@@ -212,10 +212,10 @@ const Members = () => {
                         )}
                       </div>
                     </td>
-                    <td className="px-6 py-4 text-gray-300">
+                    <td className="px-6 py-4 text-[#474d57]">
                       {member.last_login_at ? formatDateTime(member.last_login_at) : 'Never'}
                     </td>
-                    <td className="px-6 py-4 text-gray-300">
+                    <td className="px-6 py-4 text-[#474d57]">
                       {formatDateTime(member.created_at)}
                     </td>
                     <td className="px-6 py-4">
@@ -239,8 +239,8 @@ const Members = () => {
 
         {/* Pagination */}
         {meta.last_page > 1 && (
-          <div className="flex items-center justify-between px-6 py-4 border-t border-[#2d2d3a]">
-            <div className="text-sm text-gray-400">
+          <div className="flex items-center justify-between px-6 py-4 border-t border-[#eaecef]">
+            <div className="text-sm text-[#707a8a]">
               Showing {(meta.current_page - 1) * meta.per_page + 1} to{' '}
               {Math.min(meta.current_page * meta.per_page, meta.total)} of {meta.total} members
             </div>
@@ -253,7 +253,7 @@ const Members = () => {
               >
                 <ChevronLeftIcon className="w-4 h-4" />
               </Button>
-              <span className="text-sm text-gray-400">
+              <span className="text-sm text-[#707a8a]">
                 Page {meta.current_page} of {meta.last_page}
               </span>
               <Button

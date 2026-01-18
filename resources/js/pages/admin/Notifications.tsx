@@ -13,14 +13,14 @@ import {
   deleteNotification,
   clearAllNotifications,
   NotificationsParams,
-} from '@/api/member/notifications';
+} from '@/api/admin/notifications';
 import {
   BellIcon,
   CheckIcon,
   ChevronLeftIcon,
   ChevronRightIcon,
-  ArrowTrendingUpIcon,
-  BanknotesIcon,
+  UserGroupIcon,
+  CurrencyDollarIcon,
   ExclamationCircleIcon,
   InformationCircleIcon,
   TrashIcon,
@@ -110,19 +110,16 @@ const Notifications = () => {
 
   const getNotificationIcon = (type: string) => {
     switch (type) {
-      case 'topup_submitted':
-      case 'topup_approved':
-      case 'topup_rejected':
-        return <ArrowTrendingUpIcon className="w-5 h-5" />;
-      case 'withdrawal_submitted':
-      case 'withdrawal_approved':
-      case 'withdrawal_paid':
-      case 'withdrawal_rejected':
-        return <BanknotesIcon className="w-5 h-5" />;
-      case 'account_status_changed':
-      case 'interest_rate_changed':
-      case 'withdrawal_frozen':
-      case 'withdrawal_unfrozen':
+      case 'new_topup_request':
+      case 'topup_processed':
+        return <CurrencyDollarIcon className="w-5 h-5" />;
+      case 'new_withdrawal_request':
+      case 'withdrawal_processed':
+        return <CurrencyDollarIcon className="w-5 h-5" />;
+      case 'new_member_registered':
+      case 'member_status_changed':
+        return <UserGroupIcon className="w-5 h-5" />;
+      case 'system_alert':
         return <ExclamationCircleIcon className="w-5 h-5" />;
       default:
         return <InformationCircleIcon className="w-5 h-5" />;
@@ -130,13 +127,13 @@ const Notifications = () => {
   };
 
   const getNotificationColor = (type: string) => {
-    if (type.includes('approved') || type.includes('paid') || type.includes('unfrozen')) {
+    if (type.includes('approved') || type.includes('completed') || type.includes('success')) {
       return 'bg-[#e6f7f0] text-[#03a66d]';
     }
-    if (type.includes('rejected') || type.includes('frozen')) {
+    if (type.includes('rejected') || type.includes('failed') || type.includes('alert')) {
       return 'bg-[#fce8eb] text-[#cf304a]';
     }
-    if (type.includes('submitted') || type.includes('pending')) {
+    if (type.includes('pending') || type.includes('new_')) {
       return 'bg-[#fef6d8] text-[#c99400]';
     }
     return 'bg-[#fef6d8] text-[#f0b90b]';
@@ -157,7 +154,7 @@ const Notifications = () => {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold text-[#1e2329]">Notifications</h1>
-          <p className="text-[#707a8a]">Stay updated on your account activity</p>
+          <p className="text-[#707a8a]">System alerts and activity updates</p>
         </div>
         <div className="flex items-center gap-2">
           {unreadCount > 0 && (

@@ -48,16 +48,16 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#0a0a0f] flex items-center justify-center p-4">
+    <div className="min-h-screen bg-[#fafafa] flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
           <div className="flex items-center justify-center space-x-2 mb-4">
-            <div className="w-12 h-12 bg-gradient-to-br from-indigo-500 to-cyan-500 rounded-xl flex items-center justify-center">
-              <span className="text-white font-bold text-xl">ZX</span>
+            <div className="w-12 h-12 bg-[#f0b90b] rounded-xl flex items-center justify-center">
+              <span className="text-[#1e2329] font-bold text-xl">ZX</span>
             </div>
           </div>
-          <h1 className="text-3xl font-bold text-white">Welcome to ZenithX</h1>
-          <p className="text-gray-400 mt-2">Sign in to your account</p>
+          <h1 className="text-3xl font-bold text-[#1e2329]">Welcome to ZenithX</h1>
+          <p className="text-[#707a8a] mt-2">Sign in to your account</p>
         </div>
 
         <Card>
@@ -88,13 +88,6 @@ const Login = () => {
             </Button>
           </form>
         </Card>
-
-        <p className="text-center text-gray-400 mt-6">
-          Don't have an account?{' '}
-          <Link to="/register" className="text-indigo-400 hover:text-indigo-300">
-            Register with invitation
-          </Link>
-        </p>
       </div>
     </div>
   );

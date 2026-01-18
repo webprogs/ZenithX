@@ -8,6 +8,7 @@ interface AuthState {
   token: string | null;
   isAuthenticated: boolean;
   isLoading: boolean;
+  isInitialized: boolean;
   unreadNotifications: number;
   login: (login: string, password: string) => Promise<void>;
   register: (data: {
@@ -21,6 +22,7 @@ interface AuthState {
   }) => Promise<void>;
   logout: () => Promise<void>;
   refreshUser: () => Promise<void>;
+  initialize: () => Promise<void>;
   setUnreadNotifications: (count: number) => void;
 }
 
@@ -31,6 +33,7 @@ export const useAuthStore = create<AuthState>()(
       token: null,
       isAuthenticated: false,
       isLoading: false,
+      isInitialized: false,
       unreadNotifications: 0,
 
       login: async (login: string, password: string) => {
@@ -103,6 +106,36 @@ export const useAuthStore = create<AuthState>()(
             token: null,
             isAuthenticated: false,
             isLoading: false,
+          });
+        }
+      },
+
+      initialize: async () => {
+        const token = get().token || localStorage.getItem('token');
+
+        if (!token) {
+          set({ isInitialized: true });
+          return;
+        }
+
+        set({ isLoading: true, token });
+        try {
+          const response = await authApi.getCurrentUser();
+          set({
+            user: response.data.user,
+            unreadNotifications: response.data.unread_notifications,
+            isAuthenticated: true,
+            isLoading: false,
+            isInitialized: true,
+          });
+        } catch {
+          localStorage.removeItem('token');
+          set({
+            user: null,
+            token: null,
+            isAuthenticated: false,
+            isLoading: false,
+            isInitialized: true,
           });
         }
       },

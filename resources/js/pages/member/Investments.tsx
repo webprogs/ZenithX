@@ -83,31 +83,31 @@ const Investments = () => {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-white">My Investments</h1>
-        <p className="text-gray-400">Track your investment portfolio</p>
+        <h1 className="text-2xl font-bold text-[#1e2329]">My Investments</h1>
+        <p className="text-[#707a8a]">Track your investment portfolio</p>
       </div>
 
       {/* Summary Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <Card>
           <div className="flex items-center">
-            <div className="p-3 rounded-lg bg-indigo-900/20">
-              <CurrencyDollarIcon className="w-6 h-6 text-indigo-400" />
+            <div className="p-3 rounded-lg bg-[#fef6d8]">
+              <CurrencyDollarIcon className="w-6 h-6 text-[#f0b90b]" />
             </div>
             <div className="ml-4">
-              <p className="text-sm text-gray-400">Total Invested</p>
-              <p className="text-xl font-bold text-white">{formatCurrency(summary.total_invested)}</p>
+              <p className="text-sm text-[#707a8a]">Total Invested</p>
+              <p className="text-xl font-bold text-[#1e2329]">{formatCurrency(summary.total_invested)}</p>
             </div>
           </div>
         </Card>
         <Card>
           <div className="flex items-center">
-            <div className="p-3 rounded-lg bg-emerald-900/20">
-              <ArrowTrendingUpIcon className="w-6 h-6 text-emerald-400" />
+            <div className="p-3 rounded-lg bg-[#e6f7f0]">
+              <ArrowTrendingUpIcon className="w-6 h-6 text-[#03a66d]" />
             </div>
             <div className="ml-4">
-              <p className="text-sm text-gray-400">Interest Earned</p>
-              <p className="text-xl font-bold text-emerald-400">
+              <p className="text-sm text-[#707a8a]">Interest Earned</p>
+              <p className="text-xl font-bold text-[#03a66d]">
                 +{formatCurrency(summary.total_interest_earned)}
               </p>
             </div>
@@ -115,12 +115,12 @@ const Investments = () => {
         </Card>
         <Card>
           <div className="flex items-center">
-            <div className="p-3 rounded-lg bg-cyan-900/20">
-              <ChartBarIcon className="w-6 h-6 text-cyan-400" />
+            <div className="p-3 rounded-lg bg-[#e6f4ff]">
+              <ChartBarIcon className="w-6 h-6 text-[#0070f3]" />
             </div>
             <div className="ml-4">
-              <p className="text-sm text-gray-400">Active Investments</p>
-              <p className="text-xl font-bold text-white">{summary.active_investments}</p>
+              <p className="text-sm text-[#707a8a]">Active Investments</p>
+              <p className="text-xl font-bold text-[#1e2329]">{summary.active_investments}</p>
             </div>
           </div>
         </Card>
@@ -129,7 +129,7 @@ const Investments = () => {
       {/* Filters */}
       <Card>
         <div className="flex items-center gap-4">
-          <span className="text-sm text-gray-400">Filter by status:</span>
+          <span className="text-sm text-[#707a8a]">Filter by status:</span>
           <div className="flex gap-2">
             <Button
               variant={statusFilter === undefined ? 'primary' : 'secondary'}
@@ -167,7 +167,7 @@ const Investments = () => {
       <div className="space-y-4">
         {investmentsList.length === 0 ? (
           <Card>
-            <div className="text-center py-8 text-gray-400">
+            <div className="text-center py-8 text-[#707a8a]">
               No investments found. Start by making a top-up request.
             </div>
           </Card>
@@ -177,27 +177,27 @@ const Investments = () => {
               <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                 <div className="flex-1">
                   <div className="flex items-center gap-3 mb-2">
-                    <h3 className="text-lg font-semibold text-white">
+                    <h3 className="text-lg font-semibold text-[#1e2329]">
                       {formatCurrency(investment.amount)}
                     </h3>
                     {getStatusBadge(investment.status)}
                   </div>
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
                     <div>
-                      <p className="text-gray-400">Interest Rate</p>
-                      <p className="text-white">{formatPercentage(investment.interest_rate)}</p>
+                      <p className="text-[#707a8a]">Interest Rate</p>
+                      <p className="text-[#1e2329]">{formatPercentage(investment.interest_rate)}</p>
                     </div>
                     <div>
-                      <p className="text-gray-400">Interest Earned</p>
-                      <p className="text-emerald-400">+{formatCurrency(investment.interest_earned)}</p>
+                      <p className="text-[#707a8a]">Interest Earned</p>
+                      <p className="text-[#03a66d]">+{formatCurrency(investment.interest_earned)}</p>
                     </div>
                     <div>
-                      <p className="text-gray-400">Start Date</p>
-                      <p className="text-white">{formatDate(investment.start_date)}</p>
+                      <p className="text-[#707a8a]">Start Date</p>
+                      <p className="text-[#1e2329]">{formatDate(investment.start_date)}</p>
                     </div>
                     <div>
-                      <p className="text-gray-400">Last Accrual</p>
-                      <p className="text-white">
+                      <p className="text-[#707a8a]">Last Accrual</p>
+                      <p className="text-[#1e2329]">
                         {investment.last_accrual_date
                           ? formatDate(investment.last_accrual_date)
                           : 'Not yet'}
@@ -206,8 +206,8 @@ const Investments = () => {
                   </div>
                 </div>
                 <div className="text-right">
-                  <p className="text-sm text-gray-400">Current Balance</p>
-                  <p className="text-2xl font-bold text-white">
+                  <p className="text-sm text-[#707a8a]">Current Balance</p>
+                  <p className="text-2xl font-bold text-[#1e2329]">
                     {formatCurrency(parseFloat(investment.amount) + parseFloat(investment.interest_earned))}
                   </p>
                 </div>
@@ -220,7 +220,7 @@ const Investments = () => {
       {/* Pagination */}
       {meta.last_page > 1 && (
         <div className="flex items-center justify-between">
-          <div className="text-sm text-gray-400">
+          <div className="text-sm text-[#707a8a]">
             Showing {(meta.current_page - 1) * meta.per_page + 1} to{' '}
             {Math.min(meta.current_page * meta.per_page, meta.total)} of {meta.total} investments
           </div>
@@ -233,7 +233,7 @@ const Investments = () => {
             >
               <ChevronLeftIcon className="w-4 h-4" />
             </Button>
-            <span className="text-sm text-gray-400">
+            <span className="text-sm text-[#707a8a]">
               Page {meta.current_page} of {meta.last_page}
             </span>
             <Button

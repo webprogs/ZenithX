@@ -138,6 +138,7 @@ export interface DashboardStats {
   total_invested: number;
   total_interest_paid: number;
   total_interest_pending: number;
+  total_withdrawn: number;
   pending_topups: number;
   pending_withdrawals: number;
   approved_withdrawals: number;

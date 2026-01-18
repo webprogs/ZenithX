@@ -11,6 +11,8 @@ class TopupRequest extends Model
 {
     use HasFactory;
 
+    protected $appends = ['proof_of_payment_url'];
+
     protected $fillable = [
         'user_id',
         'amount',

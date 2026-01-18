@@ -23,6 +23,7 @@ import InvitationLinks from '@/pages/admin/InvitationLinks';
 import UserManagement from '@/pages/admin/UserManagement';
 import AuditLogs from '@/pages/admin/AuditLogs';
 import Settings from '@/pages/admin/Settings';
+import AdminNotifications from '@/pages/admin/Notifications';
 
 // Member Pages
 import MemberDashboard from '@/pages/member/Dashboard';
@@ -82,6 +83,7 @@ const AppRoutes = () => {
         <Route path="users" element={<UserManagement />} />
         <Route path="audit-logs" element={<AuditLogs />} />
         <Route path="settings" element={<Settings />} />
+        <Route path="notifications" element={<AdminNotifications />} />
       </Route>
 
       {/* Member Routes */}

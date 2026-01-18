@@ -47,29 +47,29 @@ const Dashboard = () => {
       title: 'Total Invested',
       value: formatCurrency(dashboard?.total_invested || 0),
       icon: CurrencyDollarIcon,
-      color: 'text-indigo-400',
-      bgColor: 'bg-indigo-900/20',
+      color: 'text-[#f0b90b]',
+      bgColor: 'bg-[#fef6d8]',
     },
     {
       title: 'Interest Earned',
       value: formatCurrency(dashboard?.total_interest_earned || 0),
       icon: ArrowTrendingUpIcon,
-      color: 'text-emerald-400',
-      bgColor: 'bg-emerald-900/20',
+      color: 'text-[#03a66d]',
+      bgColor: 'bg-[#e6f7f0]',
     },
     {
       title: 'Available Balance',
       value: formatCurrency(dashboard?.available_balance || 0),
       icon: BanknotesIcon,
-      color: 'text-cyan-400',
-      bgColor: 'bg-cyan-900/20',
+      color: 'text-[#0070f3]',
+      bgColor: 'bg-[#e6f4ff]',
     },
     {
       title: 'Total Withdrawn',
       value: formatCurrency(dashboard?.total_withdrawn || 0),
       icon: ClockIcon,
-      color: 'text-amber-400',
-      bgColor: 'bg-amber-900/20',
+      color: 'text-[#c99400]',
+      bgColor: 'bg-[#fef6d8]',
     },
   ];
 
@@ -77,8 +77,8 @@ const Dashboard = () => {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-white">Dashboard</h1>
-          <p className="text-gray-400">Track your investments and earnings</p>
+          <h1 className="text-2xl font-bold text-[#1e2329]">Dashboard</h1>
+          <p className="text-[#707a8a]">Track your investments and earnings</p>
         </div>
         <div className="flex items-center space-x-3">
           <Button onClick={() => navigate('/member/topup/new')}>
@@ -98,8 +98,8 @@ const Dashboard = () => {
                 <stat.icon className={`w-6 h-6 ${stat.color}`} />
               </div>
               <div className="ml-4">
-                <p className="text-sm text-gray-400">{stat.title}</p>
-                <p className="text-xl font-bold text-white">{stat.value}</p>
+                <p className="text-sm text-[#707a8a]">{stat.title}</p>
+                <p className="text-xl font-bold text-[#1e2329]">{stat.value}</p>
               </div>
             </div>
           </Card>
@@ -113,25 +113,25 @@ const Dashboard = () => {
           </CardHeader>
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-4xl font-bold text-emerald-400">
+              <p className="text-4xl font-bold text-[#03a66d]">
                 {formatPercentage(dashboard?.interest_rate || 0)}
               </p>
-              <p className="text-gray-400 mt-1">Monthly interest rate</p>
+              <p className="text-[#707a8a] mt-1">Monthly interest rate</p>
             </div>
             <div className="text-right">
-              <p className="text-gray-400">Active Investments</p>
-              <p className="text-2xl font-bold text-white">{dashboard?.active_investments || 0}</p>
+              <p className="text-[#707a8a]">Active Investments</p>
+              <p className="text-2xl font-bold text-[#1e2329]">{dashboard?.active_investments || 0}</p>
             </div>
           </div>
 
           {dashboard?.projections && dashboard.projections.length > 0 && (
-            <div className="mt-6 pt-6 border-t border-[#2d2d3a]">
-              <h4 className="text-sm font-medium text-gray-400 mb-4">Projected Earnings</h4>
+            <div className="mt-6 pt-6 border-t border-[#eaecef]">
+              <h4 className="text-sm font-medium text-[#707a8a] mb-4">Projected Earnings</h4>
               <div className="grid grid-cols-3 gap-4">
                 {dashboard.projections.slice(0, 3).map((projection) => (
                   <div key={projection.month} className="text-center">
-                    <p className="text-sm text-gray-400">{projection.month}</p>
-                    <p className="text-lg font-semibold text-emerald-400">
+                    <p className="text-sm text-[#707a8a]">{projection.month}</p>
+                    <p className="text-lg font-semibold text-[#03a66d]">
                       +{formatCurrency(projection.projected_interest)}
                     </p>
                   </div>
@@ -146,27 +146,27 @@ const Dashboard = () => {
             <CardTitle>Pending Requests</CardTitle>
           </CardHeader>
           <div className="space-y-4">
-            <div className="flex items-center justify-between p-4 bg-[#1a1a24] rounded-lg">
+            <div className="flex items-center justify-between p-4 bg-[#f5f5f5] rounded-lg">
               <div>
-                <p className="text-white">Top-Up Requests</p>
-                <p className="text-sm text-gray-400">Awaiting approval</p>
+                <p className="text-[#1e2329]">Top-Up Requests</p>
+                <p className="text-sm text-[#707a8a]">Awaiting approval</p>
               </div>
               <Badge variant="warning">{dashboard?.pending_topups || 0}</Badge>
             </div>
-            <div className="flex items-center justify-between p-4 bg-[#1a1a24] rounded-lg">
+            <div className="flex items-center justify-between p-4 bg-[#f5f5f5] rounded-lg">
               <div>
-                <p className="text-white">Withdrawal Requests</p>
-                <p className="text-sm text-gray-400">Being processed</p>
+                <p className="text-[#1e2329]">Withdrawal Requests</p>
+                <p className="text-sm text-[#707a8a]">Being processed</p>
               </div>
               <Badge variant="info">{dashboard?.pending_withdrawal_requests || 0}</Badge>
             </div>
             {dashboard?.pending_withdrawals ? (
-              <div className="flex items-center justify-between p-4 bg-[#1a1a24] rounded-lg">
+              <div className="flex items-center justify-between p-4 bg-[#f5f5f5] rounded-lg">
                 <div>
-                  <p className="text-white">Pending Amount</p>
-                  <p className="text-sm text-gray-400">To be released</p>
+                  <p className="text-[#1e2329]">Pending Amount</p>
+                  <p className="text-sm text-[#707a8a]">To be released</p>
                 </div>
-                <span className="text-amber-400 font-medium">
+                <span className="text-[#c99400] font-medium">
                   {formatCurrency(dashboard.pending_withdrawals)}
                 </span>
               </div>
@@ -232,12 +232,12 @@ const Dashboard = () => {
               <Badge variant="info" className="text-lg px-4 py-2">
                 {dashboard.unread_notifications} unread
               </Badge>
-              <p className="text-gray-400 mt-2">
+              <p className="text-[#707a8a] mt-2">
                 You have unread notifications
               </p>
             </div>
           ) : (
-            <p className="text-gray-400 text-center py-4">
+            <p className="text-[#707a8a] text-center py-4">
               No new notifications
             </p>
           )}

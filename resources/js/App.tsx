@@ -4,6 +4,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Toaster } from 'react-hot-toast';
 import AppRoutes from '@/routes';
 import { useAuthStore } from '@/stores/authStore';
+import Spinner from '@/components/ui/Spinner';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -15,13 +16,19 @@ const queryClient = new QueryClient({
 });
 
 function App() {
-  const { token, refreshUser } = useAuthStore();
+  const { isInitialized, initialize } = useAuthStore();
 
   useEffect(() => {
-    if (token) {
-      refreshUser();
-    }
-  }, [token, refreshUser]);
+    initialize();
+  }, [initialize]);
+
+  if (!isInitialized) {
+    return (
+      <div className="min-h-screen bg-[#fafafa] flex items-center justify-center">
+        <Spinner size="lg" />
+      </div>
+    );
+  }
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -32,20 +39,20 @@ function App() {
           toastOptions={{
             duration: 4000,
             style: {
-              background: '#16161f',
-              color: '#f8fafc',
-              border: '1px solid #2d2d3a',
+              background: '#ffffff',
+              color: '#1e2329',
+              border: '1px solid #eaecef',
             },
             success: {
               iconTheme: {
-                primary: '#10b981',
-                secondary: '#16161f',
+                primary: '#03a66d',
+                secondary: '#ffffff',
               },
             },
             error: {
               iconTheme: {
-                primary: '#ef4444',
-                secondary: '#16161f',
+                primary: '#cf304a',
+                secondary: '#ffffff',
               },
             },
           }}

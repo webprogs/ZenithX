@@ -29,6 +29,13 @@ class ProfileController extends Controller
                 'withdrawal_frozen' => $user->withdrawal_frozen,
                 'created_at' => $user->created_at->toIso8601String(),
                 'last_login_at' => $user->last_login_at?->toIso8601String(),
+                // Profile stats
+                'total_invested' => $user->total_invested,
+                'total_interest_earned' => $user->total_interest_earned,
+                'available_balance' => $user->available_balance,
+                'total_withdrawn' => $user->total_withdrawn,
+                'member_since' => $user->created_at->toIso8601String(),
+                'interest_rate' => $user->default_interest_rate,
             ],
         ]);
     }

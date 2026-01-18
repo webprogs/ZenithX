@@ -36,7 +36,7 @@ const Modal = ({ isOpen, onClose, title, children, size = 'md' }: ModalProps) =>
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <div className="fixed inset-0 bg-black/60 backdrop-blur-sm" />
+          <div className="fixed inset-0 bg-black/40 backdrop-blur-sm" />
         </TransitionChild>
 
         <div className="fixed inset-0 overflow-y-auto">
@@ -51,18 +51,18 @@ const Modal = ({ isOpen, onClose, title, children, size = 'md' }: ModalProps) =>
             >
               <DialogPanel
                 className={clsx(
-                  'w-full transform overflow-hidden rounded-xl bg-[#16161f] border border-[#2d2d3a] p-6 shadow-xl transition-all',
+                  'w-full transform overflow-hidden rounded-xl bg-white border border-[#eaecef] p-6 shadow-xl transition-all',
                   sizes[size]
                 )}
               >
                 {title && (
                   <div className="flex items-center justify-between mb-4">
-                    <DialogTitle className="text-lg font-semibold text-white">
+                    <DialogTitle className="text-lg font-semibold text-[#1e2329]">
                       {title}
                     </DialogTitle>
                     <button
                       onClick={onClose}
-                      className="text-gray-400 hover:text-white transition-colors"
+                      className="text-[#707a8a] hover:text-[#1e2329] transition-colors"
                     >
                       <XMarkIcon className="w-5 h-5" />
                     </button>

@@ -105,8 +105,8 @@ const NewTopup = () => {
           <ArrowLeftIcon className="w-5 h-5" />
         </Button>
         <div>
-          <h1 className="text-2xl font-bold text-white">New Top-Up</h1>
-          <p className="text-gray-400">Submit a new top-up request</p>
+          <h1 className="text-2xl font-bold text-[#1e2329]">New Top-Up</h1>
+          <p className="text-[#707a8a]">Submit a new top-up request</p>
         </div>
       </div>
 
@@ -115,7 +115,7 @@ const NewTopup = () => {
           <Card>
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
               <div>
-                <label className="block text-sm font-medium text-gray-300 mb-1">
+                <label className="block text-sm font-medium text-[#474d57] mb-1">
                   Amount (PHP) <span className="text-red-500">*</span>
                 </label>
                 <Input
@@ -124,18 +124,18 @@ const NewTopup = () => {
                   {...register('amount')}
                   error={errors.amount?.message}
                 />
-                <p className="mt-1 text-xs text-gray-500">
+                <p className="mt-1 text-xs text-[#b7b9bc]">
                   Minimum: PHP 100 | Maximum: PHP 1,000,000
                 </p>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-300 mb-1">
+                <label className="block text-sm font-medium text-[#474d57] mb-1">
                   Payment Method
                 </label>
                 <select
                   {...register('payment_method')}
-                  className="w-full px-4 py-2 bg-[#16161f] border border-[#2d2d3a] rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  className="w-full px-4 py-2 bg-white border border-[#eaecef] rounded-lg text-[#1e2329] focus:outline-none focus:ring-2 focus:ring-[#f0b90b]"
                 >
                   <option value="Wire Transfer">Wire Transfer</option>
                   <option value="Cash">Cash</option>
@@ -144,7 +144,7 @@ const NewTopup = () => {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-300 mb-1">
+                <label className="block text-sm font-medium text-[#474d57] mb-1">
                   Proof of Payment <span className="text-red-500">*</span>
                 </label>
                 {proofPreview ? (
@@ -152,24 +152,24 @@ const NewTopup = () => {
                     <img
                       src={proofPreview}
                       alt="Proof preview"
-                      className="max-h-64 w-full object-contain bg-[#1a1a24] rounded-lg"
+                      className="max-h-64 w-full object-contain bg-[#f5f5f5] rounded-lg"
                     />
                     <button
                       type="button"
                       onClick={removeProof}
-                      className="absolute top-2 right-2 p-1 bg-red-600 rounded-full text-white hover:bg-red-700 transition-colors"
+                      className="absolute top-2 right-2 p-1 bg-red-600 rounded-full text-[#1e2329] hover:bg-red-700 transition-colors"
                     >
                       <XMarkIcon className="w-5 h-5" />
                     </button>
                   </div>
                 ) : (
-                  <label className="flex flex-col items-center justify-center w-full h-48 border-2 border-dashed border-[#2d2d3a] rounded-lg cursor-pointer hover:border-indigo-500 transition-colors bg-[#1a1a24]">
+                  <label className="flex flex-col items-center justify-center w-full h-48 border-2 border-dashed border-[#eaecef] rounded-lg cursor-pointer hover:border-[#f0b90b] transition-colors bg-[#f5f5f5]">
                     <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                      <CloudArrowUpIcon className="w-10 h-10 text-gray-400 mb-3" />
-                      <p className="mb-2 text-sm text-gray-400">
+                      <CloudArrowUpIcon className="w-10 h-10 text-[#707a8a] mb-3" />
+                      <p className="mb-2 text-sm text-[#707a8a]">
                         <span className="font-semibold">Click to upload</span> or drag and drop
                       </p>
-                      <p className="text-xs text-gray-500">PNG, JPG or GIF (max 5MB)</p>
+                      <p className="text-xs text-[#b7b9bc]">PNG, JPG or GIF (max 5MB)</p>
                     </div>
                     <input
                       type="file"
@@ -182,13 +182,13 @@ const NewTopup = () => {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-300 mb-1">
+                <label className="block text-sm font-medium text-[#474d57] mb-1">
                   Notes (optional)
                 </label>
                 <textarea
                   {...register('notes')}
                   rows={3}
-                  className="w-full px-4 py-2 bg-[#16161f] border border-[#2d2d3a] rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  className="w-full px-4 py-2 bg-white border border-[#eaecef] rounded-lg text-[#1e2329] placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#f0b90b]"
                   placeholder="Any additional information..."
                 />
                 {errors.notes && (
@@ -215,13 +215,13 @@ const NewTopup = () => {
             </CardHeader>
             <div className="space-y-4">
               <div className="flex items-center justify-between">
-                <span className="text-gray-400">Top-Up Amount</span>
-                <span className="text-white font-medium">
+                <span className="text-[#707a8a]">Top-Up Amount</span>
+                <span className="text-[#1e2329] font-medium">
                   {formatCurrency(amount || 0)}
                 </span>
               </div>
-              <div className="pt-4 border-t border-[#2d2d3a]">
-                <p className="text-sm text-gray-400">
+              <div className="pt-4 border-t border-[#eaecef]">
+                <p className="text-sm text-[#707a8a]">
                   After submitting your request, an admin will review your proof of payment and
                   approve or reject your top-up. Once approved, the amount will be added to your
                   investment balance.
@@ -234,19 +234,19 @@ const NewTopup = () => {
             <CardHeader>
               <CardTitle>Payment Instructions</CardTitle>
             </CardHeader>
-            <div className="space-y-4 text-sm text-gray-400">
+            <div className="space-y-4 text-sm text-[#707a8a]">
               <div>
-                <p className="text-white font-medium">GCash</p>
+                <p className="text-[#1e2329] font-medium">GCash</p>
                 <p>Send to: 0917 XXX XXXX</p>
                 <p>Name: ZenithX Platform</p>
               </div>
               <div>
-                <p className="text-white font-medium">Bank Transfer</p>
+                <p className="text-[#1e2329] font-medium">Bank Transfer</p>
                 <p>Bank: BDO</p>
                 <p>Account: 1234 5678 9012</p>
                 <p>Name: ZenithX Platform Inc.</p>
               </div>
-              <p className="text-xs text-gray-500">
+              <p className="text-xs text-[#b7b9bc]">
                 Please include your username as reference when sending payment.
               </p>
             </div>

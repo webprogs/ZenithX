@@ -4,7 +4,7 @@ import Header from './Header';
 
 const MemberLayout = () => {
   return (
-    <div className="min-h-screen bg-[#0a0a0f]">
+    <div className="min-h-screen bg-[#fafafa]">
       <Sidebar />
       <div className="ml-64">
         <Header />

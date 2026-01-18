@@ -22,6 +22,7 @@ class DashboardService
             'total_invested' => Investment::whereIn('status', ['active', 'paused'])->sum('amount'),
             'total_interest_paid' => $this->interestService->getTotalInterestPaid(),
             'total_interest_pending' => $this->interestService->getTotalPendingInterest(),
+            'total_withdrawn' => WithdrawalRequest::paid()->sum('amount'),
             'pending_topups' => TopupRequest::pending()->count(),
             'pending_withdrawals' => WithdrawalRequest::pending()->count(),
             'approved_withdrawals' => WithdrawalRequest::approved()->count(),
@@ -108,7 +109,6 @@ class DashboardService
     public function getMemberDashboard(User $user): array
     {
         $projections = $this->interestService->getProjectedEarnings($user, 6);
-
         return [
             'total_invested' => $user->total_invested,
             'total_interest_earned' => $user->total_interest_earned,

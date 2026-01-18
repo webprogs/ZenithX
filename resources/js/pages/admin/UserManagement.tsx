@@ -247,8 +247,8 @@ const UserManagement = () => {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-white">User Management</h1>
-        <p className="text-gray-400">Manage user accounts and permissions</p>
+        <h1 className="text-2xl font-bold text-[#1e2329]">User Management</h1>
+        <p className="text-[#707a8a]">Manage user accounts and permissions</p>
       </div>
 
       {/* Filters */}
@@ -268,7 +268,7 @@ const UserManagement = () => {
 
           <div className="flex flex-wrap gap-4">
             <div className="flex items-center gap-2">
-              <span className="text-sm text-gray-400">Role:</span>
+              <span className="text-sm text-[#707a8a]">Role:</span>
               <div className="flex gap-2">
                 <Button
                   variant={roleFilter === undefined ? 'primary' : 'secondary'}
@@ -295,7 +295,7 @@ const UserManagement = () => {
             </div>
 
             <div className="flex items-center gap-2">
-              <span className="text-sm text-gray-400">Status:</span>
+              <span className="text-sm text-[#707a8a]">Status:</span>
               <div className="flex gap-2">
                 <Button
                   variant={statusFilter === undefined ? 'primary' : 'secondary'}
@@ -336,30 +336,30 @@ const UserManagement = () => {
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr className="border-b border-[#2d2d3a]">
-                <th className="text-left px-6 py-4 text-sm font-medium text-gray-400">User</th>
-                <th className="text-left px-6 py-4 text-sm font-medium text-gray-400">Role</th>
-                <th className="text-left px-6 py-4 text-sm font-medium text-gray-400">Status</th>
-                <th className="text-left px-6 py-4 text-sm font-medium text-gray-400">Interest Rate</th>
-                <th className="text-left px-6 py-4 text-sm font-medium text-gray-400">Last Login</th>
-                <th className="text-right px-6 py-4 text-sm font-medium text-gray-400">Actions</th>
+              <tr className="border-b border-[#eaecef]">
+                <th className="text-left px-6 py-4 text-sm font-medium text-[#707a8a]">User</th>
+                <th className="text-left px-6 py-4 text-sm font-medium text-[#707a8a]">Role</th>
+                <th className="text-left px-6 py-4 text-sm font-medium text-[#707a8a]">Status</th>
+                <th className="text-left px-6 py-4 text-sm font-medium text-[#707a8a]">Interest Rate</th>
+                <th className="text-left px-6 py-4 text-sm font-medium text-[#707a8a]">Last Login</th>
+                <th className="text-right px-6 py-4 text-sm font-medium text-[#707a8a]">Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-[#2d2d3a]">
               {users.length === 0 ? (
                 <tr>
-                  <td colSpan={6} className="px-6 py-12 text-center text-gray-400">
+                  <td colSpan={6} className="px-6 py-12 text-center text-[#707a8a]">
                     No users found
                   </td>
                 </tr>
               ) : (
                 users.map((user) => (
-                  <tr key={user.id} className="hover:bg-[#1a1a24] transition-colors">
+                  <tr key={user.id} className="hover:bg-[#f5f5f5] transition-colors">
                     <td className="px-6 py-4">
                       <div>
-                        <div className="text-white font-medium">{user.name}</div>
-                        <div className="text-sm text-gray-400">@{user.username}</div>
-                        {user.email && <div className="text-xs text-gray-500">{user.email}</div>}
+                        <div className="text-[#1e2329] font-medium">{user.name}</div>
+                        <div className="text-sm text-[#707a8a]">@{user.username}</div>
+                        {user.email && <div className="text-xs text-[#b7b9bc]">{user.email}</div>}
                       </div>
                     </td>
                     <td className="px-6 py-4">{getRoleBadge(user.role)}</td>
@@ -369,12 +369,12 @@ const UserManagement = () => {
                         {user.withdrawal_frozen && <Badge variant="danger">Frozen</Badge>}
                       </div>
                     </td>
-                    <td className="px-6 py-4 text-white">
+                    <td className="px-6 py-4 text-[#1e2329]">
                       {user.default_interest_rate !== null
                         ? formatPercentage(user.default_interest_rate)
                         : '-'}
                     </td>
-                    <td className="px-6 py-4 text-gray-300">
+                    <td className="px-6 py-4 text-[#474d57]">
                       {user.last_login_at ? formatDateTime(user.last_login_at) : 'Never'}
                     </td>
                     <td className="px-6 py-4">
@@ -398,8 +398,8 @@ const UserManagement = () => {
 
         {/* Pagination */}
         {meta.last_page > 1 && (
-          <div className="flex items-center justify-between px-6 py-4 border-t border-[#2d2d3a]">
-            <div className="text-sm text-gray-400">
+          <div className="flex items-center justify-between px-6 py-4 border-t border-[#eaecef]">
+            <div className="text-sm text-[#707a8a]">
               Showing {(meta.current_page - 1) * meta.per_page + 1} to{' '}
               {Math.min(meta.current_page * meta.per_page, meta.total)} of {meta.total} users
             </div>
@@ -412,7 +412,7 @@ const UserManagement = () => {
               >
                 <ChevronLeftIcon className="w-4 h-4" />
               </Button>
-              <span className="text-sm text-gray-400">
+              <span className="text-sm text-[#707a8a]">
                 Page {meta.current_page} of {meta.last_page}
               </span>
               <Button
@@ -443,10 +443,10 @@ const UserManagement = () => {
           <div className="space-y-6">
             <div className="flex items-start justify-between">
               <div>
-                <h3 className="text-xl font-semibold text-white">{selectedUser.name}</h3>
-                <p className="text-gray-400">@{selectedUser.username}</p>
+                <h3 className="text-xl font-semibold text-[#1e2329]">{selectedUser.name}</h3>
+                <p className="text-[#707a8a]">@{selectedUser.username}</p>
                 {selectedUser.email && (
-                  <p className="text-sm text-gray-500">{selectedUser.email}</p>
+                  <p className="text-sm text-[#b7b9bc]">{selectedUser.email}</p>
                 )}
               </div>
               <div className="flex items-center gap-2">
@@ -456,40 +456,40 @@ const UserManagement = () => {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-4 p-4 bg-[#1a1a24] rounded-lg">
+            <div className="grid grid-cols-2 gap-4 p-4 bg-[#f5f5f5] rounded-lg">
               <div>
-                <p className="text-sm text-gray-400">Interest Rate</p>
-                <p className="text-white">
+                <p className="text-sm text-[#707a8a]">Interest Rate</p>
+                <p className="text-[#1e2329]">
                   {selectedUser.default_interest_rate !== null
                     ? formatPercentage(selectedUser.default_interest_rate)
                     : 'Not set'}
                 </p>
               </div>
               <div>
-                <p className="text-sm text-gray-400">Last Login</p>
-                <p className="text-white">
+                <p className="text-sm text-[#707a8a]">Last Login</p>
+                <p className="text-[#1e2329]">
                   {selectedUser.last_login_at
                     ? formatDateTime(selectedUser.last_login_at)
                     : 'Never'}
                 </p>
               </div>
               <div>
-                <p className="text-sm text-gray-400">Registered</p>
-                <p className="text-white">{formatDateTime(selectedUser.created_at)}</p>
+                <p className="text-sm text-[#707a8a]">Registered</p>
+                <p className="text-[#1e2329]">{formatDateTime(selectedUser.created_at)}</p>
               </div>
               {selectedUser.invitation_link && (
                 <div>
-                  <p className="text-sm text-gray-400">Invitation Code</p>
-                  <p className="text-white font-mono">{selectedUser.invitation_link.code}</p>
+                  <p className="text-sm text-[#707a8a]">Invitation Code</p>
+                  <p className="text-[#1e2329] font-mono">{selectedUser.invitation_link.code}</p>
                 </div>
               )}
             </div>
 
             {tempPassword && (
-              <div className="p-4 bg-emerald-900/20 border border-emerald-700 rounded-lg">
-                <p className="text-sm text-emerald-400 mb-2">Temporary Password</p>
-                <code className="text-white text-lg font-mono">{tempPassword}</code>
-                <p className="text-xs text-gray-400 mt-2">
+              <div className="p-4 bg-[#e6f7f0] border border-[#03a66d]/30 rounded-lg">
+                <p className="text-sm text-[#03a66d] mb-2">Temporary Password</p>
+                <code className="text-[#1e2329] text-lg font-mono">{tempPassword}</code>
+                <p className="text-xs text-[#707a8a] mt-2">
                   Share this password with the user. They should change it after logging in.
                 </p>
               </div>
@@ -554,10 +554,10 @@ const UserManagement = () => {
       >
         <form onSubmit={statusForm.handleSubmit(handleUpdateStatus)} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-1">Status</label>
+            <label className="block text-sm font-medium text-[#474d57] mb-1">Status</label>
             <select
               {...statusForm.register('status')}
-              className="w-full px-4 py-2 bg-[#16161f] border border-[#2d2d3a] rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full px-4 py-2 bg-white border border-[#eaecef] rounded-lg text-[#1e2329] focus:outline-none focus:ring-2 focus:ring-[#f0b90b]"
             >
               <option value="active">Active</option>
               <option value="inactive">Inactive</option>
@@ -566,13 +566,13 @@ const UserManagement = () => {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-1">
+            <label className="block text-sm font-medium text-[#474d57] mb-1">
               Reason (optional)
             </label>
             <textarea
               {...statusForm.register('reason')}
               rows={3}
-              className="w-full px-4 py-2 bg-[#16161f] border border-[#2d2d3a] rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full px-4 py-2 bg-white border border-[#eaecef] rounded-lg text-[#1e2329] placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#f0b90b]"
               placeholder="Reason for status change..."
             />
           </div>
@@ -598,7 +598,7 @@ const UserManagement = () => {
       >
         <form onSubmit={interestRateForm.handleSubmit(handleAdjustInterestRate)} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-1">
+            <label className="block text-sm font-medium text-[#474d57] mb-1">
               Interest Rate (%)
             </label>
             <Input
@@ -610,13 +610,13 @@ const UserManagement = () => {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-1">
+            <label className="block text-sm font-medium text-[#474d57] mb-1">
               Reason (optional)
             </label>
             <textarea
               {...interestRateForm.register('reason')}
               rows={3}
-              className="w-full px-4 py-2 bg-[#16161f] border border-[#2d2d3a] rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full px-4 py-2 bg-white border border-[#eaecef] rounded-lg text-[#1e2329] placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#f0b90b]"
               placeholder="Reason for interest rate change..."
             />
           </div>

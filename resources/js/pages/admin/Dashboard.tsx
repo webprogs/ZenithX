@@ -11,6 +11,7 @@ import {
   ArrowTrendingUpIcon,
   UsersIcon,
   ClockIcon,
+  BanknotesIcon,
 } from '@heroicons/react/24/outline';
 
 const Dashboard = () => {
@@ -50,40 +51,47 @@ const Dashboard = () => {
       title: 'Total Invested',
       value: formatCurrency(stats?.total_invested || 0),
       icon: CurrencyDollarIcon,
-      color: 'text-indigo-400',
-      bgColor: 'bg-indigo-900/20',
+      color: 'text-[#f0b90b]',
+      bgColor: 'bg-[#fef6d8]',
     },
     {
       title: 'Interest Paid',
       value: formatCurrency(stats?.total_interest_paid || 0),
       icon: ArrowTrendingUpIcon,
-      color: 'text-emerald-400',
-      bgColor: 'bg-emerald-900/20',
+      color: 'text-[#03a66d]',
+      bgColor: 'bg-[#e6f7f0]',
+    },
+    {
+      title: 'Total Withdrawn',
+      value: formatCurrency(stats?.total_withdrawn || 0),
+      icon: BanknotesIcon,
+      color: 'text-[#cf304a]',
+      bgColor: 'bg-[#fce8eb]',
     },
     {
       title: 'Pending Interest',
       value: formatCurrency(stats?.total_interest_pending || 0),
       icon: ClockIcon,
-      color: 'text-amber-400',
-      bgColor: 'bg-amber-900/20',
+      color: 'text-[#c99400]',
+      bgColor: 'bg-[#fef6d8]',
     },
     {
       title: 'Active Members',
       value: stats?.active_users?.toString() || '0',
       icon: UsersIcon,
-      color: 'text-cyan-400',
-      bgColor: 'bg-cyan-900/20',
+      color: 'text-[#0070f3]',
+      bgColor: 'bg-[#e6f4ff]',
     },
   ];
 
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-white">Dashboard</h1>
-        <p className="text-gray-400">Welcome back! Here's what's happening.</p>
+        <h1 className="text-2xl font-bold text-[#1e2329]">Dashboard</h1>
+        <p className="text-[#707a8a]">Welcome back! Here's what's happening.</p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
         {statCards.map((stat) => (
           <Card key={stat.title}>
             <div className="flex items-center">
@@ -91,8 +99,8 @@ const Dashboard = () => {
                 <stat.icon className={`w-6 h-6 ${stat.color}`} />
               </div>
               <div className="ml-4">
-                <p className="text-sm text-gray-400">{stat.title}</p>
-                <p className="text-xl font-bold text-white">{stat.value}</p>
+                <p className="text-sm text-[#707a8a]">{stat.title}</p>
+                <p className="text-xl font-bold text-[#1e2329]">{stat.value}</p>
               </div>
             </div>
           </Card>
@@ -107,38 +115,38 @@ const Dashboard = () => {
           <div className="p-6 grid grid-cols-2 gap-4">
             <button
               onClick={() => navigate('/admin/topup-requests?status=pending')}
-              className="p-4 bg-[#1a1a24] rounded-lg hover:bg-[#1e1e28] transition-colors text-left"
+              className="p-4 bg-[#f5f5f5] rounded-lg hover:bg-[#f0f0f0] transition-colors text-left"
             >
               <div className="flex items-center justify-between mb-2">
-                <span className="text-gray-400">Top-Up Requests</span>
+                <span className="text-[#707a8a]">Top-Up Requests</span>
                 <Badge variant="warning">{stats?.pending_topups || 0}</Badge>
               </div>
-              <p className="text-2xl font-bold text-white">{stats?.pending_topups || 0}</p>
-              <p className="text-sm text-gray-400">awaiting approval</p>
+              <p className="text-2xl font-bold text-[#1e2329]">{stats?.pending_topups || 0}</p>
+              <p className="text-sm text-[#707a8a]">awaiting approval</p>
             </button>
 
             <button
               onClick={() => navigate('/admin/withdrawal-requests?status=pending')}
-              className="p-4 bg-[#1a1a24] rounded-lg hover:bg-[#1e1e28] transition-colors text-left"
+              className="p-4 bg-[#f5f5f5] rounded-lg hover:bg-[#f0f0f0] transition-colors text-left"
             >
               <div className="flex items-center justify-between mb-2">
-                <span className="text-gray-400">Withdrawals</span>
+                <span className="text-[#707a8a]">Withdrawals</span>
                 <Badge variant="warning">{stats?.pending_withdrawals || 0}</Badge>
               </div>
-              <p className="text-2xl font-bold text-white">{stats?.pending_withdrawals || 0}</p>
-              <p className="text-sm text-gray-400">pending review</p>
+              <p className="text-2xl font-bold text-[#1e2329]">{stats?.pending_withdrawals || 0}</p>
+              <p className="text-sm text-[#707a8a]">pending review</p>
             </button>
 
             <button
               onClick={() => navigate('/admin/withdrawal-requests?status=approved')}
-              className="p-4 bg-[#1a1a24] rounded-lg hover:bg-[#1e1e28] transition-colors text-left col-span-2"
+              className="p-4 bg-[#f5f5f5] rounded-lg hover:bg-[#f0f0f0] transition-colors text-left col-span-2"
             >
               <div className="flex items-center justify-between mb-2">
-                <span className="text-gray-400">Ready for Payout</span>
+                <span className="text-[#707a8a]">Ready for Payout</span>
                 <Badge variant="info">{stats?.approved_withdrawals || 0}</Badge>
               </div>
-              <p className="text-2xl font-bold text-white">{stats?.approved_withdrawals || 0}</p>
-              <p className="text-sm text-gray-400">approved, awaiting payout</p>
+              <p className="text-2xl font-bold text-[#1e2329]">{stats?.approved_withdrawals || 0}</p>
+              <p className="text-sm text-[#707a8a]">approved, awaiting payout</p>
             </button>
           </div>
         </Card>
@@ -149,21 +157,21 @@ const Dashboard = () => {
           </CardHeader>
           <div className="p-6 space-y-4">
             <div className="flex items-center justify-between">
-              <span className="text-gray-400">Active</span>
+              <span className="text-[#707a8a]">Active</span>
               <Badge variant="success">{stats?.active_users || 0}</Badge>
             </div>
             <div className="flex items-center justify-between">
-              <span className="text-gray-400">Inactive</span>
+              <span className="text-[#707a8a]">Inactive</span>
               <Badge variant="warning">{stats?.inactive_users || 0}</Badge>
             </div>
             <div className="flex items-center justify-between">
-              <span className="text-gray-400">Disabled</span>
+              <span className="text-[#707a8a]">Disabled</span>
               <Badge variant="danger">{stats?.disabled_users || 0}</Badge>
             </div>
-            <div className="pt-4 border-t border-[#2d2d3a]">
+            <div className="pt-4 border-t border-[#eaecef]">
               <div className="flex items-center justify-between">
-                <span className="text-white font-medium">Total Members</span>
-                <span className="text-white font-bold">{stats?.total_members || 0}</span>
+                <span className="text-[#1e2329] font-medium">Total Members</span>
+                <span className="text-[#1e2329] font-bold">{stats?.total_members || 0}</span>
               </div>
             </div>
           </div>
@@ -176,26 +184,26 @@ const Dashboard = () => {
         </CardHeader>
         <div className="p-6">
           {activity.length === 0 ? (
-            <p className="text-gray-400 text-center py-8">No recent activity</p>
+            <p className="text-[#707a8a] text-center py-8">No recent activity</p>
           ) : (
             <div className="space-y-4">
               {activity.slice(0, 10).map((item, index) => (
                 <div
                   key={index}
-                  className="flex items-center justify-between py-3 border-b border-[#2d2d3a] last:border-0"
+                  className="flex items-center justify-between py-3 border-b border-[#eaecef] last:border-0"
                 >
                   <div className="flex items-center space-x-4">
                     <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
-                      item.type === 'topup' ? 'bg-emerald-900/30' : 'bg-red-900/30'
+                      item.type === 'topup' ? 'bg-[#e6f7f0]' : 'bg-[#fce8eb]'
                     }`}>
                       {item.type === 'topup' ? (
-                        <ArrowTrendingUpIcon className="w-5 h-5 text-emerald-400" />
+                        <ArrowTrendingUpIcon className="w-5 h-5 text-[#03a66d]" />
                       ) : (
-                        <CurrencyDollarIcon className="w-5 h-5 text-red-400" />
+                        <CurrencyDollarIcon className="w-5 h-5 text-[#cf304a]" />
                       )}
                     </div>
                     <div>
-                      <p className="text-white">
+                      <p className="text-[#1e2329]">
                         {item.user} - {item.type === 'topup' ? 'Top-up' : 'Withdrawal'}{' '}
                         <Badge
                           variant={
@@ -209,10 +217,10 @@ const Dashboard = () => {
                           {item.action}
                         </Badge>
                       </p>
-                      <p className="text-sm text-gray-400">{formatRelativeTime(item.date)}</p>
+                      <p className="text-sm text-[#707a8a]">{formatRelativeTime(item.date)}</p>
                     </div>
                   </div>
-                  <p className="text-white font-medium">{formatCurrency(item.amount)}</p>
+                  <p className="text-[#1e2329] font-medium">{formatCurrency(item.amount)}</p>
                 </div>
               ))}
             </div>

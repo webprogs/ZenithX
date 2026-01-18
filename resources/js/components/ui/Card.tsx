@@ -18,7 +18,7 @@ const Card = forwardRef<HTMLDivElement, CardProps>(
       <div
         ref={ref}
         className={clsx(
-          'bg-[#16161f] border border-[#2d2d3a] rounded-xl',
+          'bg-white border border-[#eaecef] rounded-xl shadow-sm',
           paddingStyles[padding],
           className
         )}
@@ -50,7 +50,7 @@ export const CardTitle = forwardRef<HTMLHeadingElement, HTMLAttributes<HTMLHeadi
   ({ className, children, ...props }, ref) => (
     <h3
       ref={ref}
-      className={clsx('text-lg font-semibold text-white', className)}
+      className={clsx('text-lg font-semibold text-[#1e2329]', className)}
       {...props}
     >
       {children}

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Member;
 
 use App\Http\Controllers\Controller;
+use App\Models\Setting;
 use App\Models\WithdrawalRequest;
 use App\Services\WithdrawalService;
 use Illuminate\Http\JsonResponse;
@@ -94,6 +95,28 @@ class WithdrawalRequestController extends Controller
                 'total_interest' => $user->total_interest_earned,
                 'pending_withdrawals' => $user->pending_withdrawals,
                 'can_withdraw' => $user->canWithdraw(),
+            ],
+        ]);
+    }
+
+    public function limits(Request $request): JsonResponse
+    {
+        $user = $request->user();
+        $availableBalance = $user->available_balance;
+
+        $minAmount = Setting::get('minimum_withdrawal', 500);
+        $maxPerDay = Setting::get('max_withdrawal_per_day', 100000);
+
+        // Max amount is the lesser of the daily limit or available balance
+        $maxAmount = min($maxPerDay, $availableBalance);
+
+        return response()->json([
+            'success' => true,
+            'data' => [
+                'min_amount' => $minAmount,
+                'max_amount' => max(0, $maxAmount),
+                'available_balance' => $availableBalance,
+                'withdrawal_frozen' => $user->withdrawal_frozen,
             ],
         ]);
     }

@@ -170,4 +170,14 @@ class NotificationService
             ->unread()
             ->update(['read_at' => now()]);
     }
+
+    public function clearAll(User $user): int
+    {
+        return UserNotification::forUser($user->id)->delete();
+    }
+
+    public function delete(UserNotification $notification): void
+    {
+        $notification->delete();
+    }
 }

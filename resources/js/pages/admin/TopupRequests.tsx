@@ -153,14 +153,14 @@ const TopupRequests = () => {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-white">Top-Up Requests</h1>
-        <p className="text-gray-400">Review and process top-up requests</p>
+        <h1 className="text-2xl font-bold text-[#1e2329]">Top-Up Requests</h1>
+        <p className="text-[#707a8a]">Review and process top-up requests</p>
       </div>
 
       {/* Filters */}
       <Card>
         <div className="flex items-center gap-4">
-          <span className="text-sm text-gray-400">Filter by status:</span>
+          <span className="text-sm text-[#707a8a]">Filter by status:</span>
           <div className="flex gap-2">
             <Button
               variant={statusFilter === undefined ? 'primary' : 'secondary'}
@@ -199,42 +199,42 @@ const TopupRequests = () => {
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr className="border-b border-[#2d2d3a]">
-                <th className="text-left px-6 py-4 text-sm font-medium text-gray-400">ID</th>
-                <th className="text-left px-6 py-4 text-sm font-medium text-gray-400">Date</th>
-                <th className="text-left px-6 py-4 text-sm font-medium text-gray-400">Member</th>
-                <th className="text-left px-6 py-4 text-sm font-medium text-gray-400">Amount</th>
-                <th className="text-left px-6 py-4 text-sm font-medium text-gray-400">Method</th>
-                <th className="text-left px-6 py-4 text-sm font-medium text-gray-400">Status</th>
-                <th className="text-right px-6 py-4 text-sm font-medium text-gray-400">Actions</th>
+              <tr className="border-b border-[#eaecef]">
+                <th className="text-left px-6 py-4 text-sm font-medium text-[#707a8a]">ID</th>
+                <th className="text-left px-6 py-4 text-sm font-medium text-[#707a8a]">Date</th>
+                <th className="text-left px-6 py-4 text-sm font-medium text-[#707a8a]">Member</th>
+                <th className="text-left px-6 py-4 text-sm font-medium text-[#707a8a]">Amount</th>
+                <th className="text-left px-6 py-4 text-sm font-medium text-[#707a8a]">Method</th>
+                <th className="text-left px-6 py-4 text-sm font-medium text-[#707a8a]">Status</th>
+                <th className="text-right px-6 py-4 text-sm font-medium text-[#707a8a]">Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-[#2d2d3a]">
               {requests.length === 0 ? (
                 <tr>
-                  <td colSpan={7} className="px-6 py-12 text-center text-gray-400">
+                  <td colSpan={7} className="px-6 py-12 text-center text-[#707a8a]">
                     No top-up requests found
                   </td>
                 </tr>
               ) : (
                 requests.map((request) => (
-                  <tr key={request.id} className="hover:bg-[#1a1a24] transition-colors">
-                    <td className="px-6 py-4 text-white font-mono">#{request.id}</td>
-                    <td className="px-6 py-4 text-gray-300">{formatDateTime(request.created_at)}</td>
+                  <tr key={request.id} className="hover:bg-[#f5f5f5] transition-colors">
+                    <td className="px-6 py-4 text-[#1e2329] font-mono">#{request.id}</td>
+                    <td className="px-6 py-4 text-[#474d57]">{formatDateTime(request.created_at)}</td>
                     <td className="px-6 py-4">
                       {request.user ? (
                         <div>
-                          <div className="text-white">{request.user.name}</div>
-                          <div className="text-sm text-gray-400">@{request.user.username}</div>
+                          <div className="text-[#1e2329]">{request.user.name}</div>
+                          <div className="text-sm text-[#707a8a]">@{request.user.username}</div>
                         </div>
                       ) : (
-                        <span className="text-gray-400">Unknown</span>
+                        <span className="text-[#707a8a]">Unknown</span>
                       )}
                     </td>
-                    <td className="px-6 py-4 text-white font-medium">
+                    <td className="px-6 py-4 text-[#1e2329] font-medium">
                       {formatCurrency(request.amount)}
                     </td>
-                    <td className="px-6 py-4 text-gray-300">{request.payment_method || 'N/A'}</td>
+                    <td className="px-6 py-4 text-[#474d57]">{request.payment_method || 'N/A'}</td>
                     <td className="px-6 py-4">{getStatusBadge(request.status)}</td>
                     <td className="px-6 py-4">
                       <div className="flex items-center justify-end gap-2">
@@ -253,7 +253,7 @@ const TopupRequests = () => {
                               size="sm"
                               onClick={() => handleApprove(request)}
                               title="Approve"
-                              className="text-emerald-400 hover:text-emerald-300"
+                              className="text-[#03a66d] hover:text-emerald-300"
                             >
                               <CheckIcon className="w-4 h-4" />
                             </Button>
@@ -262,7 +262,7 @@ const TopupRequests = () => {
                               size="sm"
                               onClick={() => handleOpenRejectModal(request)}
                               title="Reject"
-                              className="text-red-400 hover:text-red-300"
+                              className="text-[#cf304a] hover:text-red-300"
                             >
                               <XMarkIcon className="w-4 h-4" />
                             </Button>
@@ -279,8 +279,8 @@ const TopupRequests = () => {
 
         {/* Pagination */}
         {meta.last_page > 1 && (
-          <div className="flex items-center justify-between px-6 py-4 border-t border-[#2d2d3a]">
-            <div className="text-sm text-gray-400">
+          <div className="flex items-center justify-between px-6 py-4 border-t border-[#eaecef]">
+            <div className="text-sm text-[#707a8a]">
               Showing {(meta.current_page - 1) * meta.per_page + 1} to{' '}
               {Math.min(meta.current_page * meta.per_page, meta.total)} of {meta.total} requests
             </div>
@@ -293,7 +293,7 @@ const TopupRequests = () => {
               >
                 <ChevronLeftIcon className="w-4 h-4" />
               </Button>
-              <span className="text-sm text-gray-400">
+              <span className="text-sm text-[#707a8a]">
                 Page {meta.current_page} of {meta.last_page}
               </span>
               <Button
@@ -323,62 +323,62 @@ const TopupRequests = () => {
           <div className="space-y-6">
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <p className="text-sm text-gray-400">Request ID</p>
-                <p className="text-white font-mono">#{selectedRequest.id}</p>
+                <p className="text-sm text-[#707a8a]">Request ID</p>
+                <p className="text-[#1e2329] font-mono">#{selectedRequest.id}</p>
               </div>
               <div>
-                <p className="text-sm text-gray-400">Status</p>
+                <p className="text-sm text-[#707a8a]">Status</p>
                 <div className="mt-1">{getStatusBadge(selectedRequest.status)}</div>
               </div>
               <div>
-                <p className="text-sm text-gray-400">Member</p>
-                <p className="text-white">
+                <p className="text-sm text-[#707a8a]">Member</p>
+                <p className="text-[#1e2329]">
                   {selectedRequest.user?.name || 'Unknown'}
-                  <span className="text-gray-400 ml-1">
+                  <span className="text-[#707a8a] ml-1">
                     (@{selectedRequest.user?.username})
                   </span>
                 </p>
               </div>
               <div>
-                <p className="text-sm text-gray-400">Amount</p>
-                <p className="text-white text-xl font-bold">
+                <p className="text-sm text-[#707a8a]">Amount</p>
+                <p className="text-[#1e2329] text-xl font-bold">
                   {formatCurrency(selectedRequest.amount)}
                 </p>
               </div>
               <div>
-                <p className="text-sm text-gray-400">Payment Method</p>
-                <p className="text-white">{selectedRequest.payment_method || 'N/A'}</p>
+                <p className="text-sm text-[#707a8a]">Payment Method</p>
+                <p className="text-[#1e2329]">{selectedRequest.payment_method || 'N/A'}</p>
               </div>
               <div>
-                <p className="text-sm text-gray-400">Submitted</p>
-                <p className="text-white">{formatDateTime(selectedRequest.created_at)}</p>
+                <p className="text-sm text-[#707a8a]">Submitted</p>
+                <p className="text-[#1e2329]">{formatDateTime(selectedRequest.created_at)}</p>
               </div>
             </div>
 
             {selectedRequest.notes && (
               <div>
-                <p className="text-sm text-gray-400">Notes</p>
-                <p className="text-white mt-1">{selectedRequest.notes}</p>
+                <p className="text-sm text-[#707a8a]">Notes</p>
+                <p className="text-[#1e2329] mt-1">{selectedRequest.notes}</p>
               </div>
             )}
 
             {selectedRequest.proof_of_payment_url && (
               <div>
-                <p className="text-sm text-gray-400 mb-2">Proof of Payment</p>
+                <p className="text-sm text-[#707a8a] mb-2">Proof of Payment</p>
                 <a
                   href={selectedRequest.proof_of_payment_url}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="block"
                 >
-                  <div className="relative bg-[#1a1a24] rounded-lg overflow-hidden">
+                  <div className="relative bg-[#f5f5f5] rounded-lg overflow-hidden">
                     <img
                       src={selectedRequest.proof_of_payment_url}
                       alt="Proof of payment"
                       className="max-h-64 w-full object-contain"
                     />
                     <div className="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 hover:opacity-100 transition-opacity">
-                      <PhotoIcon className="w-8 h-8 text-white" />
+                      <PhotoIcon className="w-8 h-8 text-[#1e2329]" />
                     </div>
                   </div>
                 </a>
@@ -386,38 +386,38 @@ const TopupRequests = () => {
             )}
 
             {selectedRequest.status !== 'pending' && (
-              <div className="pt-4 border-t border-[#2d2d3a]">
+              <div className="pt-4 border-t border-[#eaecef]">
                 <div className="grid grid-cols-2 gap-4">
                   {selectedRequest.processor && (
                     <div>
-                      <p className="text-sm text-gray-400">Processed by</p>
-                      <p className="text-white">{selectedRequest.processor.name}</p>
+                      <p className="text-sm text-[#707a8a]">Processed by</p>
+                      <p className="text-[#1e2329]">{selectedRequest.processor.name}</p>
                     </div>
                   )}
                   {selectedRequest.processed_at && (
                     <div>
-                      <p className="text-sm text-gray-400">Processed at</p>
-                      <p className="text-white">{formatDateTime(selectedRequest.processed_at)}</p>
+                      <p className="text-sm text-[#707a8a]">Processed at</p>
+                      <p className="text-[#1e2329]">{formatDateTime(selectedRequest.processed_at)}</p>
                     </div>
                   )}
                 </div>
                 {selectedRequest.rejection_reason && (
                   <div className="mt-4">
-                    <p className="text-sm text-gray-400">Rejection Reason</p>
-                    <p className="text-red-400 mt-1">{selectedRequest.rejection_reason}</p>
+                    <p className="text-sm text-[#707a8a]">Rejection Reason</p>
+                    <p className="text-[#cf304a] mt-1">{selectedRequest.rejection_reason}</p>
                   </div>
                 )}
                 {selectedRequest.admin_remarks && (
                   <div className="mt-4">
-                    <p className="text-sm text-gray-400">Admin Remarks</p>
-                    <p className="text-white mt-1">{selectedRequest.admin_remarks}</p>
+                    <p className="text-sm text-[#707a8a]">Admin Remarks</p>
+                    <p className="text-[#1e2329] mt-1">{selectedRequest.admin_remarks}</p>
                   </div>
                 )}
               </div>
             )}
 
             {selectedRequest.status === 'pending' && (
-              <div className="flex justify-end gap-3 pt-4 border-t border-[#2d2d3a]">
+              <div className="flex justify-end gap-3 pt-4 border-t border-[#eaecef]">
                 <Button
                   variant="danger"
                   onClick={() => {
@@ -447,13 +447,13 @@ const TopupRequests = () => {
       >
         <form onSubmit={rejectForm.handleSubmit(handleReject)} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-1">
+            <label className="block text-sm font-medium text-[#474d57] mb-1">
               Rejection Reason <span className="text-red-500">*</span>
             </label>
             <textarea
               {...rejectForm.register('rejection_reason')}
               rows={3}
-              className="w-full px-4 py-2 bg-[#16161f] border border-[#2d2d3a] rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full px-4 py-2 bg-white border border-[#eaecef] rounded-lg text-[#1e2329] placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#f0b90b]"
               placeholder="Explain why this request is being rejected..."
             />
             {rejectForm.formState.errors.rejection_reason && (
@@ -464,13 +464,13 @@ const TopupRequests = () => {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-1">
+            <label className="block text-sm font-medium text-[#474d57] mb-1">
               Admin Remarks (optional)
             </label>
             <textarea
               {...rejectForm.register('admin_remarks')}
               rows={2}
-              className="w-full px-4 py-2 bg-[#16161f] border border-[#2d2d3a] rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full px-4 py-2 bg-white border border-[#eaecef] rounded-lg text-[#1e2329] placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#f0b90b]"
               placeholder="Any additional notes..."
             />
           </div>

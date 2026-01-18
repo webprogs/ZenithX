@@ -55,7 +55,7 @@ const MemberDetails = () => {
   if (!member) {
     return (
       <div className="text-center py-12">
-        <p className="text-gray-400">Member not found</p>
+        <p className="text-[#707a8a]">Member not found</p>
         <Button className="mt-4" onClick={() => navigate('/admin/members')}>
           Back to Members
         </Button>
@@ -68,29 +68,29 @@ const MemberDetails = () => {
       title: 'Total Invested',
       value: formatCurrency(member.total_invested),
       icon: CurrencyDollarIcon,
-      color: 'text-indigo-400',
-      bgColor: 'bg-indigo-900/20',
+      color: 'text-[#f0b90b]',
+      bgColor: 'bg-[#fef6d8]',
     },
     {
       title: 'Interest Earned',
       value: formatCurrency(member.total_interest_earned),
       icon: ArrowTrendingUpIcon,
-      color: 'text-emerald-400',
-      bgColor: 'bg-emerald-900/20',
+      color: 'text-[#03a66d]',
+      bgColor: 'bg-[#e6f7f0]',
     },
     {
       title: 'Available Balance',
       value: formatCurrency(member.available_balance),
       icon: BanknotesIcon,
-      color: 'text-cyan-400',
-      bgColor: 'bg-cyan-900/20',
+      color: 'text-[#0070f3]',
+      bgColor: 'bg-[#e6f4ff]',
     },
     {
       title: 'Total Withdrawn',
       value: formatCurrency(member.total_withdrawn),
       icon: ClockIcon,
-      color: 'text-amber-400',
-      bgColor: 'bg-amber-900/20',
+      color: 'text-[#c99400]',
+      bgColor: 'bg-[#fef6d8]',
     },
   ];
 
@@ -126,8 +126,8 @@ const MemberDetails = () => {
           <ArrowLeftIcon className="w-5 h-5" />
         </Button>
         <div>
-          <h1 className="text-2xl font-bold text-white">{member.name}</h1>
-          <p className="text-gray-400">@{member.username}</p>
+          <h1 className="text-2xl font-bold text-[#1e2329]">{member.name}</h1>
+          <p className="text-[#707a8a]">@{member.username}</p>
         </div>
       </div>
 
@@ -139,44 +139,44 @@ const MemberDetails = () => {
           </CardHeader>
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <p className="text-sm text-gray-400">Email</p>
-              <p className="text-white">{member.email || '-'}</p>
+              <p className="text-sm text-[#707a8a]">Email</p>
+              <p className="text-[#1e2329]">{member.email || '-'}</p>
             </div>
             <div>
-              <p className="text-sm text-gray-400">Phone</p>
-              <p className="text-white">{member.phone || '-'}</p>
+              <p className="text-sm text-[#707a8a]">Phone</p>
+              <p className="text-[#1e2329]">{member.phone || '-'}</p>
             </div>
             <div>
-              <p className="text-sm text-gray-400">Status</p>
+              <p className="text-sm text-[#707a8a]">Status</p>
               <div className="flex items-center gap-2 mt-1">
                 {getStatusBadge(member.status)}
                 {member.withdrawal_frozen && <Badge variant="danger">Withdrawal Frozen</Badge>}
               </div>
             </div>
             <div>
-              <p className="text-sm text-gray-400">Interest Rate</p>
-              <p className="text-white">
+              <p className="text-sm text-[#707a8a]">Interest Rate</p>
+              <p className="text-[#1e2329]">
                 {member.default_interest_rate !== null
                   ? formatPercentage(member.default_interest_rate)
                   : 'Not set'}
               </p>
             </div>
             <div>
-              <p className="text-sm text-gray-400">Registered</p>
-              <p className="text-white">{formatDateTime(member.created_at)}</p>
+              <p className="text-sm text-[#707a8a]">Registered</p>
+              <p className="text-[#1e2329]">{formatDateTime(member.created_at)}</p>
             </div>
             <div>
-              <p className="text-sm text-gray-400">Last Login</p>
-              <p className="text-white">
+              <p className="text-sm text-[#707a8a]">Last Login</p>
+              <p className="text-[#1e2329]">
                 {member.last_login_at ? formatDateTime(member.last_login_at) : 'Never'}
               </p>
             </div>
             {member.invitation_link && (
               <div className="col-span-2">
-                <p className="text-sm text-gray-400">Invitation Code</p>
-                <p className="text-white">
-                  <code className="px-2 py-1 bg-[#1a1a24] rounded">{member.invitation_link.code}</code>
-                  <span className="text-gray-400 ml-2">
+                <p className="text-sm text-[#707a8a]">Invitation Code</p>
+                <p className="text-[#1e2329]">
+                  <code className="px-2 py-1 bg-[#f5f5f5] rounded">{member.invitation_link.code}</code>
+                  <span className="text-[#707a8a] ml-2">
                     ({formatPercentage(member.invitation_link.interest_rate)} rate)
                   </span>
                 </p>
@@ -224,8 +224,8 @@ const MemberDetails = () => {
                 <stat.icon className={`w-6 h-6 ${stat.color}`} />
               </div>
               <div className="ml-4">
-                <p className="text-sm text-gray-400">{stat.title}</p>
-                <p className="text-xl font-bold text-white">{stat.value}</p>
+                <p className="text-sm text-[#707a8a]">{stat.title}</p>
+                <p className="text-xl font-bold text-[#1e2329]">{stat.value}</p>
               </div>
             </div>
           </Card>
@@ -234,14 +234,14 @@ const MemberDetails = () => {
 
       {/* Transactions */}
       <Card padding="none">
-        <div className="border-b border-[#2d2d3a]">
+        <div className="border-b border-[#eaecef]">
           <div className="flex">
             <button
               onClick={() => setActiveTab('investments')}
               className={`px-6 py-4 text-sm font-medium transition-colors ${
                 activeTab === 'investments'
-                  ? 'text-white border-b-2 border-indigo-500'
-                  : 'text-gray-400 hover:text-white'
+                  ? 'text-[#1e2329] border-b-2 border-[#f0b90b]'
+                  : 'text-[#707a8a] hover:text-[#1e2329]'
               }`}
             >
               Investments ({transactions?.investments.length || 0})
@@ -250,8 +250,8 @@ const MemberDetails = () => {
               onClick={() => setActiveTab('topups')}
               className={`px-6 py-4 text-sm font-medium transition-colors ${
                 activeTab === 'topups'
-                  ? 'text-white border-b-2 border-indigo-500'
-                  : 'text-gray-400 hover:text-white'
+                  ? 'text-[#1e2329] border-b-2 border-[#f0b90b]'
+                  : 'text-[#707a8a] hover:text-[#1e2329]'
               }`}
             >
               Top-Ups ({transactions?.topup_requests.length || 0})
@@ -260,8 +260,8 @@ const MemberDetails = () => {
               onClick={() => setActiveTab('withdrawals')}
               className={`px-6 py-4 text-sm font-medium transition-colors ${
                 activeTab === 'withdrawals'
-                  ? 'text-white border-b-2 border-indigo-500'
-                  : 'text-gray-400 hover:text-white'
+                  ? 'text-[#1e2329] border-b-2 border-[#f0b90b]'
+                  : 'text-[#707a8a] hover:text-[#1e2329]'
               }`}
             >
               Withdrawals ({transactions?.withdrawal_requests.length || 0})
@@ -273,24 +273,24 @@ const MemberDetails = () => {
           {activeTab === 'investments' && (
             <div className="space-y-4">
               {transactions?.investments.length === 0 ? (
-                <p className="text-gray-400 text-center py-8">No investments yet</p>
+                <p className="text-[#707a8a] text-center py-8">No investments yet</p>
               ) : (
                 transactions?.investments.map((investment) => (
                   <div
                     key={investment.id}
-                    className="flex items-center justify-between p-4 bg-[#1a1a24] rounded-lg"
+                    className="flex items-center justify-between p-4 bg-[#f5f5f5] rounded-lg"
                   >
                     <div>
-                      <p className="text-white font-medium">{formatCurrency(investment.amount)}</p>
-                      <p className="text-sm text-gray-400">
+                      <p className="text-[#1e2329] font-medium">{formatCurrency(investment.amount)}</p>
+                      <p className="text-sm text-[#707a8a]">
                         {formatPercentage(investment.interest_rate)} rate
                       </p>
                     </div>
                     <div className="text-right">
-                      <p className="text-emerald-400">
+                      <p className="text-[#03a66d]">
                         +{formatCurrency(investment.interest_earned)}
                       </p>
-                      <p className="text-sm text-gray-400">{formatDateTime(investment.start_date)}</p>
+                      <p className="text-sm text-[#707a8a]">{formatDateTime(investment.start_date)}</p>
                     </div>
                     <div>{getStatusBadge(investment.status)}</div>
                   </div>
@@ -302,19 +302,19 @@ const MemberDetails = () => {
           {activeTab === 'topups' && (
             <div className="space-y-4">
               {transactions?.topup_requests.length === 0 ? (
-                <p className="text-gray-400 text-center py-8">No top-up requests</p>
+                <p className="text-[#707a8a] text-center py-8">No top-up requests</p>
               ) : (
                 transactions?.topup_requests.map((request) => (
                   <div
                     key={request.id}
-                    className="flex items-center justify-between p-4 bg-[#1a1a24] rounded-lg"
+                    className="flex items-center justify-between p-4 bg-[#f5f5f5] rounded-lg"
                   >
                     <div>
-                      <p className="text-white font-medium">{formatCurrency(request.amount)}</p>
-                      <p className="text-sm text-gray-400">{request.payment_method || 'N/A'}</p>
+                      <p className="text-[#1e2329] font-medium">{formatCurrency(request.amount)}</p>
+                      <p className="text-sm text-[#707a8a]">{request.payment_method || 'N/A'}</p>
                     </div>
                     <div className="text-right">
-                      <p className="text-sm text-gray-400">{formatDateTime(request.created_at)}</p>
+                      <p className="text-sm text-[#707a8a]">{formatDateTime(request.created_at)}</p>
                     </div>
                     <div>{getStatusBadge(request.status)}</div>
                   </div>
@@ -326,21 +326,21 @@ const MemberDetails = () => {
           {activeTab === 'withdrawals' && (
             <div className="space-y-4">
               {transactions?.withdrawal_requests.length === 0 ? (
-                <p className="text-gray-400 text-center py-8">No withdrawal requests</p>
+                <p className="text-[#707a8a] text-center py-8">No withdrawal requests</p>
               ) : (
                 transactions?.withdrawal_requests.map((request) => (
                   <div
                     key={request.id}
-                    className="flex items-center justify-between p-4 bg-[#1a1a24] rounded-lg"
+                    className="flex items-center justify-between p-4 bg-[#f5f5f5] rounded-lg"
                   >
                     <div>
-                      <p className="text-white font-medium">{formatCurrency(request.amount)}</p>
-                      <p className="text-sm text-gray-400">
+                      <p className="text-[#1e2329] font-medium">{formatCurrency(request.amount)}</p>
+                      <p className="text-sm text-[#707a8a]">
                         {request.destination_type === 'gcash' ? 'GCash' : request.bank_name}
                       </p>
                     </div>
                     <div className="text-right">
-                      <p className="text-sm text-gray-400">{formatDateTime(request.created_at)}</p>
+                      <p className="text-sm text-[#707a8a]">{formatDateTime(request.created_at)}</p>
                     </div>
                     <div>{getStatusBadge(request.status)}</div>
                   </div>

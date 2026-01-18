@@ -7,48 +7,38 @@ export interface NotificationsParams {
   unread_only?: boolean;
 }
 
-export interface NotificationCounts {
-  total: number;
-  unread: number;
-}
-
 export const getNotifications = async (
   params?: NotificationsParams
 ): Promise<PaginatedResponse<Notification>> => {
-  const response = await client.get('/member/notifications', { params });
-  return response.data;
-};
-
-export const getNotificationCounts = async (): Promise<ApiResponse<NotificationCounts>> => {
-  const response = await client.get('/member/notifications/counts');
+  const response = await client.get('/admin/notifications', { params });
   return response.data;
 };
 
 export const getUnreadCount = async (): Promise<ApiResponse<{ count: number }>> => {
-  const response = await client.get('/member/notifications/unread-count');
+  const response = await client.get('/admin/notifications/unread-count');
   return response.data;
 };
 
 export const markAsRead = async (
   id: string
 ): Promise<ApiResponse<null>> => {
-  const response = await client.put(`/member/notifications/${id}/read`);
+  const response = await client.put(`/admin/notifications/${id}/read`);
   return response.data;
 };
 
 export const markAllAsRead = async (): Promise<ApiResponse<null>> => {
-  const response = await client.put('/member/notifications/read-all');
+  const response = await client.put('/admin/notifications/read-all');
   return response.data;
 };
 
 export const deleteNotification = async (
   id: string
 ): Promise<ApiResponse<null>> => {
-  const response = await client.delete(`/member/notifications/${id}`);
+  const response = await client.delete(`/admin/notifications/${id}`);
   return response.data;
 };
 
 export const clearAllNotifications = async (): Promise<ApiResponse<null>> => {
-  const response = await client.delete('/member/notifications');
+  const response = await client.delete('/admin/notifications');
   return response.data;
 };

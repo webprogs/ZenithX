@@ -9,14 +9,14 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant = 'primary', size = 'md', isLoading, disabled, children, ...props }, ref) => {
-    const baseStyles = 'inline-flex items-center justify-center font-medium rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-[#0a0a0f] disabled:opacity-50 disabled:cursor-not-allowed';
+    const baseStyles = 'inline-flex items-center justify-center font-medium rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white disabled:opacity-50 disabled:cursor-not-allowed';
 
     const variants = {
-      primary: 'bg-indigo-600 text-white hover:bg-indigo-700 focus:ring-indigo-500',
-      secondary: 'bg-[#1a1a24] text-gray-200 hover:bg-[#1e1e28] border border-[#2d2d3a] focus:ring-gray-500',
-      success: 'bg-emerald-600 text-white hover:bg-emerald-700 focus:ring-emerald-500',
-      danger: 'bg-red-600 text-white hover:bg-red-700 focus:ring-red-500',
-      ghost: 'text-gray-400 hover:text-white hover:bg-[#1a1a24] focus:ring-gray-500',
+      primary: 'bg-[#f0b90b] text-[#1e2329] hover:bg-[#d9a60a] focus:ring-[#f0b90b]',
+      secondary: 'bg-[#f5f5f5] text-[#1e2329] hover:bg-[#eaecef] border border-[#eaecef] focus:ring-[#707a8a]',
+      success: 'bg-[#03a66d] text-white hover:bg-[#029a64] focus:ring-[#03a66d]',
+      danger: 'bg-[#cf304a] text-white hover:bg-[#b82a42] focus:ring-[#cf304a]',
+      ghost: 'text-[#707a8a] hover:text-[#1e2329] hover:bg-[#f5f5f5] focus:ring-[#707a8a]',
     };
 
     const sizes = {

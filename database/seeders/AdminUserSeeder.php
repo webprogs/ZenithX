@@ -15,8 +15,8 @@ class AdminUserSeeder extends Seeder
             [
                 'username' => 'admin',
                 'name' => 'System Administrator',
-                'email' => 'admin@zenithx.com',
-                'password' => Hash::make('admin123'),
+                'email' => 'admin@admin.com',
+                'password' => Hash::make('admin'),
                 'role' => 'admin',
                 'status' => 'active',
                 'default_interest_rate' => 5.00,
