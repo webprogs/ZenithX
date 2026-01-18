@@ -120,24 +120,24 @@ const MemberDetails = () => {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       <div className="flex items-center gap-4">
         <Button variant="ghost" onClick={() => navigate('/admin/members')}>
           <ArrowLeftIcon className="w-5 h-5" />
         </Button>
         <div>
-          <h1 className="text-2xl font-bold text-[#1e2329]">{member.name}</h1>
+          <h1 className="text-xl sm:text-2xl font-bold text-[#1e2329]">{member.name}</h1>
           <p className="text-[#707a8a]">@{member.username}</p>
         </div>
       </div>
 
       {/* Member Info */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
         <Card className="lg:col-span-2">
           <CardHeader>
             <CardTitle>Member Information</CardTitle>
           </CardHeader>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <p className="text-sm text-[#707a8a]">Email</p>
               <p className="text-[#1e2329]">{member.email || '-'}</p>
@@ -172,7 +172,7 @@ const MemberDetails = () => {
               </p>
             </div>
             {member.invitation_link && (
-              <div className="col-span-2">
+              <div className="sm:col-span-2">
                 <p className="text-sm text-[#707a8a]">Invitation Code</p>
                 <p className="text-[#1e2329]">
                   <code className="px-2 py-1 bg-[#f5f5f5] rounded">{member.invitation_link.code}</code>
@@ -216,7 +216,7 @@ const MemberDetails = () => {
       </div>
 
       {/* Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
         {statCards.map((stat) => (
           <Card key={stat.title}>
             <div className="flex items-center">
@@ -235,10 +235,10 @@ const MemberDetails = () => {
       {/* Transactions */}
       <Card padding="none">
         <div className="border-b border-[#eaecef]">
-          <div className="flex">
+          <div className="flex overflow-x-auto">
             <button
               onClick={() => setActiveTab('investments')}
-              className={`px-6 py-4 text-sm font-medium transition-colors ${
+              className={`px-4 sm:px-6 py-4 text-sm font-medium transition-colors whitespace-nowrap ${
                 activeTab === 'investments'
                   ? 'text-[#1e2329] border-b-2 border-[#f0b90b]'
                   : 'text-[#707a8a] hover:text-[#1e2329]'
@@ -248,7 +248,7 @@ const MemberDetails = () => {
             </button>
             <button
               onClick={() => setActiveTab('topups')}
-              className={`px-6 py-4 text-sm font-medium transition-colors ${
+              className={`px-4 sm:px-6 py-4 text-sm font-medium transition-colors whitespace-nowrap ${
                 activeTab === 'topups'
                   ? 'text-[#1e2329] border-b-2 border-[#f0b90b]'
                   : 'text-[#707a8a] hover:text-[#1e2329]'
@@ -258,7 +258,7 @@ const MemberDetails = () => {
             </button>
             <button
               onClick={() => setActiveTab('withdrawals')}
-              className={`px-6 py-4 text-sm font-medium transition-colors ${
+              className={`px-4 sm:px-6 py-4 text-sm font-medium transition-colors whitespace-nowrap ${
                 activeTab === 'withdrawals'
                   ? 'text-[#1e2329] border-b-2 border-[#f0b90b]'
                   : 'text-[#707a8a] hover:text-[#1e2329]'
@@ -269,7 +269,7 @@ const MemberDetails = () => {
           </div>
         </div>
 
-        <div className="p-6">
+        <div className="p-4 sm:p-6">
           {activeTab === 'investments' && (
             <div className="space-y-4">
               {transactions?.investments.length === 0 ? (
@@ -278,7 +278,7 @@ const MemberDetails = () => {
                 transactions?.investments.map((investment) => (
                   <div
                     key={investment.id}
-                    className="flex items-center justify-between p-4 bg-[#f5f5f5] rounded-lg"
+                    className="flex flex-col sm:flex-row sm:items-center justify-between p-4 bg-[#f5f5f5] rounded-lg gap-2 sm:gap-4"
                   >
                     <div>
                       <p className="text-[#1e2329] font-medium">{formatCurrency(investment.amount)}</p>
@@ -286,7 +286,7 @@ const MemberDetails = () => {
                         {formatPercentage(investment.interest_rate)} rate
                       </p>
                     </div>
-                    <div className="text-right">
+                    <div className="sm:text-right">
                       <p className="text-[#03a66d]">
                         +{formatCurrency(investment.interest_earned)}
                       </p>
@@ -307,13 +307,13 @@ const MemberDetails = () => {
                 transactions?.topup_requests.map((request) => (
                   <div
                     key={request.id}
-                    className="flex items-center justify-between p-4 bg-[#f5f5f5] rounded-lg"
+                    className="flex flex-col sm:flex-row sm:items-center justify-between p-4 bg-[#f5f5f5] rounded-lg gap-2 sm:gap-4"
                   >
                     <div>
                       <p className="text-[#1e2329] font-medium">{formatCurrency(request.amount)}</p>
                       <p className="text-sm text-[#707a8a]">{request.payment_method || 'N/A'}</p>
                     </div>
-                    <div className="text-right">
+                    <div className="sm:text-right">
                       <p className="text-sm text-[#707a8a]">{formatDateTime(request.created_at)}</p>
                     </div>
                     <div>{getStatusBadge(request.status)}</div>
@@ -331,7 +331,7 @@ const MemberDetails = () => {
                 transactions?.withdrawal_requests.map((request) => (
                   <div
                     key={request.id}
-                    className="flex items-center justify-between p-4 bg-[#f5f5f5] rounded-lg"
+                    className="flex flex-col sm:flex-row sm:items-center justify-between p-4 bg-[#f5f5f5] rounded-lg gap-2 sm:gap-4"
                   >
                     <div>
                       <p className="text-[#1e2329] font-medium">{formatCurrency(request.amount)}</p>
@@ -339,7 +339,7 @@ const MemberDetails = () => {
                         {request.destination_type === 'gcash' ? 'GCash' : request.bank_name}
                       </p>
                     </div>
-                    <div className="text-right">
+                    <div className="sm:text-right">
                       <p className="text-sm text-[#707a8a]">{formatDateTime(request.created_at)}</p>
                     </div>
                     <div>{getStatusBadge(request.status)}</div>

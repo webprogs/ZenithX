@@ -86,10 +86,10 @@ const TopupHistory = () => {
   }
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
+    <div className="space-y-4 sm:space-y-6">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-[#1e2329]">Top-Up History</h1>
+          <h1 className="text-xl sm:text-2xl font-bold text-[#1e2329]">Top-Up History</h1>
           <p className="text-[#707a8a]">View your top-up request history</p>
         </div>
         <Button onClick={() => navigate('/member/topup/new')}>
@@ -100,9 +100,9 @@ const TopupHistory = () => {
 
       {/* Filters */}
       <Card>
-        <div className="flex items-center gap-4">
+        <div className="flex flex-wrap items-center gap-2 sm:gap-4">
           <span className="text-sm text-[#707a8a]">Filter by status:</span>
-          <div className="flex gap-2">
+          <div className="flex flex-wrap gap-2">
             <Button
               variant={statusFilter === undefined ? 'primary' : 'secondary'}
               size="sm"
@@ -141,30 +141,30 @@ const TopupHistory = () => {
           <table className="w-full">
             <thead>
               <tr className="border-b border-[#eaecef]">
-                <th className="text-left px-6 py-4 text-sm font-medium text-[#707a8a]">Date</th>
-                <th className="text-left px-6 py-4 text-sm font-medium text-[#707a8a]">Amount</th>
-                <th className="text-left px-6 py-4 text-sm font-medium text-[#707a8a]">Method</th>
-                <th className="text-left px-6 py-4 text-sm font-medium text-[#707a8a]">Status</th>
-                <th className="text-right px-6 py-4 text-sm font-medium text-[#707a8a]">Actions</th>
+                <th className="text-left px-4 sm:px-6 py-4 text-sm font-medium text-[#707a8a]">Date</th>
+                <th className="text-left px-4 sm:px-6 py-4 text-sm font-medium text-[#707a8a]">Amount</th>
+                <th className="text-left px-4 sm:px-6 py-4 text-sm font-medium text-[#707a8a] hidden sm:table-cell">Method</th>
+                <th className="text-left px-4 sm:px-6 py-4 text-sm font-medium text-[#707a8a]">Status</th>
+                <th className="text-right px-4 sm:px-6 py-4 text-sm font-medium text-[#707a8a]">Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-[#2d2d3a]">
               {requests.length === 0 ? (
                 <tr>
-                  <td colSpan={5} className="px-6 py-12 text-center text-[#707a8a]">
+                  <td colSpan={5} className="px-4 sm:px-6 py-12 text-center text-[#707a8a]">
                     No top-up requests yet
                   </td>
                 </tr>
               ) : (
                 requests.map((request) => (
                   <tr key={request.id} className="hover:bg-[#f5f5f5] transition-colors">
-                    <td className="px-6 py-4 text-[#474d57]">{formatDateTime(request.created_at)}</td>
-                    <td className="px-6 py-4 text-[#1e2329] font-medium">
+                    <td className="px-4 sm:px-6 py-4 text-[#474d57] text-sm">{formatDateTime(request.created_at)}</td>
+                    <td className="px-4 sm:px-6 py-4 text-[#1e2329] font-medium">
                       {formatCurrency(request.amount)}
                     </td>
-                    <td className="px-6 py-4 text-[#474d57]">{request.payment_method || 'N/A'}</td>
-                    <td className="px-6 py-4">{getStatusBadge(request.status)}</td>
-                    <td className="px-6 py-4">
+                    <td className="px-4 sm:px-6 py-4 text-[#474d57] hidden sm:table-cell">{request.payment_method || 'N/A'}</td>
+                    <td className="px-4 sm:px-6 py-4">{getStatusBadge(request.status)}</td>
+                    <td className="px-4 sm:px-6 py-4">
                       <div className="flex items-center justify-end">
                         <Button
                           variant="ghost"
@@ -185,10 +185,10 @@ const TopupHistory = () => {
 
         {/* Pagination */}
         {meta.last_page > 1 && (
-          <div className="flex items-center justify-between px-6 py-4 border-t border-[#eaecef]">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 px-4 sm:px-6 py-4 border-t border-[#eaecef]">
             <div className="text-sm text-[#707a8a]">
-              Showing {(meta.current_page - 1) * meta.per_page + 1} to{' '}
-              {Math.min(meta.current_page * meta.per_page, meta.total)} of {meta.total} requests
+              <span className="hidden sm:inline">Showing {(meta.current_page - 1) * meta.per_page + 1} to{' '}
+              {Math.min(meta.current_page * meta.per_page, meta.total)} of </span>{meta.total} requests
             </div>
             <div className="flex items-center gap-2">
               <Button
@@ -226,8 +226,8 @@ const TopupHistory = () => {
         size="lg"
       >
         {selectedRequest && (
-          <div className="space-y-6">
-            <div className="grid grid-cols-2 gap-4">
+          <div className="space-y-4 sm:space-y-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <p className="text-sm text-[#707a8a]">Request ID</p>
                 <p className="text-[#1e2329] font-mono">#{selectedRequest.id}</p>
@@ -238,7 +238,7 @@ const TopupHistory = () => {
               </div>
               <div>
                 <p className="text-sm text-[#707a8a]">Amount</p>
-                <p className="text-[#1e2329] text-xl font-bold">
+                <p className="text-[#1e2329] text-lg sm:text-xl font-bold">
                   {formatCurrency(selectedRequest.amount)}
                 </p>
               </div>

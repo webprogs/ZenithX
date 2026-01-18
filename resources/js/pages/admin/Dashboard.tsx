@@ -85,13 +85,13 @@ const Dashboard = () => {
   ];
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-[#1e2329]">Dashboard</h1>
+        <h1 className="text-xl sm:text-2xl font-bold text-[#1e2329]">Dashboard</h1>
         <p className="text-[#707a8a]">Welcome back! Here's what's happening.</p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-6">
         {statCards.map((stat) => (
           <Card key={stat.title}>
             <div className="flex items-center">
@@ -107,12 +107,12 @@ const Dashboard = () => {
         ))}
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
         <Card className="lg:col-span-2" padding="none">
-          <CardHeader className="p-6 pb-0">
+          <CardHeader className="p-4 sm:p-6 pb-0">
             <CardTitle>Pending Requests</CardTitle>
           </CardHeader>
-          <div className="p-6 grid grid-cols-2 gap-4">
+          <div className="p-4 sm:p-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
             <button
               onClick={() => navigate('/admin/topup-requests?status=pending')}
               className="p-4 bg-[#f5f5f5] rounded-lg hover:bg-[#f0f0f0] transition-colors text-left"
@@ -139,7 +139,7 @@ const Dashboard = () => {
 
             <button
               onClick={() => navigate('/admin/withdrawal-requests?status=approved')}
-              className="p-4 bg-[#f5f5f5] rounded-lg hover:bg-[#f0f0f0] transition-colors text-left col-span-2"
+              className="p-4 bg-[#f5f5f5] rounded-lg hover:bg-[#f0f0f0] transition-colors text-left sm:col-span-2"
             >
               <div className="flex items-center justify-between mb-2">
                 <span className="text-[#707a8a]">Ready for Payout</span>
@@ -152,10 +152,10 @@ const Dashboard = () => {
         </Card>
 
         <Card padding="none">
-          <CardHeader className="p-6 pb-0">
+          <CardHeader className="p-4 sm:p-6 pb-0">
             <CardTitle>User Status</CardTitle>
           </CardHeader>
-          <div className="p-6 space-y-4">
+          <div className="p-4 sm:p-6 space-y-4">
             <div className="flex items-center justify-between">
               <span className="text-[#707a8a]">Active</span>
               <Badge variant="success">{stats?.active_users || 0}</Badge>
@@ -179,10 +179,10 @@ const Dashboard = () => {
       </div>
 
       <Card padding="none">
-        <CardHeader className="p-6 pb-0">
+        <CardHeader className="p-4 sm:p-6 pb-0">
           <CardTitle>Recent Activity</CardTitle>
         </CardHeader>
-        <div className="p-6">
+        <div className="p-4 sm:p-6">
           {activity.length === 0 ? (
             <p className="text-[#707a8a] text-center py-8">No recent activity</p>
           ) : (
@@ -190,7 +190,7 @@ const Dashboard = () => {
               {activity.slice(0, 10).map((item, index) => (
                 <div
                   key={index}
-                  className="flex items-center justify-between py-3 border-b border-[#eaecef] last:border-0"
+                  className="flex flex-col sm:flex-row sm:items-center justify-between py-3 border-b border-[#eaecef] last:border-0 gap-2"
                 >
                   <div className="flex items-center space-x-4">
                     <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
@@ -220,7 +220,7 @@ const Dashboard = () => {
                       <p className="text-sm text-[#707a8a]">{formatRelativeTime(item.date)}</p>
                     </div>
                   </div>
-                  <p className="text-[#1e2329] font-medium">{formatCurrency(item.amount)}</p>
+                  <p className="text-[#1e2329] font-medium sm:text-right">{formatCurrency(item.amount)}</p>
                 </div>
               ))}
             </div>

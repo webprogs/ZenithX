@@ -124,31 +124,31 @@ const Profile = () => {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-[#1e2329]">My Profile</h1>
+        <h1 className="text-xl sm:text-2xl font-bold text-[#1e2329]">My Profile</h1>
         <p className="text-[#707a8a]">Manage your account information</p>
       </div>
 
       {/* Profile Header */}
       <Card>
-        <div className="flex items-center gap-6">
-          <div className="w-20 h-20 rounded-full bg-[#fef6d8] flex items-center justify-center">
-            <UserCircleIcon className="w-12 h-12 text-[#f0b90b]" />
+        <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6">
+          <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#fef6d8] flex items-center justify-center flex-shrink-0">
+            <UserCircleIcon className="w-10 h-10 sm:w-12 sm:h-12 text-[#f0b90b]" />
           </div>
           <div className="flex-1">
-            <h2 className="text-xl font-bold text-[#1e2329]">{profile.name}</h2>
+            <h2 className="text-lg sm:text-xl font-bold text-[#1e2329]">{profile.name}</h2>
             <p className="text-[#707a8a]">@{profile.username}</p>
-            <div className="flex items-center gap-3 mt-2">
+            <div className="flex items-center gap-2 sm:gap-3 mt-2 flex-wrap">
               <Badge variant={profile.status === 'active' ? 'success' : 'warning'}>
                 {profile.status}
               </Badge>
               {profile.withdrawal_frozen && <Badge variant="danger">Withdrawals Frozen</Badge>}
             </div>
           </div>
-          <div className="text-right">
+          <div className="sm:text-right">
             <p className="text-sm text-[#707a8a]">Interest Rate</p>
-            <p className="text-2xl font-bold text-[#03a66d]">
+            <p className="text-xl sm:text-2xl font-bold text-[#03a66d]">
               {profile.interest_rate !== null ? formatPercentage(profile.interest_rate) : 'N/A'}
             </p>
           </div>
@@ -156,15 +156,15 @@ const Profile = () => {
       </Card>
 
       {/* Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
         <Card>
           <div className="flex items-center">
-            <div className="p-3 rounded-lg bg-[#fef6d8]">
-              <CurrencyDollarIcon className="w-6 h-6 text-[#f0b90b]" />
+            <div className="p-2 sm:p-3 rounded-lg bg-[#fef6d8]">
+              <CurrencyDollarIcon className="w-5 h-5 sm:w-6 sm:h-6 text-[#f0b90b]" />
             </div>
-            <div className="ml-4">
-              <p className="text-sm text-[#707a8a]">Total Invested</p>
-              <p className="text-lg font-bold text-[#1e2329]">
+            <div className="ml-3 sm:ml-4">
+              <p className="text-xs sm:text-sm text-[#707a8a]">Total Invested</p>
+              <p className="text-base sm:text-lg font-bold text-[#1e2329]">
                 {formatCurrency(profile.total_invested)}
               </p>
             </div>
@@ -172,12 +172,12 @@ const Profile = () => {
         </Card>
         <Card>
           <div className="flex items-center">
-            <div className="p-3 rounded-lg bg-[#e6f7f0]">
-              <ArrowTrendingUpIcon className="w-6 h-6 text-[#03a66d]" />
+            <div className="p-2 sm:p-3 rounded-lg bg-[#e6f7f0]">
+              <ArrowTrendingUpIcon className="w-5 h-5 sm:w-6 sm:h-6 text-[#03a66d]" />
             </div>
-            <div className="ml-4">
-              <p className="text-sm text-[#707a8a]">Interest Earned</p>
-              <p className="text-lg font-bold text-[#03a66d]">
+            <div className="ml-3 sm:ml-4">
+              <p className="text-xs sm:text-sm text-[#707a8a]">Interest Earned</p>
+              <p className="text-base sm:text-lg font-bold text-[#03a66d]">
                 +{formatCurrency(profile.total_interest_earned)}
               </p>
             </div>
@@ -185,12 +185,12 @@ const Profile = () => {
         </Card>
         <Card>
           <div className="flex items-center">
-            <div className="p-3 rounded-lg bg-[#e6f4ff]">
-              <BanknotesIcon className="w-6 h-6 text-[#0070f3]" />
+            <div className="p-2 sm:p-3 rounded-lg bg-[#e6f4ff]">
+              <BanknotesIcon className="w-5 h-5 sm:w-6 sm:h-6 text-[#0070f3]" />
             </div>
-            <div className="ml-4">
-              <p className="text-sm text-[#707a8a]">Available Balance</p>
-              <p className="text-lg font-bold text-[#1e2329]">
+            <div className="ml-3 sm:ml-4">
+              <p className="text-xs sm:text-sm text-[#707a8a]">Available Balance</p>
+              <p className="text-base sm:text-lg font-bold text-[#1e2329]">
                 {formatCurrency(profile.available_balance)}
               </p>
             </div>
@@ -198,12 +198,12 @@ const Profile = () => {
         </Card>
         <Card>
           <div className="flex items-center">
-            <div className="p-3 rounded-lg bg-[#fef6d8]">
-              <CalendarIcon className="w-6 h-6 text-[#c99400]" />
+            <div className="p-2 sm:p-3 rounded-lg bg-[#fef6d8]">
+              <CalendarIcon className="w-5 h-5 sm:w-6 sm:h-6 text-[#c99400]" />
             </div>
-            <div className="ml-4">
-              <p className="text-sm text-[#707a8a]">Member Since</p>
-              <p className="text-lg font-bold text-[#1e2329]">
+            <div className="ml-3 sm:ml-4">
+              <p className="text-xs sm:text-sm text-[#707a8a]">Member Since</p>
+              <p className="text-base sm:text-lg font-bold text-[#1e2329]">
                 {formatDateTime(profile.member_since).split(',')[0]}
               </p>
             </div>
@@ -211,7 +211,7 @@ const Profile = () => {
         </Card>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
         {/* Update Profile */}
         <Card>
           <CardHeader>

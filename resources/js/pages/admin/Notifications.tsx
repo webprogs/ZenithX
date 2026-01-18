@@ -150,23 +150,25 @@ const Notifications = () => {
   }
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
+    <div className="space-y-4 sm:space-y-6">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-[#1e2329]">Notifications</h1>
+          <h1 className="text-xl sm:text-2xl font-bold text-[#1e2329]">Notifications</h1>
           <p className="text-[#707a8a]">System alerts and activity updates</p>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2">
           {unreadCount > 0 && (
             <Button variant="secondary" onClick={handleMarkAllAsRead}>
               <CheckIcon className="w-5 h-5 mr-2" />
-              Mark All as Read
+              <span className="hidden sm:inline">Mark All as Read</span>
+              <span className="sm:hidden">Mark Read</span>
             </Button>
           )}
           {notifications.length > 0 && (
             <Button variant="danger" onClick={handleClearAll}>
               <TrashIcon className="w-5 h-5 mr-2" />
-              Clear All
+              <span className="hidden sm:inline">Clear All</span>
+              <span className="sm:hidden">Clear</span>
             </Button>
           )}
         </div>
@@ -174,9 +176,9 @@ const Notifications = () => {
 
       {/* Filters */}
       <Card>
-        <div className="flex items-center gap-4">
+        <div className="flex flex-col sm:flex-row sm:items-center gap-4">
           <span className="text-sm text-[#707a8a]">Show:</span>
-          <div className="flex gap-2">
+          <div className="flex flex-wrap gap-2">
             <Button
               variant={!showUnreadOnly ? 'primary' : 'secondary'}
               size="sm"
@@ -253,10 +255,10 @@ const Notifications = () => {
 
       {/* Pagination */}
       {meta.last_page > 1 && (
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="text-sm text-[#707a8a]">
-            Showing {(meta.current_page - 1) * meta.per_page + 1} to{' '}
-            {Math.min(meta.current_page * meta.per_page, meta.total)} of {meta.total} notifications
+            <span className="hidden sm:inline">Showing {(meta.current_page - 1) * meta.per_page + 1} to{' '}
+            {Math.min(meta.current_page * meta.per_page, meta.total)} of </span>{meta.total} notifications
           </div>
           <div className="flex items-center gap-2">
             <Button

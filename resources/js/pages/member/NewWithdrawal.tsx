@@ -96,13 +96,13 @@ const NewWithdrawal = () => {
 
   if (limits?.withdrawal_frozen) {
     return (
-      <div className="space-y-6">
-        <div className="flex items-center gap-4">
+      <div className="space-y-4 sm:space-y-6">
+        <div className="flex items-center gap-3 sm:gap-4">
           <Button variant="ghost" onClick={() => navigate('/member/withdraw')}>
             <ArrowLeftIcon className="w-5 h-5" />
           </Button>
           <div>
-            <h1 className="text-2xl font-bold text-[#1e2329]">New Withdrawal</h1>
+            <h1 className="text-xl sm:text-2xl font-bold text-[#1e2329]">New Withdrawal</h1>
             <p className="text-[#707a8a]">Submit a new withdrawal request</p>
           </div>
         </div>
@@ -124,18 +124,18 @@ const NewWithdrawal = () => {
   }
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center gap-4">
+    <div className="space-y-4 sm:space-y-6">
+      <div className="flex items-center gap-3 sm:gap-4">
         <Button variant="ghost" onClick={() => navigate('/member/withdraw')}>
           <ArrowLeftIcon className="w-5 h-5" />
         </Button>
         <div>
-          <h1 className="text-2xl font-bold text-[#1e2329]">New Withdrawal</h1>
+          <h1 className="text-xl sm:text-2xl font-bold text-[#1e2329]">New Withdrawal</h1>
           <p className="text-[#707a8a]">Submit a new withdrawal request</p>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
         <div className="lg:col-span-2">
           <Card>
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
@@ -223,15 +223,16 @@ const NewWithdrawal = () => {
                 />
               </div>
 
-              <div className="flex justify-end gap-3 pt-4">
+              <div className="flex flex-col sm:flex-row justify-end gap-3 pt-4">
                 <Button
                   type="button"
                   variant="secondary"
                   onClick={() => navigate('/member/withdraw')}
+                  className="w-full sm:w-auto"
                 >
                   Cancel
                 </Button>
-                <Button type="submit" isLoading={isSubmitting}>
+                <Button type="submit" isLoading={isSubmitting} className="w-full sm:w-auto">
                   Submit Request
                 </Button>
               </div>
@@ -266,7 +267,7 @@ const NewWithdrawal = () => {
             </div>
           </Card>
 
-          <Card className="mt-6">
+          <Card className="mt-4 sm:mt-6">
             <CardHeader>
               <CardTitle>Important Notes</CardTitle>
             </CardHeader>

@@ -183,17 +183,17 @@ const WithdrawalRequests = () => {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-[#1e2329]">Withdrawal Requests</h1>
+        <h1 className="text-xl sm:text-2xl font-bold text-[#1e2329]">Withdrawal Requests</h1>
         <p className="text-[#707a8a]">Review and process withdrawal requests</p>
       </div>
 
       {/* Filters */}
       <Card>
-        <div className="flex items-center gap-4">
+        <div className="flex flex-col sm:flex-row sm:items-center gap-4">
           <span className="text-sm text-[#707a8a]">Filter by status:</span>
-          <div className="flex gap-2 flex-wrap">
+          <div className="flex flex-wrap gap-2">
             <Button
               variant={statusFilter === undefined ? 'primary' : 'secondary'}
               size="sm"
@@ -239,13 +239,13 @@ const WithdrawalRequests = () => {
           <table className="w-full">
             <thead>
               <tr className="border-b border-[#eaecef]">
-                <th className="text-left px-6 py-4 text-sm font-medium text-[#707a8a]">ID</th>
-                <th className="text-left px-6 py-4 text-sm font-medium text-[#707a8a]">Date</th>
-                <th className="text-left px-6 py-4 text-sm font-medium text-[#707a8a]">Member</th>
-                <th className="text-left px-6 py-4 text-sm font-medium text-[#707a8a]">Amount</th>
-                <th className="text-left px-6 py-4 text-sm font-medium text-[#707a8a]">Destination</th>
-                <th className="text-left px-6 py-4 text-sm font-medium text-[#707a8a]">Status</th>
-                <th className="text-right px-6 py-4 text-sm font-medium text-[#707a8a]">Actions</th>
+                <th className="text-left px-4 sm:px-6 py-4 text-sm font-medium text-[#707a8a] hidden sm:table-cell">ID</th>
+                <th className="text-left px-4 sm:px-6 py-4 text-sm font-medium text-[#707a8a] hidden md:table-cell">Date</th>
+                <th className="text-left px-4 sm:px-6 py-4 text-sm font-medium text-[#707a8a]">Member</th>
+                <th className="text-left px-4 sm:px-6 py-4 text-sm font-medium text-[#707a8a]">Amount</th>
+                <th className="text-left px-4 sm:px-6 py-4 text-sm font-medium text-[#707a8a] hidden lg:table-cell">Destination</th>
+                <th className="text-left px-4 sm:px-6 py-4 text-sm font-medium text-[#707a8a]">Status</th>
+                <th className="text-right px-4 sm:px-6 py-4 text-sm font-medium text-[#707a8a]">Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-[#2d2d3a]">
@@ -258,9 +258,9 @@ const WithdrawalRequests = () => {
               ) : (
                 requests.map((request) => (
                   <tr key={request.id} className="hover:bg-[#f5f5f5] transition-colors">
-                    <td className="px-6 py-4 text-[#1e2329] font-mono">#{request.id}</td>
-                    <td className="px-6 py-4 text-[#474d57]">{formatDateTime(request.created_at)}</td>
-                    <td className="px-6 py-4">
+                    <td className="px-4 sm:px-6 py-4 text-[#1e2329] font-mono hidden sm:table-cell">#{request.id}</td>
+                    <td className="px-4 sm:px-6 py-4 text-[#474d57] hidden md:table-cell">{formatDateTime(request.created_at)}</td>
+                    <td className="px-4 sm:px-6 py-4">
                       {request.user ? (
                         <div>
                           <div className="text-[#1e2329]">{request.user.name}</div>
@@ -270,10 +270,10 @@ const WithdrawalRequests = () => {
                         <span className="text-[#707a8a]">Unknown</span>
                       )}
                     </td>
-                    <td className="px-6 py-4 text-[#1e2329] font-medium">
+                    <td className="px-4 sm:px-6 py-4 text-[#1e2329] font-medium">
                       {formatCurrency(request.amount)}
                     </td>
-                    <td className="px-6 py-4">
+                    <td className="px-4 sm:px-6 py-4 hidden lg:table-cell">
                       <div>
                         <div className="text-[#1e2329]">
                           {request.destination_type === 'gcash' ? 'GCash' : request.bank_name}
@@ -281,9 +281,9 @@ const WithdrawalRequests = () => {
                         <div className="text-sm text-[#707a8a]">{request.account_number}</div>
                       </div>
                     </td>
-                    <td className="px-6 py-4">{getStatusBadge(request.status)}</td>
-                    <td className="px-6 py-4">
-                      <div className="flex items-center justify-end gap-2">
+                    <td className="px-4 sm:px-6 py-4">{getStatusBadge(request.status)}</td>
+                    <td className="px-4 sm:px-6 py-4">
+                      <div className="flex items-center justify-end gap-1 sm:gap-2">
                         <Button
                           variant="ghost"
                           size="sm"
@@ -336,10 +336,10 @@ const WithdrawalRequests = () => {
 
         {/* Pagination */}
         {meta.last_page > 1 && (
-          <div className="flex items-center justify-between px-6 py-4 border-t border-[#eaecef]">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 px-4 sm:px-6 py-4 border-t border-[#eaecef]">
             <div className="text-sm text-[#707a8a]">
-              Showing {(meta.current_page - 1) * meta.per_page + 1} to{' '}
-              {Math.min(meta.current_page * meta.per_page, meta.total)} of {meta.total} requests
+              <span className="hidden sm:inline">Showing {(meta.current_page - 1) * meta.per_page + 1} to{' '}
+              {Math.min(meta.current_page * meta.per_page, meta.total)} of </span>{meta.total} requests
             </div>
             <div className="flex items-center gap-2">
               <Button
@@ -378,7 +378,7 @@ const WithdrawalRequests = () => {
       >
         {selectedRequest && (
           <div className="space-y-6">
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <p className="text-sm text-[#707a8a]">Request ID</p>
                 <p className="text-[#1e2329] font-mono">#{selectedRequest.id}</p>
@@ -406,7 +406,7 @@ const WithdrawalRequests = () => {
 
             <div className="p-4 bg-[#f5f5f5] rounded-lg">
               <h4 className="text-sm font-medium text-[#707a8a] mb-3">Destination Details</h4>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <p className="text-sm text-[#707a8a]">Type</p>
                   <p className="text-[#1e2329]">
@@ -437,7 +437,7 @@ const WithdrawalRequests = () => {
 
             {selectedRequest.status !== 'pending' && (
               <div className="pt-4 border-t border-[#eaecef]">
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   {selectedRequest.processor && (
                     <div>
                       <p className="text-sm text-[#707a8a]">Processed by</p>
@@ -474,7 +474,7 @@ const WithdrawalRequests = () => {
             )}
 
             {selectedRequest.status === 'pending' && (
-              <div className="flex justify-end gap-3 pt-4 border-t border-[#eaecef]">
+              <div className="flex flex-col sm:flex-row justify-end gap-3 pt-4 border-t border-[#eaecef]">
                 <Button
                   variant="danger"
                   onClick={() => {

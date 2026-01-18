@@ -245,9 +245,9 @@ const UserManagement = () => {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-[#1e2329]">User Management</h1>
+        <h1 className="text-xl sm:text-2xl font-bold text-[#1e2329]">User Management</h1>
         <p className="text-[#707a8a]">Manage user accounts and permissions</p>
       </div>
 
@@ -337,12 +337,12 @@ const UserManagement = () => {
           <table className="w-full">
             <thead>
               <tr className="border-b border-[#eaecef]">
-                <th className="text-left px-6 py-4 text-sm font-medium text-[#707a8a]">User</th>
-                <th className="text-left px-6 py-4 text-sm font-medium text-[#707a8a]">Role</th>
-                <th className="text-left px-6 py-4 text-sm font-medium text-[#707a8a]">Status</th>
-                <th className="text-left px-6 py-4 text-sm font-medium text-[#707a8a]">Interest Rate</th>
-                <th className="text-left px-6 py-4 text-sm font-medium text-[#707a8a]">Last Login</th>
-                <th className="text-right px-6 py-4 text-sm font-medium text-[#707a8a]">Actions</th>
+                <th className="text-left px-4 sm:px-6 py-4 text-sm font-medium text-[#707a8a]">User</th>
+                <th className="text-left px-4 sm:px-6 py-4 text-sm font-medium text-[#707a8a] hidden sm:table-cell">Role</th>
+                <th className="text-left px-4 sm:px-6 py-4 text-sm font-medium text-[#707a8a]">Status</th>
+                <th className="text-left px-4 sm:px-6 py-4 text-sm font-medium text-[#707a8a] hidden md:table-cell">Interest Rate</th>
+                <th className="text-left px-4 sm:px-6 py-4 text-sm font-medium text-[#707a8a] hidden lg:table-cell">Last Login</th>
+                <th className="text-right px-4 sm:px-6 py-4 text-sm font-medium text-[#707a8a]">Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-[#2d2d3a]">
@@ -355,29 +355,29 @@ const UserManagement = () => {
               ) : (
                 users.map((user) => (
                   <tr key={user.id} className="hover:bg-[#f5f5f5] transition-colors">
-                    <td className="px-6 py-4">
+                    <td className="px-4 sm:px-6 py-4">
                       <div>
                         <div className="text-[#1e2329] font-medium">{user.name}</div>
                         <div className="text-sm text-[#707a8a]">@{user.username}</div>
                         {user.email && <div className="text-xs text-[#b7b9bc]">{user.email}</div>}
                       </div>
                     </td>
-                    <td className="px-6 py-4">{getRoleBadge(user.role)}</td>
-                    <td className="px-6 py-4">
-                      <div className="flex items-center gap-2">
+                    <td className="px-4 sm:px-6 py-4 hidden sm:table-cell">{getRoleBadge(user.role)}</td>
+                    <td className="px-4 sm:px-6 py-4">
+                      <div className="flex flex-wrap items-center gap-1 sm:gap-2">
                         {getStatusBadge(user.status)}
                         {user.withdrawal_frozen && <Badge variant="danger">Frozen</Badge>}
                       </div>
                     </td>
-                    <td className="px-6 py-4 text-[#1e2329]">
+                    <td className="px-4 sm:px-6 py-4 text-[#1e2329] hidden md:table-cell">
                       {user.default_interest_rate !== null
                         ? formatPercentage(user.default_interest_rate)
                         : '-'}
                     </td>
-                    <td className="px-6 py-4 text-[#474d57]">
+                    <td className="px-4 sm:px-6 py-4 text-[#474d57] hidden lg:table-cell">
                       {user.last_login_at ? formatDateTime(user.last_login_at) : 'Never'}
                     </td>
-                    <td className="px-6 py-4">
+                    <td className="px-4 sm:px-6 py-4">
                       <div className="flex items-center justify-end">
                         <Button
                           variant="ghost"
@@ -398,10 +398,10 @@ const UserManagement = () => {
 
         {/* Pagination */}
         {meta.last_page > 1 && (
-          <div className="flex items-center justify-between px-6 py-4 border-t border-[#eaecef]">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 px-4 sm:px-6 py-4 border-t border-[#eaecef]">
             <div className="text-sm text-[#707a8a]">
-              Showing {(meta.current_page - 1) * meta.per_page + 1} to{' '}
-              {Math.min(meta.current_page * meta.per_page, meta.total)} of {meta.total} users
+              <span className="hidden sm:inline">Showing {(meta.current_page - 1) * meta.per_page + 1} to{' '}
+              {Math.min(meta.current_page * meta.per_page, meta.total)} of </span>{meta.total} users
             </div>
             <div className="flex items-center gap-2">
               <Button
@@ -441,7 +441,7 @@ const UserManagement = () => {
       >
         {selectedUser && (
           <div className="space-y-6">
-            <div className="flex items-start justify-between">
+            <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
               <div>
                 <h3 className="text-xl font-semibold text-[#1e2329]">{selectedUser.name}</h3>
                 <p className="text-[#707a8a]">@{selectedUser.username}</p>
@@ -449,14 +449,14 @@ const UserManagement = () => {
                   <p className="text-sm text-[#b7b9bc]">{selectedUser.email}</p>
                 )}
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex flex-wrap items-center gap-2">
                 {getRoleBadge(selectedUser.role)}
                 {getStatusBadge(selectedUser.status)}
                 {selectedUser.withdrawal_frozen && <Badge variant="danger">Frozen</Badge>}
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-4 p-4 bg-[#f5f5f5] rounded-lg">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-4 bg-[#f5f5f5] rounded-lg">
               <div>
                 <p className="text-sm text-[#707a8a]">Interest Rate</p>
                 <p className="text-[#1e2329]">
@@ -495,7 +495,7 @@ const UserManagement = () => {
               </div>
             )}
 
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <Button
                 variant="secondary"
                 onClick={() => handleOpenStatusModal(selectedUser)}
@@ -534,7 +534,7 @@ const UserManagement = () => {
                 variant="secondary"
                 onClick={() => handleResetPassword(selectedUser)}
                 disabled={isProcessing}
-                className="justify-start col-span-2"
+                className="justify-start sm:col-span-2"
               >
                 <KeyIcon className="w-4 h-4 mr-2" />
                 Reset Password

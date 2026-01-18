@@ -141,10 +141,10 @@ const Settings = () => {
   );
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
+    <div className="space-y-4 sm:space-y-6">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-[#1e2329]">Settings</h1>
+          <h1 className="text-xl sm:text-2xl font-bold text-[#1e2329]">Settings</h1>
           <p className="text-[#707a8a]">Configure system settings and preferences</p>
         </div>
         {isDirty && (
@@ -165,7 +165,7 @@ const Settings = () => {
                 <CardTitle>{getGroupTitle(group)}</CardTitle>
               </div>
             </CardHeader>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
               {settings[group].map((setting) => (
                 <div key={setting.key}>{renderSettingInput(setting)}</div>
               ))}

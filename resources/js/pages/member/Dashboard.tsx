@@ -74,13 +74,13 @@ const Dashboard = () => {
   ];
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
+    <div className="space-y-4 sm:space-y-6">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-[#1e2329]">Dashboard</h1>
+          <h1 className="text-xl sm:text-2xl font-bold text-[#1e2329]">Dashboard</h1>
           <p className="text-[#707a8a]">Track your investments and earnings</p>
         </div>
-        <div className="flex items-center space-x-3">
+        <div className="flex items-center space-x-3 flex-wrap">
           <Button onClick={() => navigate('/member/topup/new')}>
             Add Funds
           </Button>
@@ -90,48 +90,48 @@ const Dashboard = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
         {statCards.map((stat) => (
           <Card key={stat.title}>
             <div className="flex items-center">
               <div className={`p-3 rounded-lg ${stat.bgColor}`}>
                 <stat.icon className={`w-6 h-6 ${stat.color}`} />
               </div>
-              <div className="ml-4">
-                <p className="text-sm text-[#707a8a]">{stat.title}</p>
-                <p className="text-xl font-bold text-[#1e2329]">{stat.value}</p>
+              <div className="ml-3 sm:ml-4">
+                <p className="text-xs sm:text-sm text-[#707a8a]">{stat.title}</p>
+                <p className="text-lg sm:text-xl font-bold text-[#1e2329]">{stat.value}</p>
               </div>
             </div>
           </Card>
         ))}
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
         <Card className="lg:col-span-2">
           <CardHeader>
             <CardTitle>Your Interest Rate</CardTitle>
           </CardHeader>
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div>
-              <p className="text-4xl font-bold text-[#03a66d]">
+              <p className="text-2xl sm:text-4xl font-bold text-[#03a66d]">
                 {formatPercentage(dashboard?.interest_rate || 0)}
               </p>
               <p className="text-[#707a8a] mt-1">Monthly interest rate</p>
             </div>
-            <div className="text-right">
+            <div className="sm:text-right">
               <p className="text-[#707a8a]">Active Investments</p>
-              <p className="text-2xl font-bold text-[#1e2329]">{dashboard?.active_investments || 0}</p>
+              <p className="text-xl sm:text-2xl font-bold text-[#1e2329]">{dashboard?.active_investments || 0}</p>
             </div>
           </div>
 
           {dashboard?.projections && dashboard.projections.length > 0 && (
-            <div className="mt-6 pt-6 border-t border-[#eaecef]">
+            <div className="mt-4 sm:mt-6 pt-4 sm:pt-6 border-t border-[#eaecef]">
               <h4 className="text-sm font-medium text-[#707a8a] mb-4">Projected Earnings</h4>
-              <div className="grid grid-cols-3 gap-4">
+              <div className="grid grid-cols-3 gap-2 sm:gap-4">
                 {dashboard.projections.slice(0, 3).map((projection) => (
                   <div key={projection.month} className="text-center">
-                    <p className="text-sm text-[#707a8a]">{projection.month}</p>
-                    <p className="text-lg font-semibold text-[#03a66d]">
+                    <p className="text-xs sm:text-sm text-[#707a8a]">{projection.month}</p>
+                    <p className="text-sm sm:text-lg font-semibold text-[#03a66d]">
                       +{formatCurrency(projection.projected_interest)}
                     </p>
                   </div>
@@ -145,15 +145,15 @@ const Dashboard = () => {
           <CardHeader>
             <CardTitle>Pending Requests</CardTitle>
           </CardHeader>
-          <div className="space-y-4">
-            <div className="flex items-center justify-between p-4 bg-[#f5f5f5] rounded-lg">
+          <div className="space-y-3 sm:space-y-4">
+            <div className="flex items-center justify-between p-3 sm:p-4 bg-[#f5f5f5] rounded-lg">
               <div>
                 <p className="text-[#1e2329]">Top-Up Requests</p>
                 <p className="text-sm text-[#707a8a]">Awaiting approval</p>
               </div>
               <Badge variant="warning">{dashboard?.pending_topups || 0}</Badge>
             </div>
-            <div className="flex items-center justify-between p-4 bg-[#f5f5f5] rounded-lg">
+            <div className="flex items-center justify-between p-3 sm:p-4 bg-[#f5f5f5] rounded-lg">
               <div>
                 <p className="text-[#1e2329]">Withdrawal Requests</p>
                 <p className="text-sm text-[#707a8a]">Being processed</p>
@@ -161,7 +161,7 @@ const Dashboard = () => {
               <Badge variant="info">{dashboard?.pending_withdrawal_requests || 0}</Badge>
             </div>
             {dashboard?.pending_withdrawals ? (
-              <div className="flex items-center justify-between p-4 bg-[#f5f5f5] rounded-lg">
+              <div className="flex items-center justify-between p-3 sm:p-4 bg-[#f5f5f5] rounded-lg">
                 <div>
                   <p className="text-[#1e2329]">Pending Amount</p>
                   <p className="text-sm text-[#707a8a]">To be released</p>
@@ -175,12 +175,12 @@ const Dashboard = () => {
         </Card>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
         <Card>
           <CardHeader>
             <CardTitle>Quick Actions</CardTitle>
           </CardHeader>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 gap-3 sm:gap-4">
             <Button
               variant="secondary"
               className="h-auto py-4 flex-col"

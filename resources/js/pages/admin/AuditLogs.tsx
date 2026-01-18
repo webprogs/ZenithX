@@ -123,10 +123,10 @@ const AuditLogs = () => {
   }
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
+    <div className="space-y-4 sm:space-y-6">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-[#1e2329]">Audit Logs</h1>
+          <h1 className="text-xl sm:text-2xl font-bold text-[#1e2329]">Audit Logs</h1>
           <p className="text-[#707a8a]">Track all administrative actions</p>
         </div>
         <Button variant="secondary" onClick={() => setShowFilters(!showFilters)}>
@@ -190,12 +190,12 @@ const AuditLogs = () => {
           <table className="w-full">
             <thead>
               <tr className="border-b border-[#eaecef]">
-                <th className="text-left px-6 py-4 text-sm font-medium text-[#707a8a]">Date</th>
-                <th className="text-left px-6 py-4 text-sm font-medium text-[#707a8a]">User</th>
-                <th className="text-left px-6 py-4 text-sm font-medium text-[#707a8a]">Action</th>
-                <th className="text-left px-6 py-4 text-sm font-medium text-[#707a8a]">Target</th>
-                <th className="text-left px-6 py-4 text-sm font-medium text-[#707a8a]">Description</th>
-                <th className="text-right px-6 py-4 text-sm font-medium text-[#707a8a]">Details</th>
+                <th className="text-left px-4 sm:px-6 py-4 text-sm font-medium text-[#707a8a] hidden md:table-cell">Date</th>
+                <th className="text-left px-4 sm:px-6 py-4 text-sm font-medium text-[#707a8a]">User</th>
+                <th className="text-left px-4 sm:px-6 py-4 text-sm font-medium text-[#707a8a]">Action</th>
+                <th className="text-left px-4 sm:px-6 py-4 text-sm font-medium text-[#707a8a] hidden sm:table-cell">Target</th>
+                <th className="text-left px-4 sm:px-6 py-4 text-sm font-medium text-[#707a8a] hidden lg:table-cell">Description</th>
+                <th className="text-right px-4 sm:px-6 py-4 text-sm font-medium text-[#707a8a]">Details</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-[#2d2d3a]">
@@ -208,8 +208,8 @@ const AuditLogs = () => {
               ) : (
                 logs.map((log) => (
                   <tr key={log.id} className="hover:bg-[#f5f5f5] transition-colors">
-                    <td className="px-6 py-4 text-[#474d57]">{formatDateTime(log.created_at)}</td>
-                    <td className="px-6 py-4">
+                    <td className="px-4 sm:px-6 py-4 text-[#474d57] hidden md:table-cell">{formatDateTime(log.created_at)}</td>
+                    <td className="px-4 sm:px-6 py-4">
                       {log.user ? (
                         <div>
                           <div className="text-[#1e2329]">{log.user.name}</div>
@@ -219,14 +219,14 @@ const AuditLogs = () => {
                         <span className="text-[#707a8a]">System</span>
                       )}
                     </td>
-                    <td className="px-6 py-4">{getActionBadge(log.action)}</td>
-                    <td className="px-6 py-4 text-[#474d57]">
+                    <td className="px-4 sm:px-6 py-4">{getActionBadge(log.action)}</td>
+                    <td className="px-4 sm:px-6 py-4 text-[#474d57] hidden sm:table-cell">
                       {formatAuditableType(log.auditable_type)} #{log.auditable_id}
                     </td>
-                    <td className="px-6 py-4 text-[#1e2329] max-w-xs truncate">
+                    <td className="px-4 sm:px-6 py-4 text-[#1e2329] max-w-xs truncate hidden lg:table-cell">
                       {log.description || '-'}
                     </td>
-                    <td className="px-6 py-4">
+                    <td className="px-4 sm:px-6 py-4">
                       <div className="flex items-center justify-end">
                         <Button
                           variant="ghost"
@@ -247,10 +247,10 @@ const AuditLogs = () => {
 
         {/* Pagination */}
         {meta.last_page > 1 && (
-          <div className="flex items-center justify-between px-6 py-4 border-t border-[#eaecef]">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 px-4 sm:px-6 py-4 border-t border-[#eaecef]">
             <div className="text-sm text-[#707a8a]">
-              Showing {(meta.current_page - 1) * meta.per_page + 1} to{' '}
-              {Math.min(meta.current_page * meta.per_page, meta.total)} of {meta.total} logs
+              <span className="hidden sm:inline">Showing {(meta.current_page - 1) * meta.per_page + 1} to{' '}
+              {Math.min(meta.current_page * meta.per_page, meta.total)} of </span>{meta.total} logs
             </div>
             <div className="flex items-center gap-2">
               <Button
@@ -289,7 +289,7 @@ const AuditLogs = () => {
       >
         {selectedLog && (
           <div className="space-y-6">
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <p className="text-sm text-[#707a8a]">Date</p>
                 <p className="text-[#1e2329]">{formatDateTime(selectedLog.created_at)}</p>
@@ -330,7 +330,7 @@ const AuditLogs = () => {
             {(selectedLog.old_values || selectedLog.new_values) && (
               <div className="space-y-4">
                 <h4 className="text-sm font-medium text-[#474d57]">Changes</h4>
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   {selectedLog.old_values && (
                     <div>
                       <p className="text-sm text-[#707a8a] mb-2">Before</p>

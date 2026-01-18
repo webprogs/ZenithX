@@ -87,10 +87,10 @@ const WithdrawalHistory = () => {
   }
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
+    <div className="space-y-4 sm:space-y-6">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-[#1e2329]">Withdrawal History</h1>
+          <h1 className="text-xl sm:text-2xl font-bold text-[#1e2329]">Withdrawal History</h1>
           <p className="text-[#707a8a]">View your withdrawal request history</p>
         </div>
         <Button onClick={() => navigate('/member/withdraw/new')}>
@@ -149,28 +149,28 @@ const WithdrawalHistory = () => {
           <table className="w-full">
             <thead>
               <tr className="border-b border-[#eaecef]">
-                <th className="text-left px-6 py-4 text-sm font-medium text-[#707a8a]">Date</th>
-                <th className="text-left px-6 py-4 text-sm font-medium text-[#707a8a]">Amount</th>
-                <th className="text-left px-6 py-4 text-sm font-medium text-[#707a8a]">Destination</th>
-                <th className="text-left px-6 py-4 text-sm font-medium text-[#707a8a]">Status</th>
-                <th className="text-right px-6 py-4 text-sm font-medium text-[#707a8a]">Actions</th>
+                <th className="text-left px-4 sm:px-6 py-4 text-sm font-medium text-[#707a8a]">Date</th>
+                <th className="text-left px-4 sm:px-6 py-4 text-sm font-medium text-[#707a8a]">Amount</th>
+                <th className="text-left px-4 sm:px-6 py-4 text-sm font-medium text-[#707a8a] hidden sm:table-cell">Destination</th>
+                <th className="text-left px-4 sm:px-6 py-4 text-sm font-medium text-[#707a8a]">Status</th>
+                <th className="text-right px-4 sm:px-6 py-4 text-sm font-medium text-[#707a8a]">Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-[#2d2d3a]">
               {requests.length === 0 ? (
                 <tr>
-                  <td colSpan={5} className="px-6 py-12 text-center text-[#707a8a]">
+                  <td colSpan={5} className="px-4 sm:px-6 py-12 text-center text-[#707a8a]">
                     No withdrawal requests yet
                   </td>
                 </tr>
               ) : (
                 requests.map((request) => (
                   <tr key={request.id} className="hover:bg-[#f5f5f5] transition-colors">
-                    <td className="px-6 py-4 text-[#474d57]">{formatDateTime(request.created_at)}</td>
-                    <td className="px-6 py-4 text-[#1e2329] font-medium">
+                    <td className="px-4 sm:px-6 py-4 text-[#474d57] text-sm">{formatDateTime(request.created_at)}</td>
+                    <td className="px-4 sm:px-6 py-4 text-[#1e2329] font-medium">
                       {formatCurrency(request.amount)}
                     </td>
-                    <td className="px-6 py-4">
+                    <td className="px-4 sm:px-6 py-4 hidden sm:table-cell">
                       <div>
                         <div className="text-[#1e2329]">
                           {request.destination_type === 'gcash' ? 'GCash' : request.bank_name}
@@ -178,8 +178,8 @@ const WithdrawalHistory = () => {
                         <div className="text-sm text-[#707a8a]">{request.account_number}</div>
                       </div>
                     </td>
-                    <td className="px-6 py-4">{getStatusBadge(request.status)}</td>
-                    <td className="px-6 py-4">
+                    <td className="px-4 sm:px-6 py-4">{getStatusBadge(request.status)}</td>
+                    <td className="px-4 sm:px-6 py-4">
                       <div className="flex items-center justify-end">
                         <Button
                           variant="ghost"
@@ -200,10 +200,10 @@ const WithdrawalHistory = () => {
 
         {/* Pagination */}
         {meta.last_page > 1 && (
-          <div className="flex items-center justify-between px-6 py-4 border-t border-[#eaecef]">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 px-4 sm:px-6 py-4 border-t border-[#eaecef]">
             <div className="text-sm text-[#707a8a]">
-              Showing {(meta.current_page - 1) * meta.per_page + 1} to{' '}
-              {Math.min(meta.current_page * meta.per_page, meta.total)} of {meta.total} requests
+              <span className="hidden sm:inline">Showing {(meta.current_page - 1) * meta.per_page + 1} to{' '}
+              {Math.min(meta.current_page * meta.per_page, meta.total)} of </span>{meta.total} requests
             </div>
             <div className="flex items-center gap-2">
               <Button
@@ -241,8 +241,8 @@ const WithdrawalHistory = () => {
         size="lg"
       >
         {selectedRequest && (
-          <div className="space-y-6">
-            <div className="grid grid-cols-2 gap-4">
+          <div className="space-y-4 sm:space-y-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <p className="text-sm text-[#707a8a]">Request ID</p>
                 <p className="text-[#1e2329] font-mono">#{selectedRequest.id}</p>
@@ -253,7 +253,7 @@ const WithdrawalHistory = () => {
               </div>
               <div>
                 <p className="text-sm text-[#707a8a]">Amount</p>
-                <p className="text-[#1e2329] text-xl font-bold">
+                <p className="text-[#1e2329] text-lg sm:text-xl font-bold">
                   {formatCurrency(selectedRequest.amount)}
                 </p>
               </div>
@@ -263,9 +263,9 @@ const WithdrawalHistory = () => {
               </div>
             </div>
 
-            <div className="p-4 bg-[#f5f5f5] rounded-lg">
+            <div className="p-3 sm:p-4 bg-[#f5f5f5] rounded-lg">
               <h4 className="text-sm font-medium text-[#707a8a] mb-3">Destination Details</h4>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <p className="text-sm text-[#707a8a]">Type</p>
                   <p className="text-[#1e2329]">

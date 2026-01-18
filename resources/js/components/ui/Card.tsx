@@ -9,9 +9,9 @@ const Card = forwardRef<HTMLDivElement, CardProps>(
   ({ className, padding = 'md', children, ...props }, ref) => {
     const paddingStyles = {
       none: '',
-      sm: 'p-4',
-      md: 'p-6',
-      lg: 'p-8',
+      sm: 'p-3 sm:p-4',
+      md: 'p-4 sm:p-6',
+      lg: 'p-5 sm:p-8',
     };
 
     return (
@@ -36,7 +36,7 @@ export const CardHeader = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivEleme
   ({ className, children, ...props }, ref) => (
     <div
       ref={ref}
-      className={clsx('flex items-center justify-between mb-4', className)}
+      className={clsx('flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-4 mb-4', className)}
       {...props}
     >
       {children}
@@ -50,7 +50,7 @@ export const CardTitle = forwardRef<HTMLHeadingElement, HTMLAttributes<HTMLHeadi
   ({ className, children, ...props }, ref) => (
     <h3
       ref={ref}
-      className={clsx('text-lg font-semibold text-[#1e2329]', className)}
+      className={clsx('text-base sm:text-lg font-semibold text-[#1e2329]', className)}
       {...props}
     >
       {children}

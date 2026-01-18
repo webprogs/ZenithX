@@ -224,23 +224,24 @@ const InvitationLinks = () => {
   }
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
+    <div className="space-y-4 sm:space-y-6">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-[#1e2329]">Invitation Links</h1>
+          <h1 className="text-xl sm:text-2xl font-bold text-[#1e2329]">Invitation Links</h1>
           <p className="text-[#707a8a]">Manage invitation codes for new user registration</p>
         </div>
         <Button onClick={() => setIsCreateModalOpen(true)}>
           <PlusIcon className="w-5 h-5 mr-2" />
-          Create Link
+          <span className="hidden sm:inline">Create Link</span>
+          <span className="sm:hidden">Create</span>
         </Button>
       </div>
 
       {/* Filters */}
       <Card>
-        <div className="flex items-center gap-4">
+        <div className="flex flex-col sm:flex-row sm:items-center gap-4">
           <span className="text-sm text-[#707a8a]">Filter by status:</span>
-          <div className="flex gap-2">
+          <div className="flex flex-wrap gap-2">
             <Button
               variant={activeFilter === undefined ? 'primary' : 'secondary'}
               size="sm"
@@ -272,14 +273,14 @@ const InvitationLinks = () => {
           <table className="w-full">
             <thead>
               <tr className="border-b border-[#eaecef]">
-                <th className="text-left px-6 py-4 text-sm font-medium text-[#707a8a]">Code</th>
-                <th className="text-left px-6 py-4 text-sm font-medium text-[#707a8a]">Interest Rate</th>
-                <th className="text-left px-6 py-4 text-sm font-medium text-[#707a8a]">Role</th>
-                <th className="text-left px-6 py-4 text-sm font-medium text-[#707a8a]">Usage</th>
-                <th className="text-left px-6 py-4 text-sm font-medium text-[#707a8a]">Expires</th>
-                <th className="text-left px-6 py-4 text-sm font-medium text-[#707a8a]">Status</th>
-                <th className="text-left px-6 py-4 text-sm font-medium text-[#707a8a]">Created</th>
-                <th className="text-right px-6 py-4 text-sm font-medium text-[#707a8a]">Actions</th>
+                <th className="text-left px-4 sm:px-6 py-4 text-sm font-medium text-[#707a8a]">Code</th>
+                <th className="text-left px-4 sm:px-6 py-4 text-sm font-medium text-[#707a8a] hidden sm:table-cell">Interest Rate</th>
+                <th className="text-left px-4 sm:px-6 py-4 text-sm font-medium text-[#707a8a] hidden md:table-cell">Role</th>
+                <th className="text-left px-4 sm:px-6 py-4 text-sm font-medium text-[#707a8a]">Usage</th>
+                <th className="text-left px-4 sm:px-6 py-4 text-sm font-medium text-[#707a8a] hidden lg:table-cell">Expires</th>
+                <th className="text-left px-4 sm:px-6 py-4 text-sm font-medium text-[#707a8a]">Status</th>
+                <th className="text-left px-4 sm:px-6 py-4 text-sm font-medium text-[#707a8a] hidden lg:table-cell">Created</th>
+                <th className="text-right px-4 sm:px-6 py-4 text-sm font-medium text-[#707a8a]">Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-[#2d2d3a]">
@@ -294,10 +295,10 @@ const InvitationLinks = () => {
                   const status = getLinkStatus(link);
                   return (
                     <tr key={link.id} className="hover:bg-[#f5f5f5] transition-colors">
-                      <td className="px-6 py-4">
+                      <td className="px-4 sm:px-6 py-4">
                         <div className="flex items-center gap-2">
-                          <LinkIcon className="w-4 h-4 text-[#b7b9bc]" />
-                          <code className="text-[#1e2329] font-mono">{link.code}</code>
+                          <LinkIcon className="w-4 h-4 text-[#b7b9bc] hidden sm:block" />
+                          <code className="text-[#1e2329] font-mono text-xs sm:text-sm">{link.code}</code>
                           <button
                             onClick={() => handleCopyLink(link)}
                             className="p-1 text-[#707a8a] hover:text-[#1e2329] transition-colors"
@@ -311,15 +312,15 @@ const InvitationLinks = () => {
                           </button>
                         </div>
                       </td>
-                      <td className="px-6 py-4 text-[#1e2329]">
+                      <td className="px-4 sm:px-6 py-4 text-[#1e2329] hidden sm:table-cell">
                         {formatPercentage(Number(link.interest_rate))}
                       </td>
-                      <td className="px-6 py-4">
+                      <td className="px-4 sm:px-6 py-4 hidden md:table-cell">
                         <Badge variant={link.assigned_role === 'admin' ? 'info' : 'default'}>
                           {link.assigned_role}
                         </Badge>
                       </td>
-                      <td className="px-6 py-4 text-[#1e2329]">
+                      <td className="px-4 sm:px-6 py-4 text-[#1e2329]">
                         {link.times_used}
                         {link.max_uses !== null && ` / ${link.max_uses}`}
                         {link.times_used > 0 && (
@@ -332,20 +333,20 @@ const InvitationLinks = () => {
                           </button>
                         )}
                       </td>
-                      <td className="px-6 py-4 text-[#474d57]">
+                      <td className="px-4 sm:px-6 py-4 text-[#474d57] hidden lg:table-cell">
                         {link.expires_at ? formatDate(link.expires_at) : 'Never'}
                       </td>
-                      <td className="px-6 py-4">
+                      <td className="px-4 sm:px-6 py-4">
                         <Badge variant={status.variant}>{status.label}</Badge>
                       </td>
-                      <td className="px-6 py-4 text-[#474d57]">
+                      <td className="px-4 sm:px-6 py-4 text-[#474d57] hidden lg:table-cell">
                         <div className="text-sm">{formatDateTime(link.created_at)}</div>
                         {link.creator && (
                           <div className="text-xs text-[#b7b9bc]">by {link.creator.name}</div>
                         )}
                       </td>
-                      <td className="px-6 py-4">
-                        <div className="flex items-center justify-end gap-2">
+                      <td className="px-4 sm:px-6 py-4">
+                        <div className="flex items-center justify-end gap-1 sm:gap-2">
                           {link.times_used > 0 && (
                             <Button
                               variant="ghost"
@@ -387,10 +388,10 @@ const InvitationLinks = () => {
 
         {/* Pagination */}
         {meta.last_page > 1 && (
-          <div className="flex items-center justify-between px-6 py-4 border-t border-[#eaecef]">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 px-4 sm:px-6 py-4 border-t border-[#eaecef]">
             <div className="text-sm text-[#707a8a]">
-              Showing {(meta.current_page - 1) * meta.per_page + 1} to{' '}
-              {Math.min(meta.current_page * meta.per_page, meta.total)} of {meta.total} links
+              <span className="hidden sm:inline">Showing {(meta.current_page - 1) * meta.per_page + 1} to{' '}
+              {Math.min(meta.current_page * meta.per_page, meta.total)} of </span>{meta.total} links
             </div>
             <div className="flex items-center gap-2">
               <Button
@@ -425,7 +426,7 @@ const InvitationLinks = () => {
         size="lg"
       >
         <form onSubmit={createForm.handleSubmit(handleCreate)} className="space-y-4">
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <Input
               label="Interest Rate (%)"
               type="number"
@@ -452,7 +453,7 @@ const InvitationLinks = () => {
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <Input
               label="Max Uses (leave empty for unlimited)"
               type="number"
@@ -523,7 +524,7 @@ const InvitationLinks = () => {
               </button>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <Input
                 label="Interest Rate (%)"
                 type="number"
@@ -545,7 +546,7 @@ const InvitationLinks = () => {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <Input
                 label="Max Uses"
                 type="number"

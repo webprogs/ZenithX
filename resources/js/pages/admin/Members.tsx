@@ -107,15 +107,16 @@ const Members = () => {
   }
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
+    <div className="space-y-4 sm:space-y-6">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-[#1e2329]">Members</h1>
+          <h1 className="text-xl sm:text-2xl font-bold text-[#1e2329]">Members</h1>
           <p className="text-[#707a8a]">View and manage platform members</p>
         </div>
         <Button onClick={handleExport} isLoading={isExporting} variant="secondary">
           <ArrowDownTrayIcon className="w-5 h-5 mr-2" />
-          Export CSV
+          <span className="hidden sm:inline">Export CSV</span>
+          <span className="sm:hidden">Export</span>
         </Button>
       </div>
 
@@ -133,7 +134,7 @@ const Members = () => {
             </div>
             <Button type="submit">Search</Button>
           </form>
-          <div className="flex gap-2">
+          <div className="flex flex-wrap gap-2">
             <Button
               variant={statusFilter === undefined ? 'primary' : 'secondary'}
               size="sm"
@@ -172,12 +173,12 @@ const Members = () => {
           <table className="w-full">
             <thead>
               <tr className="border-b border-[#eaecef]">
-                <th className="text-left px-6 py-4 text-sm font-medium text-[#707a8a]">Member</th>
-                <th className="text-left px-6 py-4 text-sm font-medium text-[#707a8a]">Interest Rate</th>
-                <th className="text-left px-6 py-4 text-sm font-medium text-[#707a8a]">Status</th>
-                <th className="text-left px-6 py-4 text-sm font-medium text-[#707a8a]">Last Login</th>
-                <th className="text-left px-6 py-4 text-sm font-medium text-[#707a8a]">Registered</th>
-                <th className="text-right px-6 py-4 text-sm font-medium text-[#707a8a]">Actions</th>
+                <th className="text-left px-4 sm:px-6 py-4 text-sm font-medium text-[#707a8a]">Member</th>
+                <th className="text-left px-4 sm:px-6 py-4 text-sm font-medium text-[#707a8a] hidden sm:table-cell">Interest Rate</th>
+                <th className="text-left px-4 sm:px-6 py-4 text-sm font-medium text-[#707a8a]">Status</th>
+                <th className="text-left px-4 sm:px-6 py-4 text-sm font-medium text-[#707a8a] hidden md:table-cell">Last Login</th>
+                <th className="text-left px-4 sm:px-6 py-4 text-sm font-medium text-[#707a8a] hidden lg:table-cell">Registered</th>
+                <th className="text-right px-4 sm:px-6 py-4 text-sm font-medium text-[#707a8a]">Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-[#2d2d3a]">
@@ -190,7 +191,7 @@ const Members = () => {
               ) : (
                 members.map((member) => (
                   <tr key={member.id} className="hover:bg-[#f5f5f5] transition-colors">
-                    <td className="px-6 py-4">
+                    <td className="px-4 sm:px-6 py-4">
                       <div>
                         <div className="text-[#1e2329] font-medium">{member.name}</div>
                         <div className="text-sm text-[#707a8a]">@{member.username}</div>
@@ -199,26 +200,26 @@ const Members = () => {
                         )}
                       </div>
                     </td>
-                    <td className="px-6 py-4 text-[#1e2329]">
+                    <td className="px-4 sm:px-6 py-4 text-[#1e2329] hidden sm:table-cell">
                       {member.default_interest_rate !== null
                         ? formatPercentage(member.default_interest_rate)
                         : '-'}
                     </td>
-                    <td className="px-6 py-4">
-                      <div className="flex items-center gap-2">
+                    <td className="px-4 sm:px-6 py-4">
+                      <div className="flex flex-wrap items-center gap-1 sm:gap-2">
                         {getStatusBadge(member.status)}
                         {member.withdrawal_frozen && (
                           <Badge variant="danger">Frozen</Badge>
                         )}
                       </div>
                     </td>
-                    <td className="px-6 py-4 text-[#474d57]">
+                    <td className="px-4 sm:px-6 py-4 text-[#474d57] hidden md:table-cell">
                       {member.last_login_at ? formatDateTime(member.last_login_at) : 'Never'}
                     </td>
-                    <td className="px-6 py-4 text-[#474d57]">
+                    <td className="px-4 sm:px-6 py-4 text-[#474d57] hidden lg:table-cell">
                       {formatDateTime(member.created_at)}
                     </td>
-                    <td className="px-6 py-4">
+                    <td className="px-4 sm:px-6 py-4">
                       <div className="flex items-center justify-end">
                         <Button
                           variant="ghost"
@@ -239,10 +240,10 @@ const Members = () => {
 
         {/* Pagination */}
         {meta.last_page > 1 && (
-          <div className="flex items-center justify-between px-6 py-4 border-t border-[#eaecef]">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 px-4 sm:px-6 py-4 border-t border-[#eaecef]">
             <div className="text-sm text-[#707a8a]">
-              Showing {(meta.current_page - 1) * meta.per_page + 1} to{' '}
-              {Math.min(meta.current_page * meta.per_page, meta.total)} of {meta.total} members
+              <span className="hidden sm:inline">Showing {(meta.current_page - 1) * meta.per_page + 1} to{' '}
+              {Math.min(meta.current_page * meta.per_page, meta.total)} of </span>{meta.total} members
             </div>
             <div className="flex items-center gap-2">
               <Button

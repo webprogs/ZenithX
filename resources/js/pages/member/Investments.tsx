@@ -81,33 +81,33 @@ const Investments = () => {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-[#1e2329]">My Investments</h1>
+        <h1 className="text-xl sm:text-2xl font-bold text-[#1e2329]">My Investments</h1>
         <p className="text-[#707a8a]">Track your investment portfolio</p>
       </div>
 
       {/* Summary Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
         <Card>
           <div className="flex items-center">
-            <div className="p-3 rounded-lg bg-[#fef6d8]">
-              <CurrencyDollarIcon className="w-6 h-6 text-[#f0b90b]" />
+            <div className="p-2 sm:p-3 rounded-lg bg-[#fef6d8]">
+              <CurrencyDollarIcon className="w-5 h-5 sm:w-6 sm:h-6 text-[#f0b90b]" />
             </div>
-            <div className="ml-4">
-              <p className="text-sm text-[#707a8a]">Total Invested</p>
-              <p className="text-xl font-bold text-[#1e2329]">{formatCurrency(summary.total_invested)}</p>
+            <div className="ml-3 sm:ml-4">
+              <p className="text-xs sm:text-sm text-[#707a8a]">Total Invested</p>
+              <p className="text-lg sm:text-xl font-bold text-[#1e2329]">{formatCurrency(summary.total_invested)}</p>
             </div>
           </div>
         </Card>
         <Card>
           <div className="flex items-center">
-            <div className="p-3 rounded-lg bg-[#e6f7f0]">
-              <ArrowTrendingUpIcon className="w-6 h-6 text-[#03a66d]" />
+            <div className="p-2 sm:p-3 rounded-lg bg-[#e6f7f0]">
+              <ArrowTrendingUpIcon className="w-5 h-5 sm:w-6 sm:h-6 text-[#03a66d]" />
             </div>
-            <div className="ml-4">
-              <p className="text-sm text-[#707a8a]">Interest Earned</p>
-              <p className="text-xl font-bold text-[#03a66d]">
+            <div className="ml-3 sm:ml-4">
+              <p className="text-xs sm:text-sm text-[#707a8a]">Interest Earned</p>
+              <p className="text-lg sm:text-xl font-bold text-[#03a66d]">
                 +{formatCurrency(summary.total_interest_earned)}
               </p>
             </div>
@@ -115,12 +115,12 @@ const Investments = () => {
         </Card>
         <Card>
           <div className="flex items-center">
-            <div className="p-3 rounded-lg bg-[#e6f4ff]">
-              <ChartBarIcon className="w-6 h-6 text-[#0070f3]" />
+            <div className="p-2 sm:p-3 rounded-lg bg-[#e6f4ff]">
+              <ChartBarIcon className="w-5 h-5 sm:w-6 sm:h-6 text-[#0070f3]" />
             </div>
-            <div className="ml-4">
-              <p className="text-sm text-[#707a8a]">Active Investments</p>
-              <p className="text-xl font-bold text-[#1e2329]">{summary.active_investments}</p>
+            <div className="ml-3 sm:ml-4">
+              <p className="text-xs sm:text-sm text-[#707a8a]">Active Investments</p>
+              <p className="text-lg sm:text-xl font-bold text-[#1e2329]">{summary.active_investments}</p>
             </div>
           </div>
         </Card>
@@ -128,9 +128,9 @@ const Investments = () => {
 
       {/* Filters */}
       <Card>
-        <div className="flex items-center gap-4">
+        <div className="flex flex-wrap items-center gap-2 sm:gap-4">
           <span className="text-sm text-[#707a8a]">Filter by status:</span>
-          <div className="flex gap-2">
+          <div className="flex flex-wrap gap-2">
             <Button
               variant={statusFilter === undefined ? 'primary' : 'secondary'}
               size="sm"
@@ -164,7 +164,7 @@ const Investments = () => {
       </Card>
 
       {/* Investments List */}
-      <div className="space-y-4">
+      <div className="space-y-3 sm:space-y-4">
         {investmentsList.length === 0 ? (
           <Card>
             <div className="text-center py-8 text-[#707a8a]">
@@ -176,13 +176,13 @@ const Investments = () => {
             <Card key={investment.id}>
               <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                 <div className="flex-1">
-                  <div className="flex items-center gap-3 mb-2">
-                    <h3 className="text-lg font-semibold text-[#1e2329]">
+                  <div className="flex items-center gap-2 sm:gap-3 mb-2 flex-wrap">
+                    <h3 className="text-base sm:text-lg font-semibold text-[#1e2329]">
                       {formatCurrency(investment.amount)}
                     </h3>
                     {getStatusBadge(investment.status)}
                   </div>
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 text-sm">
                     <div>
                       <p className="text-[#707a8a]">Interest Rate</p>
                       <p className="text-[#1e2329]">{formatPercentage(investment.interest_rate)}</p>
@@ -205,9 +205,9 @@ const Investments = () => {
                     </div>
                   </div>
                 </div>
-                <div className="text-right">
+                <div className="md:text-right">
                   <p className="text-sm text-[#707a8a]">Current Balance</p>
-                  <p className="text-2xl font-bold text-[#1e2329]">
+                  <p className="text-xl sm:text-2xl font-bold text-[#1e2329]">
                     {formatCurrency(parseFloat(investment.amount) + parseFloat(investment.interest_earned))}
                   </p>
                 </div>
@@ -219,10 +219,10 @@ const Investments = () => {
 
       {/* Pagination */}
       {meta.last_page > 1 && (
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="text-sm text-[#707a8a]">
-            Showing {(meta.current_page - 1) * meta.per_page + 1} to{' '}
-            {Math.min(meta.current_page * meta.per_page, meta.total)} of {meta.total} investments
+            <span className="hidden sm:inline">Showing {(meta.current_page - 1) * meta.per_page + 1} to{' '}
+            {Math.min(meta.current_page * meta.per_page, meta.total)} of </span>{meta.total} investments
           </div>
           <div className="flex items-center gap-2">
             <Button
