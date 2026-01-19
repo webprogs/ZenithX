@@ -30,6 +30,7 @@ const adminNavItems: NavItem[] = [
   { name: 'User Management', href: '/admin/users', icon: UsersIcon },
   { name: 'Audit Logs', href: '/admin/audit-logs', icon: ClipboardDocumentListIcon },
   { name: 'Notifications', href: '/admin/notifications', icon: BellIcon },
+  { name: 'Profile', href: '/admin/profile', icon: UserCircleIcon },
   { name: 'Settings', href: '/admin/settings', icon: Cog6ToothIcon },
 ];
 

@@ -32,6 +32,12 @@ php artisan db:seed                    # Run seeders
 php artisan make:model ModelName -mfc  # Model with migration, factory, controller
 php artisan make:controller ControllerName --api  # API controller
 php artisan make:migration create_table_name_table
+
+# Interest calculation
+php artisan interest:calculate           # Calculate monthly interest for all active investments
+php artisan interest:calculate --dry-run # Preview without making changes
+php artisan schedule:list                # View all scheduled tasks
+php artisan schedule:run                 # Manually run scheduled tasks
 ```
 
 ## Architecture Overview
@@ -97,9 +103,14 @@ php artisan make:migration create_table_name_table
 **Withdrawals**: Amount, destination (GCASH number or bank details), confirmation step, balance calculation, history view
 
 ### Interest Calculation
-- Monthly interest model
-- Lock interest rate per investment (no retroactive changes)
-- Pause accrual for inactive/disabled accounts
+- **Automatic Monthly Calculation**: Scheduled to run on the 1st of each month at midnight
+- **Formula**: Investment Amount × Interest Rate ÷ 12
+- **Locked Rates**: Interest rate locked at investment creation (no retroactive changes)
+- **Active Only**: Only processes active investments and active users
+- **Idempotent**: Safe to run multiple times (prevents duplicate calculations)
+- **Manual Trigger**: `php artisan interest:calculate`
+- **Cron Setup Required**: Add to server crontab: `* * * * * cd /path/to/project && php artisan schedule:run`
+- **Documentation**: See [INTEREST_CALCULATION.md](INTEREST_CALCULATION.md) for full details
 
 ### Notifications
 - In-app and email for: top-up submission/approval/rejection, withdrawal approval/payout, account status changes

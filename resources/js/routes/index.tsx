@@ -9,6 +9,9 @@ import GuestGuard from './guards/GuestGuard';
 import AdminLayout from '@/components/layout/AdminLayout';
 import MemberLayout from '@/components/layout/MemberLayout';
 
+// Public Pages
+import Home from '@/pages/Home';
+
 // Auth Pages
 import Login from '@/pages/auth/Login';
 import Register from '@/pages/auth/Register';
@@ -24,6 +27,7 @@ import UserManagement from '@/pages/admin/UserManagement';
 import AuditLogs from '@/pages/admin/AuditLogs';
 import Settings from '@/pages/admin/Settings';
 import AdminNotifications from '@/pages/admin/Notifications';
+import AdminProfile from '@/pages/admin/Profile';
 
 // Member Pages
 import MemberDashboard from '@/pages/member/Dashboard';
@@ -39,6 +43,7 @@ const AppRoutes = () => {
   return (
     <Routes>
       {/* Public Routes */}
+      <Route path="/" element={<Home />} />
       <Route
         path="/login"
         element={
@@ -84,6 +89,7 @@ const AppRoutes = () => {
         <Route path="audit-logs" element={<AuditLogs />} />
         <Route path="settings" element={<Settings />} />
         <Route path="notifications" element={<AdminNotifications />} />
+        <Route path="profile" element={<AdminProfile />} />
       </Route>
 
       {/* Member Routes */}
@@ -107,7 +113,7 @@ const AppRoutes = () => {
       </Route>
 
       {/* Catch-all */}
-      <Route path="*" element={<Navigate to="/login" replace />} />
+      <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );
 };

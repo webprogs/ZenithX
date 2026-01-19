@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\Admin\DashboardController as AdminDashboardControll
 use App\Http\Controllers\Api\Admin\InvitationLinkController;
 use App\Http\Controllers\Api\Admin\MemberController;
 use App\Http\Controllers\Api\Admin\NotificationController as AdminNotificationController;
+use App\Http\Controllers\Api\Admin\ProfileController as AdminProfileController;
 use App\Http\Controllers\Api\Admin\SettingsController;
 use App\Http\Controllers\Api\Admin\TopupRequestController as AdminTopupRequestController;
 use App\Http\Controllers\Api\Admin\UserManagementController;
@@ -108,6 +109,10 @@ Route::middleware(['auth:sanctum', 'force.logout'])->group(function () {
             Route::delete('/{notification}', [AdminNotificationController::class, 'destroy']);
             Route::delete('/', [AdminNotificationController::class, 'clearAll']);
         });
+
+        Route::get('/profile', [AdminProfileController::class, 'show']);
+        Route::put('/profile', [AdminProfileController::class, 'update']);
+        Route::put('/profile/password', [AdminProfileController::class, 'changePassword']);
     });
 
     /*

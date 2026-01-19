@@ -91,7 +91,7 @@ const Dashboard = () => {
         <p className="text-[#707a8a]">Welcome back! Here's what's happening.</p>
       </div>
 
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-3 gap-4 sm:gap-6">
         {statCards.map((stat) => (
           <Card key={stat.title}>
             <div className="flex items-center">

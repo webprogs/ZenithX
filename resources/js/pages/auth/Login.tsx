@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -52,11 +52,11 @@ const Login = () => {
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
           <div className="flex items-center justify-center space-x-2 mb-4">
-            <div className="w-12 h-12 bg-[#f0b90b] rounded-xl flex items-center justify-center">
-              <span className="text-[#1e2329] font-bold text-xl">ZX</span>
+            <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#f0b90b] rounded-xl flex items-center justify-center">
+              <span className="text-[#1e2329] font-bold text-lg sm:text-xl">ZX</span>
             </div>
           </div>
-          <h1 className="text-3xl font-bold text-[#1e2329]">Welcome to ZenithX</h1>
+          <h1 className="text-2xl sm:text-3xl font-bold text-[#1e2329]">Welcome to ZenithX</h1>
           <p className="text-[#707a8a] mt-2">Sign in to your account</p>
         </div>
 

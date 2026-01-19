@@ -64,13 +64,13 @@ const Header = ({ onMenuClick }: HeaderProps) => {
             <Menu.Item>
               {({ active }) => (
                 <button
-                  onClick={() => navigate(user?.role === 'admin' ? '/admin/settings' : '/member/profile')}
+                  onClick={() => navigate(user?.role === 'admin' ? '/admin/profile' : '/member/profile')}
                   className={`${
                     active ? 'bg-[#f5f5f5]' : ''
                   } flex items-center w-full px-4 py-2 text-sm text-[#474d57]`}
                 >
                   <UserCircleIcon className="w-5 h-5 mr-2" />
-                  {user?.role === 'admin' ? 'Settings' : 'Profile'}
+                  Profile
                 </button>
               )}
             </Menu.Item>
