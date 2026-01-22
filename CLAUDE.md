@@ -103,11 +103,13 @@ php artisan schedule:run                 # Manually run scheduled tasks
 **Withdrawals**: Amount, destination (GCASH number or bank details), confirmation step, balance calculation, history view
 
 ### Interest Calculation
-- **Automatic Monthly Calculation**: Scheduled to run on the 1st of each month at midnight
-- **Formula**: Investment Amount × Interest Rate ÷ 12
+- **Anniversary-Based**: Interest credited on the same day each month as the investment start date (e.g., invested Jan 22 → interest on Feb 22, Mar 22, etc.)
+- **Daily Cron**: Runs daily at 00:05, checks today and yesterday for eligible investments
+- **Formula**: Investment Amount × (Interest Rate ÷ 100) ÷ 12
 - **Locked Rates**: Interest rate locked at investment creation (no retroactive changes)
 - **Active Only**: Only processes active investments and active users
-- **Idempotent**: Safe to run multiple times (prevents duplicate calculations)
+- **Duplicate Prevention**: Tracks `last_accrual_date` to prevent double interest per month
+- **End-of-Month Handling**: Investments on 31st get interest on last day of shorter months
 - **Manual Trigger**: `php artisan interest:calculate`
 - **Cron Setup Required**: Add to server crontab: `* * * * * cd /path/to/project && php artisan schedule:run`
 - **Documentation**: See [INTEREST_CALCULATION.md](INTEREST_CALCULATION.md) for full details

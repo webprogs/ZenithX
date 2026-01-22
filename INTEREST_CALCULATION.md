@@ -2,239 +2,280 @@
 
 ## Overview
 
-ZenithX automatically calculates and credits monthly interest to all active investments. The system uses Laravel's task scheduling to run the calculation process automatically.
+ZenithX calculates and credits interest based on each investment's **anniversary date**. Interest is credited on the same day of the month that the investment was made.
 
 ## How It Works
 
-### 1. **Interest Calculation Logic**
+### Anniversary-Based Interest
 
-The `InterestService` handles all interest calculations:
+- **Example**: If you invest on **January 22**, your interest will be credited on:
+  - February 22
+  - March 22
+  - April 22
+  - ... and so on every month
 
-- **Monthly Interest Formula**: `Investment Amount × Interest Rate ÷ 12`
-- **Active Investments Only**: Only processes investments with status `active`
-- **Active Users Only**: Skips calculations for inactive/disabled users
-- **Once Per Month**: Prevents duplicate calculations in the same month using `last_accrual_date`
-- **Locked Interest Rates**: Uses the interest rate locked at investment creation time
+- **End-of-Month Handling**: If you invested on the 31st, but a month only has 28-30 days, interest is credited on the last day of that month.
+  - Example: Invested on Jan 31 → Feb 28/29, Mar 31, Apr 30, May 31...
 
-### 2. **Automatic Scheduling**
+### Interest Formula
 
-The system is configured to automatically calculate interest on the **1st day of every month at midnight** (00:00).
-
-**Schedule Configuration** ([routes/console.php](routes/console.php)):
-```php
-Schedule::command('interest:calculate')
-    ->monthlyOn(1, '00:00')    // Runs on the 1st at midnight
-    ->withoutOverlapping()      // Prevents concurrent runs
-    ->onSuccess/onFailure       // Logs results
+```
+Monthly Interest = Investment Amount × (Interest Rate ÷ 100) ÷ 12
 ```
 
-### 3. **Manual Execution**
+**Example:**
+- Investment: ₱100,000
+- Annual Rate: 12%
+- Monthly Interest: ₱100,000 × 0.12 ÷ 12 = **₱1,000/month**
 
-You can manually trigger interest calculation anytime:
+### Eligibility Rules
+
+Interest is credited only when ALL conditions are met:
+
+1. **Investment Status**: Must be `active` (not paused or completed)
+2. **User Status**: User must be `active` (not inactive or disabled)
+3. **Anniversary Date**: Today must match the investment's anniversary day
+4. **No Duplicate**: Interest not already credited this month
+5. **Minimum Period**: At least 1 month has passed since investment start
+
+### Duplicate Prevention
+
+The system prevents double interest through multiple checks:
+- `last_accrual_date` tracks when interest was last credited
+- If interest was already credited in the current month, it's skipped
+- The cron also checks the previous day to catch any missed calculations
+
+## Daily Cron Schedule
+
+The system runs **daily at 00:05** (5 minutes past midnight) and:
+1. Checks all investments with today's anniversary date
+2. Also checks yesterday to catch any missed calculations
+3. Only credits eligible investments
+4. Logs all activity
+
+### Server Setup (REQUIRED)
+
+Add this to your server's crontab:
 
 ```bash
-# Calculate interest for all active investments
-php artisan interest:calculate
-
-# Dry run (see what would happen without making changes)
-php artisan interest:calculate --dry-run
-```
-
-## Server Setup (REQUIRED for Automatic Calculation)
-
-For the automatic monthly calculation to work, you **MUST** set up a cron job on your server.
-
-### Step 1: Add Cron Job
-
-Open your server's crontab:
-```bash
+# Open crontab
 crontab -e
-```
 
-Add this line:
-```bash
+# Add this line:
 * * * * * cd /path/to/zenithx && php artisan schedule:run >> /dev/null 2>&1
 ```
 
 **Important**: Replace `/path/to/zenithx` with your actual project path.
 
-### Step 2: Verify Setup
-
-Test the scheduler:
-```bash
-# Check scheduled tasks
-php artisan schedule:list
-
-# Run the scheduler manually
-php artisan schedule:run
-```
-
-You should see `interest:calculate` in the list of scheduled commands.
-
-## Interest Calculation Flow
-
-1. **Investment Created**: When a top-up is approved, an investment record is created with:
-   - `amount`: The top-up amount
-   - `interest_rate`: Locked rate from user's profile
-   - `status`: Set to `active`
-   - `last_accrual_date`: NULL (first calculation pending)
-
-2. **Monthly Calculation** (1st of each month):
-   - System finds all active investments
-   - Checks if user is active
-   - Checks if interest already calculated this month
-   - Calculates: `amount × interest_rate ÷ 12`
-   - Credits interest to investment
-   - Updates `last_accrual_date` to current date
-   - Updates `interest_earned` total
-
-3. **Interest Available**:
-   - Interest is added to `available_balance`
-   - Member can withdraw anytime (subject to withdrawal settings)
-
-## Example Calculation
-
-**Scenario:**
-- Investment Amount: ₱100,000
-- Interest Rate: 12% per year
-- Monthly Interest: ₱100,000 × 0.12 ÷ 12 = **₱1,000/month**
-
-**Timeline:**
-- Jan 15: Member deposits ₱100,000 (approved)
-- Feb 1: System credits ₱1,000 interest
-- Mar 1: System credits ₱1,000 interest
-- Apr 1: System credits ₱1,000 interest
-- ... continues monthly
-
-## Command Options
+## Command Reference
 
 ### Calculate Interest
 ```bash
-# Normal run
+# Run calculation for today (checks today + yesterday)
 php artisan interest:calculate
 
-# Dry run (preview without changes)
+# Preview without making changes
 php artisan interest:calculate --dry-run
+
+# Process a specific date
+php artisan interest:calculate --date=2026-01-22
 ```
 
-### Output Example
-```
-Interest Calculation Complete!
-
-+-------------------+----------+
-| Metric            | Value    |
-+-------------------+----------+
-| Processed         | 150      |
-| Skipped           | 25       |
-| Total Interest    | ₱125,000 |
-| Errors            | 0        |
-+-------------------+----------+
-
-Completed in 2.35 seconds
-```
-
-## Pausing Interest for Users
-
-Admins can pause interest accrual for specific users:
-
-**Via User Management:**
-1. Go to Admin Panel → User Management
-2. Select user
-3. Change status to `inactive` or `disabled`
-4. Interest calculation will be skipped for that user
-
-**Programmatically:**
-```php
-$interestService = app(InterestService::class);
-$interestService->pauseInterestForUser($user);  // Pauses
-$interestService->resumeInterestForUser($user); // Resumes
-```
-
-## Monitoring & Logs
-
-### Check Logs
+### View Schedule
 ```bash
-# View Laravel logs
-tail -f storage/logs/laravel.log
-
-# Check for interest calculation logs
-grep "interest" storage/logs/laravel.log
-```
-
-### Successful Run
-```
-[2026-01-19 00:00:00] production.INFO: Monthly interest calculation completed successfully
-```
-
-### Failed Run
-```
-[2026-01-19 00:00:00] production.ERROR: Monthly interest calculation failed
-[2026-01-19 00:00:00] local.ERROR: Interest calculation failed for investment 123: ...
-```
-
-## Testing
-
-### Test in Development
-```bash
-# Run calculation manually
-php artisan interest:calculate
-
-# Check the results
-php artisan tinker
->>> \App\Models\Investment::latest('updated_at')->first()->interest_earned
-```
-
-### Verify Schedule
-```bash
-# List all scheduled tasks
+# List scheduled tasks
 php artisan schedule:list
 
-# Test schedule (runs all due tasks)
+# Manually trigger scheduler
 php artisan schedule:run
 ```
 
-## Production Deployment Checklist
+## Example Timeline
 
-- [ ] Set up server cron job: `* * * * * cd /path/to/project && php artisan schedule:run`
-- [ ] Verify cron is running: `php artisan schedule:list`
-- [ ] Test manual calculation: `php artisan interest:calculate --dry-run`
-- [ ] Monitor logs after first automatic run
-- [ ] Set up monitoring/alerts for failed calculations
+**Scenario: User invests ₱100,000 on January 22 at 12% annual rate**
+
+| Date | Event | Interest |
+|------|-------|----------|
+| Jan 22 | Investment created | - |
+| Feb 22 | First interest credited | ₱1,000 |
+| Mar 22 | Second interest credited | ₱1,000 |
+| Apr 22 | Third interest credited | ₱1,000 |
+| ... | Continues monthly | ₱1,000/month |
+
+**Total after 1 year**: ₱12,000 in interest
+
+## Sample Output
+
+### Normal Run
+```
+Interest Calculation - 2026-01-22
+Checking today and yesterday for eligible investments...
+
+Interest Calculation Complete!
+
++----------------+----------+
+| Metric         | Value    |
++----------------+----------+
+| Date           | 2026-01-22 |
+| Processed      | 5        |
+| Skipped        | 12       |
+| Total Interest | ₱15,000  |
+| Errors         | 0        |
++----------------+----------+
+
+Processed (today):
++---------------+-------------+------------+------------------+
+| Investment ID | User        | Amount     | Interest Credited |
++---------------+-------------+------------+------------------+
+| #1            | John Doe    | ₱100,000   | ₱1,000           |
+| #5            | Jane Smith  | ₱50,000    | ₱500             |
++---------------+-------------+------------+------------------+
+
+Completed in 0.45 seconds
+```
+
+### Dry Run
+```
+DRY RUN MODE - No changes will be made
+
+Preview Results:
+
++----------------+----------+
+| Metric         | Value    |
++----------------+----------+
+| Date           | 2026-01-22 |
+| Would Process  | 5        |
+| Would Skip     | 0        |
+| Total Interest | ₱15,000  |
++----------------+----------+
+
+Investments that would receive interest:
++--------+--------+-------------+------------+-------+------------+-----------+
+| Period | Inv ID | User        | Amount     | Rate  | Start Date | Interest  |
++--------+--------+-------------+------------+-------+------------+-----------+
+| today  | #1     | John Doe    | ₱100,000   | 12%   | 2025-12-22 | ₱1,000    |
+| today  | #5     | Jane Smith  | ₱50,000    | 12%   | 2025-11-22 | ₱500      |
++--------+--------+-------------+------------+-------+------------+-----------+
+```
+
+## Technical Details
+
+### Investment Model Methods
+
+```php
+// Check if interest is due on a specific date
+$investment->isInterestDueOn(Carbon::parse('2026-02-22'));
+
+// Get the anniversary day for a month (handles end-of-month)
+$investment->getAnniversaryDayForMonth(Carbon::now());
+
+// Calculate monthly interest
+$investment->calculateMonthlyInterest();
+
+// Credit interest
+$investment->addInterest($amount);
+```
+
+### InterestService Methods
+
+```php
+// Daily calculation (checks today + yesterday)
+$results = $interestService->calculateDailyInterest();
+
+// Preview without changes
+$preview = $interestService->previewDailyInterest();
+
+// Process specific date
+$results = $interestService->processInterestForDate(Carbon::parse('2026-01-22'));
+
+// Check eligibility
+$eligible = $interestService->isEligibleForInterest($investment, $date);
+
+// Get investments due today
+$investments = $interestService->getInvestmentsDueToday();
+```
+
+## Logs
+
+Interest calculations are logged to:
+- `storage/logs/laravel.log` - General application log
+- `storage/logs/interest-calculation.log` - Dedicated interest log
+
+### Log Format
+```
+[2026-01-22 00:05:01] production.INFO: Interest credited {
+    "investment_id": 1,
+    "user_id": 5,
+    "amount": 100000,
+    "interest": 1000,
+    "new_total_earned": 3000
+}
+```
+
+## Notifications
+
+When interest is credited, the user receives an in-app notification:
+> "Monthly interest of ₱1,000.00 has been credited to your account."
+
+## Pausing Interest
+
+### For Individual Users
+Admins can pause interest by:
+1. Setting user status to `inactive` or `disabled`
+2. Investments will be skipped during daily calculation
+
+### For Individual Investments
+```php
+$interestService->pauseInterestForUser($user);  // Pause all
+$interestService->resumeInterestForUser($user); // Resume all
+```
 
 ## Troubleshooting
 
-### Interest Not Calculating
+### No Interest Being Credited
 
-1. **Check Cron Job**:
-   ```bash
-   crontab -l  # Should show the schedule:run command
+1. **Check Investment Status**
+   ```sql
+   SELECT * FROM investments WHERE status = 'active';
    ```
 
-2. **Check Schedule**:
-   ```bash
-   php artisan schedule:list  # Should list interest:calculate
+2. **Check User Status**
+   ```sql
+   SELECT u.status FROM users u
+   JOIN investments i ON u.id = i.user_id;
    ```
 
-3. **Run Manually**:
+3. **Check Anniversary Date**
    ```bash
-   php artisan interest:calculate
+   php artisan interest:calculate --dry-run
    ```
 
-4. **Check Logs**:
-   ```bash
-   tail -f storage/logs/laravel.log
+4. **Check Last Accrual**
+   ```sql
+   SELECT id, start_date, last_accrual_date FROM investments;
    ```
 
-### Common Issues
+### Cron Not Running
 
-- **Cron not set up**: Automatic calculation won't work without cron
-- **User inactive**: Interest skipped for inactive/disabled users
-- **Already calculated**: System prevents duplicate calculations in same month
-- **Investment inactive**: Only active investments receive interest
+1. Verify crontab entry:
+   ```bash
+   crontab -l
+   ```
 
-## Additional Notes
+2. Check Laravel schedule:
+   ```bash
+   php artisan schedule:list
+   ```
 
-- Interest rates are **locked** when investment is created (changing user's rate doesn't affect existing investments)
-- System uses **simple interest**, not compound
-- Calculations are idempotent (safe to run multiple times)
-- Failed calculations are logged but don't stop the process for other investments
+3. Check logs:
+   ```bash
+   tail -f storage/logs/interest-calculation.log
+   ```
+
+## Production Checklist
+
+- [ ] Set up server cron: `* * * * * cd /path/to/project && php artisan schedule:run`
+- [ ] Verify with: `php artisan schedule:list`
+- [ ] Test dry run: `php artisan interest:calculate --dry-run`
+- [ ] Monitor first real run
+- [ ] Set up log monitoring/alerts

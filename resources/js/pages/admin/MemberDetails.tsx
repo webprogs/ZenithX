@@ -6,7 +6,12 @@ import Button from '@/components/ui/Button';
 import Badge from '@/components/ui/Badge';
 import Spinner from '@/components/ui/Spinner';
 import { formatCurrency, formatDateTime, formatPercentage } from '@/utils/formatters';
-import { getMember, getMemberTransactions, MemberDetails as MemberDetailsType, MemberTransactions } from '@/api/admin/members';
+import {
+  getMember,
+  getMemberTransactions,
+  MemberShowResponse,
+  MemberTransactions,
+} from '@/api/admin/members';
 import {
   ArrowLeftIcon,
   CurrencyDollarIcon,
@@ -19,7 +24,7 @@ const MemberDetails = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
-  const [member, setMember] = useState<MemberDetailsType | null>(null);
+  const [memberData, setMemberData] = useState<MemberShowResponse | null>(null);
   const [transactions, setTransactions] = useState<MemberTransactions | null>(null);
   const [activeTab, setActiveTab] = useState<'investments' | 'topups' | 'withdrawals'>('investments');
 
@@ -31,7 +36,7 @@ const MemberDetails = () => {
           getMember(Number(id)),
           getMemberTransactions(Number(id)),
         ]);
-        setMember(memberRes.data);
+        setMemberData(memberRes.data);
         setTransactions(transactionsRes.data);
       } catch (error) {
         console.error('Failed to fetch member:', error);
@@ -52,7 +57,7 @@ const MemberDetails = () => {
     );
   }
 
-  if (!member) {
+  if (!memberData) {
     return (
       <div className="text-center py-12">
         <p className="text-[#707a8a]">Member not found</p>
@@ -63,31 +68,33 @@ const MemberDetails = () => {
     );
   }
 
+  const { member, stats } = memberData;
+
   const statCards = [
     {
       title: 'Total Invested',
-      value: formatCurrency(member.total_invested),
+      value: formatCurrency(stats.total_invested),
       icon: CurrencyDollarIcon,
       color: 'text-[#f0b90b]',
       bgColor: 'bg-[#fef6d8]',
     },
     {
       title: 'Interest Earned',
-      value: formatCurrency(member.total_interest_earned),
+      value: formatCurrency(stats.total_interest_earned),
       icon: ArrowTrendingUpIcon,
       color: 'text-[#03a66d]',
       bgColor: 'bg-[#e6f7f0]',
     },
     {
       title: 'Available Balance',
-      value: formatCurrency(member.available_balance),
+      value: formatCurrency(stats.available_balance),
       icon: BanknotesIcon,
       color: 'text-[#0070f3]',
       bgColor: 'bg-[#e6f4ff]',
     },
     {
       title: 'Total Withdrawn',
-      value: formatCurrency(member.total_withdrawn),
+      value: formatCurrency(stats.total_withdrawn),
       icon: ClockIcon,
       color: 'text-[#c99400]',
       bgColor: 'bg-[#fef6d8]',
@@ -156,7 +163,7 @@ const MemberDetails = () => {
             <div>
               <p className="text-sm text-[#707a8a]">Interest Rate</p>
               <p className="text-[#1e2329]">
-                {member.default_interest_rate !== null
+                {member.default_interest_rate !== null && member.default_interest_rate !== undefined
                   ? formatPercentage(member.default_interest_rate)
                   : 'Not set'}
               </p>
@@ -244,7 +251,7 @@ const MemberDetails = () => {
                   : 'text-[#707a8a] hover:text-[#1e2329]'
               }`}
             >
-              Investments ({transactions?.investments.length || 0})
+              Investments ({transactions?.investments?.length ?? 0})
             </button>
             <button
               onClick={() => setActiveTab('topups')}
@@ -254,7 +261,7 @@ const MemberDetails = () => {
                   : 'text-[#707a8a] hover:text-[#1e2329]'
               }`}
             >
-              Top-Ups ({transactions?.topup_requests.length || 0})
+              Top-Ups ({transactions?.topups?.length ?? 0})
             </button>
             <button
               onClick={() => setActiveTab('withdrawals')}
@@ -264,7 +271,7 @@ const MemberDetails = () => {
                   : 'text-[#707a8a] hover:text-[#1e2329]'
               }`}
             >
-              Withdrawals ({transactions?.withdrawal_requests.length || 0})
+              Withdrawals ({transactions?.withdrawals?.length ?? 0})
             </button>
           </div>
         </div>
@@ -272,10 +279,10 @@ const MemberDetails = () => {
         <div className="p-4 sm:p-6">
           {activeTab === 'investments' && (
             <div className="space-y-4">
-              {transactions?.investments.length === 0 ? (
+              {!transactions?.investments?.length ? (
                 <p className="text-[#707a8a] text-center py-8">No investments yet</p>
               ) : (
-                transactions?.investments.map((investment) => (
+                transactions.investments.map((investment) => (
                   <div
                     key={investment.id}
                     className="flex flex-col sm:flex-row sm:items-center justify-between p-4 bg-[#f5f5f5] rounded-lg gap-2 sm:gap-4"
@@ -301,10 +308,10 @@ const MemberDetails = () => {
 
           {activeTab === 'topups' && (
             <div className="space-y-4">
-              {transactions?.topup_requests.length === 0 ? (
+              {!transactions?.topups?.length ? (
                 <p className="text-[#707a8a] text-center py-8">No top-up requests</p>
               ) : (
-                transactions?.topup_requests.map((request) => (
+                transactions.topups.map((request) => (
                   <div
                     key={request.id}
                     className="flex flex-col sm:flex-row sm:items-center justify-between p-4 bg-[#f5f5f5] rounded-lg gap-2 sm:gap-4"
@@ -325,10 +332,10 @@ const MemberDetails = () => {
 
           {activeTab === 'withdrawals' && (
             <div className="space-y-4">
-              {transactions?.withdrawal_requests.length === 0 ? (
+              {!transactions?.withdrawals?.length ? (
                 <p className="text-[#707a8a] text-center py-8">No withdrawal requests</p>
               ) : (
-                transactions?.withdrawal_requests.map((request) => (
+                transactions.withdrawals.map((request) => (
                   <div
                     key={request.id}
                     className="flex flex-col sm:flex-row sm:items-center justify-between p-4 bg-[#f5f5f5] rounded-lg gap-2 sm:gap-4"

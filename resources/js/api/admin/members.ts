@@ -10,21 +10,33 @@ export interface MembersParams {
   direction?: 'asc' | 'desc';
 }
 
-export interface MemberDetails extends User {
+export interface MemberStats {
   total_invested: number;
   total_interest_earned: number;
   available_balance: number;
   total_withdrawn: number;
   pending_withdrawals: number;
+  active_investments_count: number;
+  pending_topups_count: number;
+  pending_withdrawals_count: number;
+}
+
+export interface MemberWithInvitation extends User {
   invitation_link?: {
+    id: number;
     code: string;
     interest_rate: number;
   };
 }
 
+export interface MemberShowResponse {
+  member: MemberWithInvitation;
+  stats: MemberStats;
+}
+
 export interface MemberTransactions {
-  topup_requests: TopupRequest[];
-  withdrawal_requests: WithdrawalRequest[];
+  topups: TopupRequest[];
+  withdrawals: WithdrawalRequest[];
   investments: Investment[];
 }
 
@@ -37,7 +49,7 @@ export const getMembers = async (
 
 export const getMember = async (
   id: number
-): Promise<ApiResponse<MemberDetails>> => {
+): Promise<ApiResponse<MemberShowResponse>> => {
   const response = await client.get(`/admin/members/${id}`);
   return response.data;
 };

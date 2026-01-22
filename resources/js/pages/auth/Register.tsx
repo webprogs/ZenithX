@@ -36,12 +36,15 @@ type RegisterFormData = z.infer<typeof registerSchema>;
 
 const Register = () => {
   const navigate = useNavigate();
-  const { code } = useParams<{ code: string }>();
+  const { code: urlCode } = useParams<{ code: string }>();
   const { register: registerUser } = useAuthStore();
   const [isLoading, setIsLoading] = useState(false);
-  const [isValidating, setIsValidating] = useState(true);
+  const [isValidating, setIsValidating] = useState(!!urlCode);
   const [invitation, setInvitation] = useState<Partial<InvitationLink> | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [invitationCode, setInvitationCode] = useState(urlCode || '');
+  const [isValidatingCode, setIsValidatingCode] = useState(false);
+  const [codeError, setCodeError] = useState<string | null>(null);
 
   const {
     register,
@@ -51,17 +54,18 @@ const Register = () => {
     resolver: zodResolver(registerSchema),
   });
 
+  // Validate code from URL on mount
   useEffect(() => {
     const validate = async () => {
-      if (!code) {
-        setError('No invitation code provided.');
+      if (!urlCode) {
         setIsValidating(false);
         return;
       }
 
       try {
-        const response = await validateInvitation(code);
+        const response = await validateInvitation(urlCode);
         setInvitation(response.data);
+        setInvitationCode(urlCode);
       } catch (err) {
         const axiosError = err as AxiosError<{ message?: string }>;
         setError(axiosError.response?.data?.message || 'Invalid invitation code.');
@@ -71,15 +75,39 @@ const Register = () => {
     };
 
     validate();
-  }, [code]);
+  }, [urlCode]);
+
+  // Handle manual code validation
+  const handleValidateCode = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!invitationCode.trim()) {
+      setCodeError('Please enter an invitation code.');
+      return;
+    }
+
+    setIsValidatingCode(true);
+    setCodeError(null);
+
+    try {
+      const response = await validateInvitation(invitationCode.trim().toUpperCase());
+      setInvitation(response.data);
+      setError(null);
+    } catch (err) {
+      const axiosError = err as AxiosError<{ message?: string }>;
+      setCodeError(axiosError.response?.data?.message || 'Invalid invitation code.');
+    } finally {
+      setIsValidatingCode(false);
+    }
+  };
 
   const onSubmit = async (data: RegisterFormData) => {
-    if (!code) return;
+    if (!invitationCode) return;
 
     setIsLoading(true);
     try {
       await registerUser({
-        invitation_code: code,
+        invitation_code: invitationCode.trim().toUpperCase(),
         ...data,
       });
       const user = useAuthStore.getState().user;
@@ -95,6 +123,7 @@ const Register = () => {
     }
   };
 
+  // Show spinner only when validating URL code
   if (isValidating) {
     return (
       <div className="min-h-screen bg-[#fafafa] flex items-center justify-center">
@@ -103,7 +132,8 @@ const Register = () => {
     );
   }
 
-  if (error) {
+  // Show error only for URL code validation failures
+  if (error && urlCode) {
     return (
       <div className="min-h-screen bg-[#fafafa] flex items-center justify-center p-4">
         <Card className="max-w-md w-full text-center">
@@ -114,14 +144,79 @@ const Register = () => {
           </div>
           <h2 className="text-xl font-bold text-[#1e2329] mb-2">Invalid Invitation</h2>
           <p className="text-[#707a8a] mb-6">{error}</p>
-          <Link to="/login">
-            <Button variant="secondary">Back to Login</Button>
-          </Link>
+          <div className="space-y-3">
+            <Link to="/register">
+              <Button variant="primary" className="w-full">Try Another Code</Button>
+            </Link>
+            <Link to="/login">
+              <Button variant="secondary" className="w-full">Back to Login</Button>
+            </Link>
+          </div>
         </Card>
       </div>
     );
   }
 
+  // Show invitation code input form if no valid invitation yet
+  if (!invitation) {
+    return (
+      <div className="min-h-screen bg-[#fafafa] flex items-center justify-center p-4">
+        <div className="w-full max-w-md">
+          <div className="text-center mb-8">
+            <div className="flex items-center justify-center space-x-2 mb-4">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#f0b90b] rounded-xl flex items-center justify-center">
+                <span className="text-[#1e2329] font-bold text-lg sm:text-xl">ZX</span>
+              </div>
+            </div>
+            <h1 className="text-2xl sm:text-3xl font-bold text-[#1e2329]">Join ZenithX</h1>
+            <p className="text-[#707a8a] mt-2">
+              Enter your invitation code to get started
+            </p>
+          </div>
+
+          <Card>
+            <form onSubmit={handleValidateCode} className="space-y-4">
+              <div>
+                <Input
+                  label="Invitation Code"
+                  type="text"
+                  placeholder="Enter your invitation code"
+                  value={invitationCode}
+                  onChange={(e) => {
+                    setInvitationCode(e.target.value.toUpperCase());
+                    setCodeError(null);
+                  }}
+                  error={codeError || undefined}
+                  className="uppercase"
+                />
+                <p className="text-xs text-[#707a8a] mt-1">
+                  Contact an existing member to get an invitation code.
+                </p>
+              </div>
+
+              <Button
+                type="submit"
+                className="w-full"
+                size="lg"
+                isLoading={isValidatingCode}
+              >
+                Continue
+              </Button>
+            </form>
+          </Card>
+
+          <p className="text-center text-[#707a8a] mt-6">
+            Already have an account?{' '}
+            <Link to="/login" className="text-[#f0b90b] hover:text-[#d9a60a]">
+              Sign in
+            </Link>
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  // Show registration form once invitation is validated
   return (
     <div className="min-h-screen bg-[#fafafa] flex items-center justify-center p-4">
       <div className="w-full max-w-md">
@@ -138,6 +233,22 @@ const Register = () => {
         </div>
 
         <Card>
+          {/* Show the validated invitation code */}
+          <div className="mb-4 p-3 bg-[#e6f7f0] rounded-lg border border-[#03a66d]/20">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-xs text-[#707a8a]">Invitation Code</p>
+                <p className="font-mono font-semibold text-[#1e2329]">{invitationCode}</p>
+              </div>
+              <div className="flex items-center text-[#03a66d]">
+                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+                <span className="text-sm ml-1">Valid</span>
+              </div>
+            </div>
+          </div>
+
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
             <Input
               label="Username"
@@ -196,6 +307,23 @@ const Register = () => {
               Create Account
             </Button>
           </form>
+
+          {/* Option to use a different code */}
+          {!urlCode && (
+            <div className="mt-4 text-center">
+              <button
+                type="button"
+                onClick={() => {
+                  setInvitation(null);
+                  setInvitationCode('');
+                  setCodeError(null);
+                }}
+                className="text-sm text-[#707a8a] hover:text-[#1e2329]"
+              >
+                Use a different invitation code
+              </button>
+            </div>
+          )}
         </Card>
 
         <p className="text-center text-[#707a8a] mt-6">

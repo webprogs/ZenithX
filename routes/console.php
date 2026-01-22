@@ -8,14 +8,16 @@ Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->purpose('Display an inspiring quote');
 
-// Schedule monthly interest calculation
-// Runs on the 1st day of each month at 00:00 (midnight)
+// Schedule daily interest calculation
+// Runs every day at 00:05 (5 minutes past midnight)
+// Checks both today and yesterday to catch any missed calculations
 Schedule::command('interest:calculate')
-    ->monthlyOn(1, '00:00')
+    ->dailyAt('00:05')
     ->withoutOverlapping()
+    ->appendOutputTo(storage_path('logs/interest-calculation.log'))
     ->onSuccess(function () {
-        info('Monthly interest calculation completed successfully');
+        info('Daily interest calculation completed successfully');
     })
     ->onFailure(function () {
-        error('Monthly interest calculation failed');
+        error('Daily interest calculation failed');
     });

@@ -97,9 +97,14 @@ const Home = () => {
               </div>
               <span className="text-lg sm:text-xl font-bold text-[#1e2329]">ZenithX</span>
             </div>
-            <Link to="/login">
-              <Button variant="primary">Login</Button>
-            </Link>
+            <div className="flex items-center gap-2 sm:gap-3">
+              <Link to="/register">
+                <Button variant="secondary" className="text-sm sm:text-base">Register</Button>
+              </Link>
+              <Link to="/login">
+                <Button variant="primary" className="text-sm sm:text-base">Login</Button>
+              </Link>
+            </div>
           </div>
         </div>
       </nav>
@@ -117,7 +122,7 @@ const Home = () => {
               platform. Start building your financial future today.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Link to="/login">
+              <Link to="/register">
                 <Button size="lg" className="w-full sm:w-auto">
                   Get Started
                 </Button>
@@ -257,15 +262,26 @@ const Home = () => {
           <p className="text-sm sm:text-base md:text-lg text-[#474d57] mb-6 sm:mb-8">
             Join our community of successful investors and start earning passive income today.
           </p>
-          <Link to="/login">
-            <Button
-              variant="secondary"
-              size="lg"
-              className="bg-white text-[#1e2329] hover:bg-[#f5f5f5] shadow-lg"
-            >
-              Login to Your Account
-            </Button>
-          </Link>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <Link to="/register">
+              <Button
+                variant="secondary"
+                size="lg"
+                className="bg-white text-[#1e2329] hover:bg-[#f5f5f5] shadow-lg w-full sm:w-auto"
+              >
+                Create Account
+              </Button>
+            </Link>
+            <Link to="/login">
+              <Button
+                variant="secondary"
+                size="lg"
+                className="bg-[#1e2329] text-white hover:bg-[#2b3139] shadow-lg w-full sm:w-auto"
+              >
+                Login
+              </Button>
+            </Link>
+          </div>
         </div>
       </section>
 
