@@ -24,9 +24,9 @@ Monthly Interest = Investment Amount × (Interest Rate ÷ 100) ÷ 12
 ```
 
 **Example:**
-- Investment: ₱100,000
+- Investment: $100,000
 - Annual Rate: 12%
-- Monthly Interest: ₱100,000 × 0.12 ÷ 12 = **₱1,000/month**
+- Monthly Interest: $100,000 × 0.12 ÷ 12 = **$1,000/month**
 
 ### Eligibility Rules
 
@@ -92,17 +92,17 @@ php artisan schedule:run
 
 ## Example Timeline
 
-**Scenario: User invests ₱100,000 on January 22 at 12% annual rate**
+**Scenario: User invests $100,000 on January 22 at 12% annual rate**
 
 | Date | Event | Interest |
 |------|-------|----------|
 | Jan 22 | Investment created | - |
-| Feb 22 | First interest credited | ₱1,000 |
-| Mar 22 | Second interest credited | ₱1,000 |
-| Apr 22 | Third interest credited | ₱1,000 |
-| ... | Continues monthly | ₱1,000/month |
+| Feb 22 | First interest credited | $1,000 |
+| Mar 22 | Second interest credited | $1,000 |
+| Apr 22 | Third interest credited | $1,000 |
+| ... | Continues monthly | $1,000/month |
 
-**Total after 1 year**: ₱12,000 in interest
+**Total after 1 year**: $12,000 in interest
 
 ## Sample Output
 
@@ -119,7 +119,7 @@ Interest Calculation Complete!
 | Date           | 2026-01-22 |
 | Processed      | 5        |
 | Skipped        | 12       |
-| Total Interest | ₱15,000  |
+| Total Interest | $15,000  |
 | Errors         | 0        |
 +----------------+----------+
 
@@ -127,8 +127,8 @@ Processed (today):
 +---------------+-------------+------------+------------------+
 | Investment ID | User        | Amount     | Interest Credited |
 +---------------+-------------+------------+------------------+
-| #1            | John Doe    | ₱100,000   | ₱1,000           |
-| #5            | Jane Smith  | ₱50,000    | ₱500             |
+| #1            | John Doe    | $100,000   | $1,000           |
+| #5            | Jane Smith  | $50,000    | $500             |
 +---------------+-------------+------------+------------------+
 
 Completed in 0.45 seconds
@@ -146,15 +146,15 @@ Preview Results:
 | Date           | 2026-01-22 |
 | Would Process  | 5        |
 | Would Skip     | 0        |
-| Total Interest | ₱15,000  |
+| Total Interest | $15,000  |
 +----------------+----------+
 
 Investments that would receive interest:
 +--------+--------+-------------+------------+-------+------------+-----------+
 | Period | Inv ID | User        | Amount     | Rate  | Start Date | Interest  |
 +--------+--------+-------------+------------+-------+------------+-----------+
-| today  | #1     | John Doe    | ₱100,000   | 12%   | 2025-12-22 | ₱1,000    |
-| today  | #5     | Jane Smith  | ₱50,000    | 12%   | 2025-11-22 | ₱500      |
+| today  | #1     | John Doe    | $100,000   | 12%   | 2025-12-22 | $1,000    |
+| today  | #5     | Jane Smith  | $50,000    | 12%   | 2025-11-22 | $500      |
 +--------+--------+-------------+------------+-------+------------+-----------+
 ```
 
@@ -215,7 +215,7 @@ Interest calculations are logged to:
 ## Notifications
 
 When interest is credited, the user receives an in-app notification:
-> "Monthly interest of ₱1,000.00 has been credited to your account."
+> "Monthly interest of $1,000.00 has been credited to your account."
 
 ## Pausing Interest
 

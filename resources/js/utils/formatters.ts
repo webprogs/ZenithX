@@ -1,18 +1,18 @@
 export const formatCurrency = (amount: number): string => {
-  return new Intl.NumberFormat('en-PH', {
+  return new Intl.NumberFormat('en-US', {
     style: 'currency',
-    currency: 'PHP',
+    currency: 'USD',
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
   }).format(amount);
 };
 
 export const formatNumber = (num: number): string => {
-  return new Intl.NumberFormat('en-PH').format(num);
+  return new Intl.NumberFormat('en-US').format(num);
 };
 
 export const formatDate = (dateString: string): string => {
-  return new Date(dateString).toLocaleDateString('en-PH', {
+  return new Date(dateString).toLocaleDateString('en-US', {
     year: 'numeric',
     month: 'short',
     day: 'numeric',
@@ -20,7 +20,7 @@ export const formatDate = (dateString: string): string => {
 };
 
 export const formatDateTime = (dateString: string): string => {
-  return new Date(dateString).toLocaleString('en-PH', {
+  return new Date(dateString).toLocaleString('en-US', {
     year: 'numeric',
     month: 'short',
     day: 'numeric',

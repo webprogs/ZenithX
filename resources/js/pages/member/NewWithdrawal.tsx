@@ -17,7 +17,7 @@ import {
 } from '@heroicons/react/24/outline';
 
 const withdrawalSchema = z.object({
-  amount: z.coerce.number().min(100, 'Minimum withdrawal is PHP 100'),
+  amount: z.coerce.number().min(100, 'Minimum withdrawal is USD 100'),
   destination_type: z.enum(['bank']),
   account_name: z.string().min(1, 'Account name is required'),
   account_number: z.string().min(1, 'Account number is required'),
@@ -141,7 +141,7 @@ const NewWithdrawal = () => {
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
               <div>
                 <label className="block text-sm font-medium text-[#474d57] mb-1">
-                  Amount (PHP) <span className="text-red-500">*</span>
+                  Amount <span className="text-red-500">*</span>
                 </label>
                 <Input
                   type="number"
@@ -272,10 +272,6 @@ const NewWithdrawal = () => {
               <CardTitle>Important Notes</CardTitle>
             </CardHeader>
             <ul className="space-y-2 text-sm text-[#707a8a]">
-              <li className="flex items-start gap-2">
-                <span className="text-[#f0b90b]">•</span>
-                Minimum withdrawal amount is PHP 100
-              </li>
               <li className="flex items-start gap-2">
                 <span className="text-[#f0b90b]">•</span>
                 Withdrawals are processed within 24-48 hours

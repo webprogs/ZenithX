@@ -20,8 +20,8 @@ import {
 const topupSchema = z.object({
   amount: z.coerce
     .number()
-    .min(100, 'Minimum amount is PHP 100')
-    .max(1000000, 'Maximum amount is PHP 1,000,000'),
+    .min(100, 'Minimum amount is USD 100')
+    .max(1000000, 'Maximum amount is USD 1,000,000'),
   payment_method: z.string().optional(),
   notes: z.string().max(500, 'Notes cannot exceed 500 characters').optional(),
 });
@@ -116,7 +116,7 @@ const NewTopup = () => {
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
               <div>
                 <label className="block text-sm font-medium text-[#474d57] mb-1">
-                  Amount (PHP) <span className="text-red-500">*</span>
+                  Amount (USD) <span className="text-red-500">*</span>
                 </label>
                 <Input
                   type="number"
@@ -124,9 +124,6 @@ const NewTopup = () => {
                   {...register('amount')}
                   error={errors.amount?.message}
                 />
-                <p className="mt-1 text-xs text-[#b7b9bc]">
-                  Minimum: PHP 100 | Maximum: PHP 1,000,000
-                </p>
               </div>
 
               <div>

@@ -58,7 +58,7 @@ class CalculateMonthlyInterest extends Command
                     ['Date', $results['date']],
                     ['Would Process', $results['would_process']],
                     ['Would Skip', $results['would_skip']],
-                    ['Total Interest', '₱' . number_format($results['total_interest'], 2)],
+                    ['Total Interest', '$' . number_format($results['total_interest'], 2)],
                 ]
             );
 
@@ -71,10 +71,10 @@ class CalculateMonthlyInterest extends Command
                         $inv['period'],
                         "#{$inv['investment_id']}",
                         $inv['user_name'],
-                        '₱' . number_format($inv['amount'], 2),
+                        '$' . number_format($inv['amount'], 2),
                         "{$inv['interest_rate']}%",
                         $inv['start_date'],
-                        '₱' . number_format($inv['interest_would_credit'], 2),
+                        '$' . number_format($inv['interest_would_credit'], 2),
                     ];
                 }, $results['investments']);
 
@@ -114,7 +114,7 @@ class CalculateMonthlyInterest extends Command
                     ['Date', $results['date']],
                     ['Processed', $results['processed']],
                     ['Skipped', $results['skipped']],
-                    ['Total Interest', '₱' . number_format($results['total_interest'], 2)],
+                    ['Total Interest', '$' . number_format($results['total_interest'], 2)],
                     ['Errors', count($results['errors'])],
                 ]
             );
@@ -129,8 +129,8 @@ class CalculateMonthlyInterest extends Command
                         return [
                             "#{$inv['investment_id']}",
                             $inv['user_name'],
-                            '₱' . number_format($inv['amount'], 2),
-                            '₱' . number_format($inv['interest_credited'], 2),
+                            '$' . number_format($inv['amount'], 2),
+                            '$' . number_format($inv['interest_credited'], 2),
                         ];
                     }, $investments);
 
@@ -174,7 +174,7 @@ class CalculateMonthlyInterest extends Command
                     $this->notificationService->notify(
                         $inv['user_id'],
                         'interest_credited',
-                        "Monthly interest of ₱" . number_format($inv['interest_credited'], 2) . " has been credited to your account.",
+                        "Monthly interest of $" . number_format($inv['interest_credited'], 2) . " has been credited to your account.",
                         [
                             'investment_id' => $inv['investment_id'],
                             'amount' => $inv['interest_credited'],

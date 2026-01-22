@@ -16,7 +16,13 @@ export const getSettings = async (): Promise<ApiResponse<SettingsGrouped>> => {
 
 export const updateSettings = async (
   data: UpdateSettingsData
-): Promise<ApiResponse<SettingsGrouped>> => {
-  const response = await client.put('/admin/settings', data);
+): Promise<ApiResponse<{ updated: string[] }>> => {
+  // Transform flat key-value object to array format expected by backend
+  const settings = Object.entries(data).map(([key, value]) => ({
+    key,
+    value: String(value),
+  }));
+
+  const response = await client.put('/admin/settings', { settings });
   return response.data;
 };
