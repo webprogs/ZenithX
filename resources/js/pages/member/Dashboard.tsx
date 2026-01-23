@@ -14,6 +14,13 @@ import {
   ClockIcon,
 } from '@heroicons/react/24/outline';
 
+// Declare TradingView type for TypeScript
+declare global {
+  interface Window {
+    TradingView: any;
+  }
+}
+
 const Dashboard = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
@@ -33,6 +40,48 @@ const Dashboard = () => {
 
     fetchDashboard();
   }, []);
+
+  // Load TradingView widget after loading is complete
+  useEffect(() => {
+    if (isLoading) return;
+
+    const containerId = 'dashboard_tradingview_widget';
+    const container = document.getElementById(containerId);
+    if (!container) return;
+
+    const initWidget = () => {
+      if (window.TradingView) {
+        new window.TradingView.widget({
+          autosize: true,
+          symbol: 'BINANCE:BTCUSDT',
+          interval: 'D',
+          timezone: 'Asia/Manila',
+          theme: 'light',
+          style: '1',
+          locale: 'en',
+          toolbar_bg: '#f0b90b',
+          enable_publishing: false,
+          hide_top_toolbar: false,
+          hide_legend: false,
+          save_image: false,
+          container_id: containerId,
+          backgroundColor: '#ffffff',
+          gridColor: '#eaecef',
+        });
+      }
+    };
+
+    // Check if TradingView is already loaded
+    if (window.TradingView) {
+      initWidget();
+    } else {
+      const script = document.createElement('script');
+      script.src = 'https://s3.tradingview.com/tv.js';
+      script.async = true;
+      script.onload = initWidget;
+      document.head.appendChild(script);
+    }
+  }, [isLoading]);
 
   if (isLoading) {
     return (
@@ -105,6 +154,14 @@ const Dashboard = () => {
           </Card>
         ))}
       </div>
+
+      {/* Live Market Chart */}
+      <Card>
+        <CardHeader>
+          <CardTitle>Live Market Data</CardTitle>
+        </CardHeader>
+        <div id="dashboard_tradingview_widget" className="h-[300px] sm:h-[400px] lg:h-[500px]"></div>
+      </Card>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
         <Card className="lg:col-span-2">

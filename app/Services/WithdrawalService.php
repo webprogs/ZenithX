@@ -63,14 +63,14 @@ class WithdrawalService
         $minWithdrawal = Setting::get('minimum_withdrawal', 500);
         if ($amount < $minWithdrawal) {
             throw ValidationException::withMessages([
-                'amount' => ["Minimum withdrawal amount is ₱" . number_format($minWithdrawal, 2)],
+                'amount' => ["Minimum withdrawal amount is $" . number_format($minWithdrawal, 2)],
             ]);
         }
 
         $availableBalance = $user->available_balance;
         if ($amount > $availableBalance) {
             throw ValidationException::withMessages([
-                'amount' => ["Insufficient balance. Available: ₱" . number_format($availableBalance, 2)],
+                'amount' => ["Insufficient balance. Available: $" . number_format($availableBalance, 2)],
             ]);
         }
 
@@ -82,7 +82,7 @@ class WithdrawalService
 
         if (($todayWithdrawals + $amount) > $maxPerDay) {
             throw ValidationException::withMessages([
-                'amount' => ["Daily withdrawal limit exceeded. Remaining: ₱" . number_format($maxPerDay - $todayWithdrawals, 2)],
+                'amount' => ["Daily withdrawal limit exceeded. Remaining: $" . number_format($maxPerDay - $todayWithdrawals, 2)],
             ]);
         }
     }
@@ -97,7 +97,7 @@ class WithdrawalService
 
         $request->approve($admin, $remarks);
 
-        $this->auditService->logApproval($request, "Withdrawal approved: ₱" . number_format($request->amount, 2));
+        $this->auditService->logApproval($request, "Withdrawal approved: $" . number_format($request->amount, 2));
         $this->notificationService->notifyWithdrawalApproved($request);
 
         return $request;
@@ -127,7 +127,7 @@ class WithdrawalService
             $request,
             ['status' => 'approved'],
             ['status' => 'paid'],
-            "Withdrawal marked as paid: ₱" . number_format($request->amount, 2)
+            "Withdrawal marked as paid: $" . number_format($request->amount, 2)
         );
         $this->notificationService->notifyWithdrawalPaid($request);
 

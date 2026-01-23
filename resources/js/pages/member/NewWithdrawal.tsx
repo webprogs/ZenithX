@@ -166,7 +166,7 @@ const NewWithdrawal = () => {
                       {...register('destination_type')}
                       className="w-4 h-4 text-[#f0b90b] bg-white border-[#eaecef] focus:ring-[#f0b90b]"
                     />
-                    <span className="text-[#1e2329]">Crypto Withdraw - TRC20</span>
+                    <span className="text-[#1e2329]">Crypto - TRC 20</span>
                   </label>
                   <label className="flex items-center gap-2 cursor-pointer">
                     <input

@@ -28,7 +28,7 @@ class TopupService
 
         if ($amount < $minTopup) {
             throw ValidationException::withMessages([
-                'amount' => ["Minimum top-up amount is ₱" . number_format($minTopup, 2)],
+                'amount' => ["Minimum top-up amount is $" . number_format($minTopup, 2)],
             ]);
         }
 
@@ -72,7 +72,7 @@ class TopupService
                 'start_date' => now()->toDateString(),
             ]);
 
-            $this->auditService->logApproval($request, "Top-up approved: ₱" . number_format($request->amount, 2));
+            $this->auditService->logApproval($request, "Top-up approved: $" . number_format($request->amount, 2));
             $this->notificationService->notifyTopupApproved($request);
 
             return $investment;

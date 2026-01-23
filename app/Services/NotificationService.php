@@ -31,7 +31,7 @@ class NotificationService
             $request->user,
             'topup_submitted',
             'Top-Up Request Submitted',
-            "Your top-up request of ₱" . number_format($request->amount, 2) . " has been submitted and is pending review.",
+            "Your top-up request of $" . number_format($request->amount, 2) . " has been submitted and is pending review.",
             ['topup_request_id' => $request->id]
         );
     }
@@ -42,7 +42,7 @@ class NotificationService
             $request->user,
             'topup_approved',
             'Top-Up Request Approved',
-            "Your top-up request of ₱" . number_format($request->amount, 2) . " has been approved. Your investment is now active.",
+            "Your top-up request of $" . number_format($request->amount, 2) . " has been approved. Your investment is now active.",
             ['topup_request_id' => $request->id]
         );
     }
@@ -53,7 +53,7 @@ class NotificationService
             $request->user,
             'topup_rejected',
             'Top-Up Request Rejected',
-            "Your top-up request of ₱" . number_format($request->amount, 2) . " has been rejected. Reason: {$reason}",
+            "Your top-up request of $" . number_format($request->amount, 2) . " has been rejected. Reason: {$reason}",
             ['topup_request_id' => $request->id, 'reason' => $reason]
         );
     }
@@ -64,7 +64,7 @@ class NotificationService
             $request->user,
             'withdrawal_submitted',
             'Withdrawal Request Submitted',
-            "Your withdrawal request of ₱" . number_format($request->amount, 2) . " has been submitted and is pending approval.",
+            "Your withdrawal request of $" . number_format($request->amount, 2) . " has been submitted and is pending approval.",
             ['withdrawal_request_id' => $request->id]
         );
     }
@@ -75,7 +75,7 @@ class NotificationService
             $request->user,
             'withdrawal_approved',
             'Withdrawal Request Approved',
-            "Your withdrawal request of ₱" . number_format($request->amount, 2) . " has been approved and is being processed.",
+            "Your withdrawal request of $" . number_format($request->amount, 2) . " has been approved and is being processed.",
             ['withdrawal_request_id' => $request->id]
         );
     }
@@ -86,7 +86,7 @@ class NotificationService
             $request->user,
             'withdrawal_paid',
             'Withdrawal Completed',
-            "Your withdrawal of ₱" . number_format($request->amount, 2) . " has been sent to your {$request->destination_type} account.",
+            "Your withdrawal of $" . number_format($request->amount, 2) . " has been sent to your {$request->destination_type} account.",
             ['withdrawal_request_id' => $request->id]
         );
     }
@@ -97,7 +97,7 @@ class NotificationService
             $request->user,
             'withdrawal_rejected',
             'Withdrawal Request Rejected',
-            "Your withdrawal request of ₱" . number_format($request->amount, 2) . " has been rejected. Reason: {$reason}",
+            "Your withdrawal request of $" . number_format($request->amount, 2) . " has been rejected. Reason: {$reason}",
             ['withdrawal_request_id' => $request->id, 'reason' => $reason]
         );
     }

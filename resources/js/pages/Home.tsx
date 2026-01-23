@@ -21,7 +21,7 @@ const Home = () => {
       if (window.TradingView) {
         new window.TradingView.widget({
           autosize: true,
-          symbol: 'BINANCE:BTCUSDT',
+          symbol: 'USDT-TRON',
           interval: 'D',
           timezone: 'Asia/Manila',
           theme: 'light',
