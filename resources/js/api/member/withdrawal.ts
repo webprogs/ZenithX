@@ -11,7 +11,7 @@ export interface WithdrawalRequestsParams {
 
 export interface CreateWithdrawalData {
   amount: number;
-  destination_type: 'gcash' | 'bank';
+  destination_type: 'crypto_trc20' | 'bank';
   account_name: string;
   account_number: string;
   bank_name?: string;

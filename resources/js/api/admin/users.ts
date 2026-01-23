@@ -34,6 +34,17 @@ export interface AdjustInterestRateData {
   reason?: string;
 }
 
+export interface UpdateProfileData {
+  name: string;
+  email: string;
+  phone?: string | null;
+}
+
+export interface AdjustBalanceData {
+  amount: number;
+  reason: string;
+}
+
 export const getUsers = async (
   params?: UsersParams
 ): Promise<PaginatedResponse<User>> => {
@@ -52,7 +63,7 @@ export const updateUserStatus = async (
   id: number,
   data: UpdateStatusData
 ): Promise<ApiResponse<User>> => {
-  const response = await client.patch(`/admin/users/${id}/status`, data);
+  const response = await client.put(`/admin/users/${id}/status`, data);
   return response.data;
 };
 
@@ -71,14 +82,9 @@ export const resetUserPassword = async (
 };
 
 export const toggleWithdrawalFreeze = async (
-  id: number,
-  freeze: boolean,
-  reason?: string
+  id: number
 ): Promise<ApiResponse<User>> => {
-  const response = await client.patch(`/admin/users/${id}/withdrawal-freeze`, {
-    freeze,
-    reason,
-  });
+  const response = await client.put(`/admin/users/${id}/freeze-withdrawal`);
   return response.data;
 };
 
@@ -86,6 +92,22 @@ export const adjustInterestRate = async (
   id: number,
   data: AdjustInterestRateData
 ): Promise<ApiResponse<User>> => {
-  const response = await client.patch(`/admin/users/${id}/interest-rate`, data);
+  const response = await client.put(`/admin/users/${id}/interest-rate`, data);
+  return response.data;
+};
+
+export const updateUserProfile = async (
+  id: number,
+  data: UpdateProfileData
+): Promise<ApiResponse<User>> => {
+  const response = await client.put(`/admin/users/${id}/profile`, data);
+  return response.data;
+};
+
+export const adjustUserBalance = async (
+  id: number,
+  data: AdjustBalanceData
+): Promise<ApiResponse<User>> => {
+  const response = await client.post(`/admin/users/${id}/adjust-balance`, data);
   return response.data;
 };

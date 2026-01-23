@@ -63,9 +63,9 @@ class WithdrawalRequest extends Model
         return $this->status === 'rejected';
     }
 
-    public function isGcash(): bool
+    public function isCryptoTrc20(): bool
     {
-        return $this->destination_type === 'gcash';
+        return $this->destination_type === 'crypto_trc20';
     }
 
     public function isBank(): bool
@@ -116,8 +116,8 @@ class WithdrawalRequest extends Model
 
     public function getDestinationDetailsAttribute(): string
     {
-        if ($this->isGcash()) {
-            return "GCash: {$this->account_number} ({$this->account_name})";
+        if ($this->isCryptoTrc20()) {
+            return "Crypto TRC20: {$this->account_number} ({$this->account_name})";
         }
 
         return "{$this->bank_name}: {$this->account_number} ({$this->account_name})";

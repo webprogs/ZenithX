@@ -5,7 +5,8 @@
       "Bash(composer require:*)",
       "Bash(php artisan vendor:publish:*)",
       "Bash(npm install:*)",
-      "Bash(npm run build:*)"
+      "Bash(npm run build:*)",
+      "Bash(php artisan:*)"
     ]
   }
 }

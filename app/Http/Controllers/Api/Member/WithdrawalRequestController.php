@@ -46,7 +46,7 @@ class WithdrawalRequestController extends Controller
     {
         $validated = $request->validate([
             'amount' => ['required', 'numeric', 'min:1'],
-            'destination_type' => ['required', 'in:gcash,bank'],
+            'destination_type' => ['required'],
             'account_name' => ['required', 'string', 'max:255'],
             'account_number' => ['required', 'string', 'max:50'],
             'bank_name' => ['required_if:destination_type,bank', 'nullable', 'string', 'max:100'],

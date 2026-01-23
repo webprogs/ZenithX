@@ -21,6 +21,7 @@ class User extends Authenticatable
         'role',
         'status',
         'default_interest_rate',
+        'balance_adjustment',
         'withdrawal_frozen',
         'last_login_at',
         'last_login_ip',
@@ -40,6 +41,7 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
             'default_interest_rate' => 'decimal:2',
+            'balance_adjustment' => 'decimal:2',
             'withdrawal_frozen' => 'boolean',
             'last_login_at' => 'datetime',
             'force_logout_at' => 'datetime',
@@ -127,6 +129,7 @@ class User extends Authenticatable
     {
         $totalInvested = $this->total_invested;
         $totalInterest = $this->total_interest_earned;
+        $balanceAdjustment = (float) ($this->balance_adjustment ?? 0);
         $pendingWithdrawals = $this->withdrawalRequests()
             ->whereIn('status', ['pending', 'approved'])
             ->sum('amount');
@@ -134,7 +137,7 @@ class User extends Authenticatable
             ->where('status', 'paid')
             ->sum('amount');
 
-        return ($totalInvested + $totalInterest) - $pendingWithdrawals - $paidWithdrawals;
+        return ($totalInvested + $totalInterest + $balanceAdjustment) - $pendingWithdrawals - $paidWithdrawals;
     }
 
     public function getTotalWithdrawnAttribute(): float

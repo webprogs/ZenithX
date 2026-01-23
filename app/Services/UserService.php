@@ -115,9 +115,63 @@ class UserService
             'available_balance' => $user->available_balance,
             'total_withdrawn' => $user->total_withdrawn,
             'pending_withdrawals' => $user->pending_withdrawals,
+            'balance_adjustment' => $user->balance_adjustment ?? 0,
             'active_investments_count' => $user->investments()->active()->count(),
             'pending_topups_count' => $user->topupRequests()->pending()->count(),
             'pending_withdrawals_count' => $user->withdrawalRequests()->pending()->count(),
         ];
+    }
+
+    public function updateProfile(User $targetUser, array $data, User $admin): User
+    {
+        $oldValues = [
+            'name' => $targetUser->name,
+            'email' => $targetUser->email,
+            'phone' => $targetUser->phone,
+        ];
+
+        $targetUser->update([
+            'name' => $data['name'] ?? $targetUser->name,
+            'email' => $data['email'] ?? $targetUser->email,
+            'phone' => $data['phone'] ?? $targetUser->phone,
+        ]);
+
+        $newValues = [
+            'name' => $targetUser->name,
+            'email' => $targetUser->email,
+            'phone' => $targetUser->phone,
+        ];
+
+        $this->auditService->log(
+            action: 'profile_updated',
+            auditable: $targetUser,
+            oldValues: $oldValues,
+            newValues: $newValues,
+            description: null,
+            user: $admin
+        );
+
+        return $targetUser->fresh();
+    }
+
+    public function adjustBalance(User $targetUser, float $amount, string $reason, User $admin): User
+    {
+        $oldAdjustment = (float) ($targetUser->balance_adjustment ?? 0);
+        $newAdjustment = $oldAdjustment + $amount;
+
+        $targetUser->update(['balance_adjustment' => $newAdjustment]);
+
+        $this->auditService->log(
+            action: 'balance_adjusted',
+            auditable: $targetUser,
+            oldValues: ['balance_adjustment' => $oldAdjustment],
+            newValues: ['balance_adjustment' => $newAdjustment, 'change' => $amount, 'reason' => $reason],
+            description: "Balance adjusted by $" . number_format(abs($amount), 2) . ". Reason: {$reason}",
+            user: $admin
+        );
+
+        $this->notificationService->notifyBalanceAdjusted($targetUser, $amount, $reason);
+
+        return $targetUser->fresh();
     }
 }

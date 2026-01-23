@@ -18,9 +18,9 @@ import {
 
 const withdrawalSchema = z.object({
   amount: z.coerce.number().min(100, 'Minimum withdrawal is USD 100'),
-  destination_type: z.enum(['bank']),
+  destination_type: z.enum(['crypto_trc20', 'bank']),
   account_name: z.string().min(1, 'Account name is required'),
-  account_number: z.string().min(1, 'Account number is required'),
+  account_number: z.string().min(1, 'Wallet address / Account number is required'),
   bank_name: z.string().optional(),
 });
 
@@ -40,7 +40,7 @@ const NewWithdrawal = () => {
   } = useForm<WithdrawalFormData>({
     resolver: zodResolver(withdrawalSchema),
     defaultValues: {
-      destination_type: 'bank',
+      destination_type: 'crypto_trc20',
     },
   });
 
@@ -158,7 +158,16 @@ const NewWithdrawal = () => {
                 <label className="block text-sm font-medium text-[#474d57] mb-1">
                   Destination Type <span className="text-red-500">*</span>
                 </label>
-                <div className="flex gap-4">
+                <div className="flex gap-4 flex-wrap">
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <input
+                      type="radio"
+                      value="crypto_trc20"
+                      {...register('destination_type')}
+                      className="w-4 h-4 text-[#f0b90b] bg-white border-[#eaecef] focus:ring-[#f0b90b]"
+                    />
+                    <span className="text-[#1e2329]">Crypto Withdraw - TRC20</span>
+                  </label>
                   <label className="flex items-center gap-2 cursor-pointer">
                     <input
                       type="radio"
@@ -200,10 +209,13 @@ const NewWithdrawal = () => {
 
               <div>
                 <label className="block text-sm font-medium text-[#474d57] mb-1">
-                  Account Name <span className="text-red-500">*</span>
+                  {destinationType === 'crypto_trc20' ? 'Wallet Name' : 'Account Name'}{' '}
+                  <span className="text-red-500">*</span>
                 </label>
                 <Input
-                  placeholder="Enter account holder name"
+                  placeholder={
+                    destinationType === 'crypto_trc20' ? 'Enter wallet name' : 'Enter account holder name'
+                  }
                   {...register('account_name')}
                   error={errors.account_name?.message}
                 />
@@ -211,16 +223,21 @@ const NewWithdrawal = () => {
 
               <div>
                 <label className="block text-sm font-medium text-[#474d57] mb-1">
-                  {destinationType === 'gcash' ? 'GCash Number' : 'Account Number'}{' '}
+                  {destinationType === 'crypto_trc20' ? 'TRC20 Wallet Address' : 'Account Number'}{' '}
                   <span className="text-red-500">*</span>
                 </label>
                 <Input
                   placeholder={
-                    destinationType === 'gcash' ? 'e.g., 09171234567' : 'Enter account number'
+                    destinationType === 'crypto_trc20' ? 'e.g., TXyz123...' : 'Enter account number'
                   }
                   {...register('account_number')}
                   error={errors.account_number?.message}
                 />
+                {destinationType === 'crypto_trc20' && (
+                  <p className="mt-1 text-xs text-[#707a8a]">
+                    Please ensure you enter a valid TRC20 (TRON) wallet address
+                  </p>
+                )}
               </div>
 
               <div className="flex flex-col sm:flex-row justify-end gap-3 pt-4">
@@ -273,16 +290,16 @@ const NewWithdrawal = () => {
             </CardHeader>
             <ul className="space-y-2 text-sm text-[#707a8a]">
               <li className="flex items-start gap-2">
-                <span className="text-[#f0b90b]">•</span>
+                <span className="text-[#f0b90b]">*</span>
                 Withdrawals are processed within 24-48 hours
               </li>
               <li className="flex items-start gap-2">
-                <span className="text-[#f0b90b]">•</span>
-                Please ensure account details are correct
+                <span className="text-[#f0b90b]">*</span>
+                Please ensure wallet/account details are correct
               </li>
               <li className="flex items-start gap-2">
-                <span className="text-[#f0b90b]">•</span>
-                GCash withdrawals are typically faster
+                <span className="text-[#f0b90b]">*</span>
+                Crypto TRC20 withdrawals are typically faster
               </li>
             </ul>
           </Card>

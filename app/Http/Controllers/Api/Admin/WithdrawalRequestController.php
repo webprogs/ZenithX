@@ -98,15 +98,15 @@ class WithdrawalRequestController extends Controller
     public function reject(Request $request, WithdrawalRequest $withdrawalRequest): JsonResponse
     {
         $request->validate([
-            'reason' => ['required', 'string', 'max:1000'],
-            'remarks' => ['nullable', 'string', 'max:1000'],
+            'rejection_reason' => ['required', 'string', 'max:1000'],
+            'admin_remarks' => ['nullable', 'string', 'max:1000'],
         ]);
 
         $this->withdrawalService->reject(
             $withdrawalRequest,
             $request->user(),
-            $request->input('reason'),
-            $request->input('remarks')
+            $request->input('rejection_reason'),
+            $request->input('admin_remarks')
         );
 
         return response()->json([

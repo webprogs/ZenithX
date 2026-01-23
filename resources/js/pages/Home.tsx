@@ -64,7 +64,7 @@ const Home = () => {
     {
       icon: BoltIcon,
       title: 'Fast Withdrawals',
-      description: 'Quick and seamless withdrawal process to GCASH or bank account.',
+      description: 'Quick and seamless withdrawal process to crypto TRC20 or bank account.',
     },
     {
       icon: UserGroupIcon,
@@ -79,7 +79,7 @@ const Home = () => {
   ];
 
   const stats = [
-    { label: 'Total Trading Volume', value: '₱2.5B+' },
+    { label: 'Total Trading Volume', value: '$2.5B+' },
     { label: 'Active Users', value: '50,000+' },
     { label: 'Average Returns', value: '12% APY' },
     { label: 'Countries Supported', value: '15+' },
@@ -223,7 +223,7 @@ const Home = () => {
                 step: '02',
                 title: 'Make a Deposit',
                 description:
-                  'Fund your account through GCASH or bank transfer with flexible deposit options.',
+                  'Fund your account through crypto or bank transfer with flexible deposit options.',
               },
               {
                 step: '03',
@@ -276,7 +276,7 @@ const Home = () => {
               <Button
                 variant="secondary"
                 size="lg"
-                className="bg-[#1e2329] text-white hover:bg-[#2b3139] shadow-lg w-full sm:w-auto"
+                className="bg-[#1e2329] hover:bg-[#2b3139] shadow-lg w-full sm:w-auto"
               >
                 Login
               </Button>

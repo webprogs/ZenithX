@@ -85,11 +85,13 @@ Route::middleware(['auth:sanctum', 'force.logout'])->group(function () {
         Route::prefix('users')->group(function () {
             Route::get('/', [UserManagementController::class, 'index']);
             Route::get('/{user}', [UserManagementController::class, 'show']);
+            Route::put('/{user}/profile', [UserManagementController::class, 'updateProfile']);
             Route::put('/{user}/status', [UserManagementController::class, 'updateStatus']);
             Route::post('/{user}/force-logout', [UserManagementController::class, 'forceLogout']);
             Route::post('/{user}/reset-password', [UserManagementController::class, 'resetPassword']);
             Route::put('/{user}/freeze-withdrawal', [UserManagementController::class, 'toggleWithdrawalFreeze']);
             Route::put('/{user}/interest-rate', [UserManagementController::class, 'adjustInterestRate']);
+            Route::post('/{user}/adjust-balance', [UserManagementController::class, 'adjustBalance']);
         });
 
         Route::get('/settings', [SettingsController::class, 'index']);

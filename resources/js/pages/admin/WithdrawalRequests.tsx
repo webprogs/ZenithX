@@ -276,7 +276,7 @@ const WithdrawalRequests = () => {
                     <td className="px-4 sm:px-6 py-4 hidden lg:table-cell">
                       <div>
                         <div className="text-[#1e2329]">
-                          {request.destination_type === 'gcash' ? 'GCash' : request.bank_name}
+                          {request.destination_type === 'crypto_trc20' ? 'Crypto TRC20' : request.bank_name}
                         </div>
                         <div className="text-sm text-[#707a8a]">{request.account_number}</div>
                       </div>
@@ -410,7 +410,7 @@ const WithdrawalRequests = () => {
                 <div>
                   <p className="text-sm text-[#707a8a]">Type</p>
                   <p className="text-[#1e2329]">
-                    {selectedRequest.destination_type === 'gcash' ? 'GCash' : 'Bank Transfer'}
+                    {selectedRequest.destination_type === 'crypto_trc20' ? 'Crypto TRC20' : 'Bank Transfer'}
                   </p>
                 </div>
                 {selectedRequest.destination_type === 'bank' && (

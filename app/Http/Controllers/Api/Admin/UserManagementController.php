@@ -150,4 +150,37 @@ class UserManagementController extends Controller
             'data' => $user->fresh(),
         ]);
     }
+
+    public function updateProfile(Request $request, User $user): JsonResponse
+    {
+        $validated = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'email', 'unique:users,email,' . $user->id],
+            'phone' => ['nullable', 'string', 'max:20'],
+        ]);
+
+        $this->userService->updateProfile($user, $validated, $request->user());
+
+        return response()->json([
+            'success' => true,
+            'message' => 'User profile updated.',
+            'data' => $user->fresh(),
+        ]);
+    }
+
+    public function adjustBalance(Request $request, User $user): JsonResponse
+    {
+        $validated = $request->validate([
+            'amount' => ['required', 'numeric'],
+            'reason' => ['required', 'string', 'max:500'],
+        ]);
+
+        $this->userService->adjustBalance($user, $validated['amount'], $validated['reason'], $request->user());
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Balance adjusted successfully.',
+            'data' => $user->fresh(),
+        ]);
+    }
 }

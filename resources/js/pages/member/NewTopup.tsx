@@ -43,7 +43,7 @@ const NewTopup = () => {
     resolver: zodResolver(topupSchema),
     defaultValues: {
       amount: 1000,
-      payment_method: 'GCash',
+      payment_method: 'Wire Transfer',
     },
   });
 
@@ -135,8 +135,7 @@ const NewTopup = () => {
                   className="w-full px-4 py-2 bg-white border border-[#eaecef] rounded-lg text-[#1e2329] focus:outline-none focus:ring-2 focus:ring-[#f0b90b]"
                 >
                   <option value="Wire Transfer">Wire Transfer</option>
-                  <option value="Cash">Cash</option>
-                  <option value="Cheque">Cheque</option>
+                  <option value="Cryto withdraw - trc 20">Cryto withdraw - trc 20</option>
                 </select>
               </div>
 
@@ -227,7 +226,7 @@ const NewTopup = () => {
             </div>
           </Card>
 
-          <Card className="mt-4 sm:mt-6">
+          {/*<Card className="mt-4 sm:mt-6">
             <CardHeader>
               <CardTitle>Payment Instructions</CardTitle>
             </CardHeader>
@@ -247,7 +246,7 @@ const NewTopup = () => {
                 Please include your username as reference when sending payment.
               </p>
             </div>
-          </Card>
+          </Card>*/}
         </div>
       </div>
     </div>

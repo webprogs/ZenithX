@@ -146,6 +146,22 @@ class NotificationService
         );
     }
 
+    public function notifyBalanceAdjusted(User $user, float $amount, string $reason): void
+    {
+        $isCredit = $amount >= 0;
+        $formattedAmount = '$' . number_format(abs($amount), 2);
+
+        $this->create(
+            $user,
+            'balance_adjusted',
+            $isCredit ? 'Balance Credited' : 'Balance Debited',
+            $isCredit
+                ? "Your balance has been credited with {$formattedAmount}. Reason: {$reason}"
+                : "Your balance has been debited by {$formattedAmount}. Reason: {$reason}",
+            ['amount' => $amount, 'reason' => $reason]
+        );
+    }
+
     public function getUnreadCount(User $user): int
     {
         return UserNotification::forUser($user->id)->unread()->count();
