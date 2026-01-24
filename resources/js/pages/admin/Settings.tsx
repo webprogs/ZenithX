@@ -71,8 +71,13 @@ const Settings = () => {
   };
 
   const renderSettingInput = (setting: Setting) => {
+    // Check if it's a numeric type (integer, int, decimal, float, double, number)
+    const isNumericType = ['integer', 'int', 'decimal', 'float', 'double', 'number'].includes(setting.type);
+    const isDecimalType = ['decimal', 'float', 'double'].includes(setting.type);
+
     switch (setting.type) {
       case 'boolean':
+      case 'bool':
         return (
           <label className="flex items-center gap-3 cursor-pointer">
             <input
@@ -82,19 +87,6 @@ const Settings = () => {
             />
             <span className="text-[#1e2329]">{setting.description || setting.key}</span>
           </label>
-        );
-      case 'number':
-        return (
-          <div>
-            <label className="block text-sm font-medium text-[#474d57] mb-1">
-              {setting.description || setting.key}
-            </label>
-            <Input
-              type="number"
-              step="0.01"
-              {...register(setting.key)}
-            />
-          </div>
         );
       case 'select':
         return (
@@ -113,6 +105,21 @@ const Settings = () => {
           </div>
         );
       default:
+        // Handle numeric types and string/text types
+        if (isNumericType) {
+          return (
+            <div>
+              <label className="block text-sm font-medium text-[#474d57] mb-1">
+                {setting.description || setting.key}
+              </label>
+              <Input
+                type="number"
+                step={isDecimalType ? '0.01' : '1'}
+                {...register(setting.key)}
+              />
+            </div>
+          );
+        }
         return (
           <div>
             <label className="block text-sm font-medium text-[#474d57] mb-1">

@@ -1,8 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
 import toast from 'react-hot-toast';
 import { AxiosError } from 'axios';
 import Card, { CardHeader, CardTitle } from '@/components/ui/Card';
@@ -16,15 +14,13 @@ import {
   ExclamationTriangleIcon,
 } from '@heroicons/react/24/outline';
 
-const withdrawalSchema = z.object({
-  amount: z.coerce.number().min(100, 'Minimum withdrawal is USD 100'),
-  destination_type: z.enum(['crypto_trc20', 'bank']),
-  account_name: z.string().min(1, 'Account name is required'),
-  account_number: z.string().min(1, 'Wallet address / Account number is required'),
-  bank_name: z.string().optional(),
-});
-
-type WithdrawalFormData = z.infer<typeof withdrawalSchema>;
+type WithdrawalFormData = {
+  amount: number;
+  destination_type: 'crypto_trc20' | 'bank';
+  account_name: string;
+  account_number: string;
+  bank_name?: string;
+};
 
 const NewWithdrawal = () => {
   const navigate = useNavigate();
@@ -36,9 +32,9 @@ const NewWithdrawal = () => {
     register,
     handleSubmit,
     watch,
+    setError,
     formState: { errors },
   } = useForm<WithdrawalFormData>({
-    resolver: zodResolver(withdrawalSchema),
     defaultValues: {
       destination_type: 'crypto_trc20',
     },
@@ -64,8 +60,44 @@ const NewWithdrawal = () => {
   const onSubmit = async (data: WithdrawalFormData) => {
     if (!limits) return;
 
+    // Validate amount against dynamic limits from API
+    if (data.amount < limits.min_amount) {
+      setError('amount', {
+        type: 'manual',
+        message: `Minimum withdrawal is ${formatCurrency(limits.min_amount)}`,
+      });
+      return;
+    }
+
+    if (data.amount > limits.max_amount) {
+      setError('amount', {
+        type: 'manual',
+        message: `Maximum withdrawal is ${formatCurrency(limits.max_amount)}`,
+      });
+      return;
+    }
+
     if (data.amount > limits.available_balance) {
-      toast.error('Amount exceeds available balance');
+      setError('amount', {
+        type: 'manual',
+        message: `Amount exceeds available balance (${formatCurrency(limits.available_balance)})`,
+      });
+      return;
+    }
+
+    // Validate required fields
+    if (!data.account_name?.trim()) {
+      setError('account_name', { type: 'manual', message: 'Account name is required' });
+      return;
+    }
+
+    if (!data.account_number?.trim()) {
+      setError('account_number', { type: 'manual', message: 'Wallet address / Account number is required' });
+      return;
+    }
+
+    if (data.destination_type === 'bank' && !data.bank_name?.trim()) {
+      setError('bank_name', { type: 'manual', message: 'Bank name is required' });
       return;
     }
 
@@ -149,9 +181,11 @@ const NewWithdrawal = () => {
                   {...register('amount')}
                   error={errors.amount?.message}
                 />
-                <p className="mt-1 text-xs text-[#b7b9bc]">
-                  Available: {formatCurrency(limits?.available_balance || 0)}
-                </p>
+                {/*<p className="mt-1 text-xs text-[#b7b9bc]">
+                  Available: {formatCurrency(limits?.available_balance || 0)} |
+                  Min: {formatCurrency(limits?.min_amount || 0)} |
+                  Max: {formatCurrency(limits?.max_amount || 0)}
+                </p>*/}
               </div>
 
               <div>
