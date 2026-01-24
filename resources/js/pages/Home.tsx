@@ -64,7 +64,7 @@ const Home = () => {
     {
       icon: BoltIcon,
       title: 'Fast Withdrawals',
-      description: 'Quick and seamless withdrawal process to crypto TRC20 or bank account.',
+      description: 'Quick and seamless withdrawal process to Crypto TRC 20 or bank account.',
     },
     {
       icon: UserGroupIcon,

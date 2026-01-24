@@ -257,7 +257,7 @@ const NewWithdrawal = () => {
 
               <div>
                 <label className="block text-sm font-medium text-[#474d57] mb-1">
-                  {destinationType === 'crypto_trc20' ? 'TRC20 Wallet Address' : 'Account Number'}{' '}
+                  {destinationType === 'crypto_trc20' ? 'TRC 20 Wallet Address' : 'Account Number'}{' '}
                   <span className="text-red-500">*</span>
                 </label>
                 <Input
@@ -269,7 +269,7 @@ const NewWithdrawal = () => {
                 />
                 {destinationType === 'crypto_trc20' && (
                   <p className="mt-1 text-xs text-[#707a8a]">
-                    Please ensure you enter a valid TRC20 (TRON) wallet address
+                    Please ensure you enter a valid TRC 20 (TRON) wallet address
                   </p>
                 )}
               </div>
@@ -333,7 +333,7 @@ const NewWithdrawal = () => {
               </li>
               <li className="flex items-start gap-2">
                 <span className="text-[#f0b90b]">*</span>
-                Crypto TRC20 withdrawals are typically faster
+                Crypto TRC 20 withdrawals are typically faster
               </li>
             </ul>
           </Card>

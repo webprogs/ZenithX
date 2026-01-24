@@ -135,7 +135,7 @@ const NewTopup = () => {
                   className="w-full px-4 py-2 bg-white border border-[#eaecef] rounded-lg text-[#1e2329] focus:outline-none focus:ring-2 focus:ring-[#f0b90b]"
                 >
                   <option value="Wire Transfer">Wire Transfer</option>
-                  <option value="Cryto - trc 20">Cryto - trc 20</option>
+                  <option value="Crypto - TRC 20">Crypto - TRC 20</option>
                 </select>
               </div>
 

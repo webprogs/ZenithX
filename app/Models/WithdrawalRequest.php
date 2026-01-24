@@ -117,7 +117,7 @@ class WithdrawalRequest extends Model
     public function getDestinationDetailsAttribute(): string
     {
         if ($this->isCryptoTrc20()) {
-            return "Crypto TRC20: {$this->account_number} ({$this->account_name})";
+            return "Crypto TRC 20: {$this->account_number} ({$this->account_name})";
         }
 
         return "{$this->bank_name}: {$this->account_number} ({$this->account_name})";

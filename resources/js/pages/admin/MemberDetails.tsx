@@ -531,7 +531,7 @@ const MemberDetails = () => {
                     <div>
                       <p className="text-[#1e2329] font-medium">{formatCurrency(request.amount)}</p>
                       <p className="text-sm text-[#707a8a]">
-                        {request.destination_type === 'crypto_trc20' ? 'Crypto TRC20' : request.bank_name}
+                        {request.destination_type === 'crypto_trc20' ? 'Crypto TRC 20' : request.bank_name}
                       </p>
                     </div>
                     <div className="sm:text-right">
