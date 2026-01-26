@@ -1,4 +1,33 @@
 {
+  "_forms-6F8fWYts.js": {
+    "file": "assets/forms-6F8fWYts.js",
+    "name": "forms",
+    "imports": [
+      "_react-vendor-Cohw-MQ-.js"
+    ]
+  },
+  "_http-B9ygI19o.js": {
+    "file": "assets/http-B9ygI19o.js",
+    "name": "http"
+  },
+  "_react-vendor-Cohw-MQ-.js": {
+    "file": "assets/react-vendor-Cohw-MQ-.js",
+    "name": "react-vendor"
+  },
+  "_router-Bb_Ho9YW.js": {
+    "file": "assets/router-Bb_Ho9YW.js",
+    "name": "router",
+    "imports": [
+      "_react-vendor-Cohw-MQ-.js"
+    ]
+  },
+  "_ui-utils-BLMQEj-g.js": {
+    "file": "assets/ui-utils-BLMQEj-g.js",
+    "name": "ui-utils",
+    "imports": [
+      "_react-vendor-Cohw-MQ-.js"
+    ]
+  },
   "resources/css/app.css": {
     "file": "assets/app-CkU_SmR_.css",
     "src": "resources/css/app.css",
@@ -9,10 +38,17 @@
     ]
   },
   "resources/js/main.tsx": {
-    "file": "assets/main-C1uSEleS.js",
+    "file": "assets/main-M8De75a8.js",
     "name": "main",
     "src": "resources/js/main.tsx",
     "isEntry": true,
+    "imports": [
+      "_react-vendor-Cohw-MQ-.js",
+      "_ui-utils-BLMQEj-g.js",
+      "_http-B9ygI19o.js",
+      "_router-Bb_Ho9YW.js",
+      "_forms-6F8fWYts.js"
+    ],
     "css": [
       "assets/app-CkU_SmR_.css"
     ]

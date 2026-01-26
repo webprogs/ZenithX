@@ -22,4 +22,38 @@ export default defineConfig({
             '@': '/resources/js',
         },
     },
+    build: {
+        rollupOptions: {
+            output: {
+                manualChunks(id) {
+                    if (id.includes('node_modules')) {
+                        // React core libraries
+                        if (id.includes('react-dom') || id.includes('/react/')) {
+                            return 'react-vendor';
+                        }
+                        // React Router
+                        if (id.includes('react-router') || id.includes('@remix-run')) {
+                            return 'router';
+                        }
+                        // Form handling libraries
+                        if (id.includes('react-hook-form') || id.includes('hookform') || id.includes('zod')) {
+                            return 'forms';
+                        }
+                        // HTTP client
+                        if (id.includes('axios')) {
+                            return 'http';
+                        }
+                        // Heroicons
+                        if (id.includes('@heroicons')) {
+                            return 'icons';
+                        }
+                        // Other vendor libs
+                        if (id.includes('react-hot-toast') || id.includes('clsx')) {
+                            return 'ui-utils';
+                        }
+                    }
+                },
+            },
+        },
+    },
 });

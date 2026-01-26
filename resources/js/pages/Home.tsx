@@ -45,6 +45,27 @@ const Home = () => {
     };
   }, []);
 
+  // Load Tawk.to chat widget
+  useEffect(() => {
+    window.Tawk_API = window.Tawk_API || {};
+    window.Tawk_LoadStart = new Date();
+
+    const tawkScript = document.createElement('script');
+    tawkScript.async = true;
+    tawkScript.src = 'https://embed.tawk.to/6976c29fba77e8198a86620c/1jfrugghi';
+    tawkScript.setAttribute('crossorigin', '*');
+    document.head.appendChild(tawkScript);
+
+    return () => {
+      if (tawkScript.parentNode) {
+        tawkScript.parentNode.removeChild(tawkScript);
+      }
+      if (window.Tawk_API?.hideWidget) {
+        window.Tawk_API.hideWidget();
+      }
+    };
+  }, []);
+
   const features = [
     {
       icon: CurrencyDollarIcon,
@@ -305,10 +326,12 @@ const Home = () => {
   );
 };
 
-// Declare TradingView type for TypeScript
+// Declare TradingView and Tawk types for TypeScript
 declare global {
   interface Window {
     TradingView: any;
+    Tawk_API: any;
+    Tawk_LoadStart: Date;
   }
 }
 
