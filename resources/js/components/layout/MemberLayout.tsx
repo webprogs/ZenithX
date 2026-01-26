@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import Sidebar from './Sidebar';
 import Header from './Header';
+import { useAuthStore } from '@/stores/authStore';
 
 // Declare Tawk_API type for TypeScript
 declare global {
@@ -13,16 +14,37 @@ declare global {
 
 const MemberLayout = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const user = useAuthStore((state) => state.user);
 
   // Load Tawk.to chat widget for members only
   useEffect(() => {
     window.Tawk_API = window.Tawk_API || {};
     window.Tawk_LoadStart = new Date();
 
+    // Set visitor info before script loads
+    window.Tawk_API.visitor = {
+      name: user?.name || 'Member',
+      email: user?.email || '',
+    };
+
+    // Set attributes when Tawk loads
+    window.Tawk_API.onLoad = function () {
+      window.Tawk_API.setAttributes(
+        {
+          name: user?.name || 'Member',
+          email: user?.email || '',
+        },
+        function (error: any) {
+          if (error) {
+            console.error('Tawk.to setAttributes error:', error);
+          }
+        }
+      );
+    };
+
     const script = document.createElement('script');
     script.async = true;
     script.src = 'https://embed.tawk.to/6976c29fba77e8198a86620c/1jfrugghi';
-    script.charset = 'UTF-8';
     script.setAttribute('crossorigin', '*');
     document.head.appendChild(script);
 
@@ -36,7 +58,7 @@ const MemberLayout = () => {
         window.Tawk_API.hideWidget();
       }
     };
-  }, []);
+  }, [user]);
 
   return (
     <div className="min-h-screen bg-[#fafafa]">

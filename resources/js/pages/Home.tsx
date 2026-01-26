@@ -45,10 +45,25 @@ const Home = () => {
     };
   }, []);
 
-  // Load Tawk.to chat widget
+  // Load Tawk.to chat widget for guests
   useEffect(() => {
     window.Tawk_API = window.Tawk_API || {};
     window.Tawk_LoadStart = new Date();
+
+    // Set visitor info as Guest for unauthenticated users
+    window.Tawk_API.visitor = {
+      name: 'Guest',
+    };
+
+    // Set attributes when Tawk loads
+    window.Tawk_API.onLoad = function () {
+      window.Tawk_API.setAttributes(
+        {
+          name: 'Guest',
+        },
+        function () {}
+      );
+    };
 
     const tawkScript = document.createElement('script');
     tawkScript.async = true;
