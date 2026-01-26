@@ -18,6 +18,7 @@
     @vite(['resources/css/app.css', 'resources/js/main.tsx'])
 </head>
 <body class="antialiased bg-[#0a0a0f]">
+    <!--End of Tawk.to Script-->
     <div id="app"></div>
 </body>
 </html>
